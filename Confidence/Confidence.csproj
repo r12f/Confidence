@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFrameworks>net35;net40;net45;netstandard1.0;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Confidence</PackageId>
+    <PackageTags>CodeContract;ArgumentChecker;Requires;Ensures;Asserts</PackageTags>
+    <Description>Confidence is a easy to read and debug condition checker in C# with code contracts syntax supported.</Description>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
