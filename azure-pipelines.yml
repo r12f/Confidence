@@ -1,0 +1,70 @@
+# Azure pipeline for building Confidence.
+
+trigger:
+- master
+
+pool:
+  vmImage: "vs2017-win2016"
+
+variables:
+  solution: '**/*.sln'
+  buildConfiguration: 'Release'
+  buildPlatform: 'Any CPU'
+
+steps:
+
+# Prepare
+- task: DotNetCoreCLI@2
+  displayName: 'Get DotNet version'
+  inputs:
+    command: custom
+    custom: '--version'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Get DotNet info'
+  inputs:
+    command: custom
+    custom: '--info'
+
+- task: NuGetToolInstaller@0
+  displayName: 'Install NuGet 4.9.4'
+  inputs:
+    versionSpec: 4.9.4
+
+# Restore
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '$(solution)'
+
+# Build
+- task: VSBuild@1
+  displayName: 'Build'
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+# Test
+- task: DotNetCoreCLI@2
+  displayName: 'Run tests'
+  inputs:
+    command: test
+    projects: '**/*.UnitTests/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build'
+
+# Publish
+- task: CopyFiles@2
+  displayName: 'Copy NuGet packages to artifact staging folder'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\Output'
+    Contents: '**\*.nupkg'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\Packages'
+    flattenFolders: true
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish NuGet Packages'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\Packages'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))

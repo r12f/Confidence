@@ -1,0 +1,35 @@
+<Project>
+
+  <!-- Version info -->
+  <PropertyGroup>
+    <VersionTxtFilePath>$(BuildConfigurationRoot)\config\version.txt</VersionTxtFilePath>
+    <Version4PartVersion>$([System.Text.RegularExpressions.Regex]::Match($([System.IO.File]::ReadAllText('$(VersionTxtFilePath)')), '(\d+\.\d+\.\d+\.\d+)').Groups[1].Value)</Version4PartVersion>
+    <VersionMajor>$(Version4PartVersion.Split('.')[0])</VersionMajor>
+    <VersionMinor>$(Version4PartVersion.Split('.')[1])</VersionMinor>
+    <VersionBuildNumber>$(Version4PartVersion.Split('.')[2])</VersionBuildNumber>
+    <VersionBuildRevision>$(Version4PartVersion.Split('.')[3])</VersionBuildRevision>
+    <VersionBuildLabel></VersionBuildLabel>
+    <InformationalVersion>$(Version4PartVersion)$(VersionBuildLabel)</InformationalVersion>
+    <ProjectVersion>$(Version4PartVersion)</ProjectVersion>
+    <FileVersion>$(Version4PartVersion)</FileVersion>
+    <AssemblyVersion>$(Version4PartVersion)</AssemblyVersion>
+  </PropertyGroup>
+
+  <!-- Common program info -->
+  <PropertyGroup>
+    <Company>r12f</Company>
+    <CopyrightYear>$([System.DateTime]::Now.ToString(`yyyy`))</CopyrightYear>
+    <Copyright>Copyright (c) r12f $(CopyrightYear)</Copyright>
+  </PropertyGroup>
+
+  <!-- Assembly info -->
+  <PropertyGroup>
+    <AssemblyInfoProduct>$(Product)</AssemblyInfoProduct>
+    <AssemblyInfoCompany>$(Company)</AssemblyInfoCompany>
+    <AssemblyInfoCopyright>$(Copyright)</AssemblyInfoCopyright>
+    <AssemblyInformationalVersion>$(InformationalVersion)</AssemblyInformationalVersion>
+    <AssemblyInfoAssemblyVersion>$(VersionMajor).$(VersionMinor).0.0</AssemblyInfoAssemblyVersion>
+    <AssemblyInfoFileVersion>$(Version4PartVersion)</AssemblyInfoFileVersion>
+  </PropertyGroup>
+
+</Project>

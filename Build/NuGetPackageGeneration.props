@@ -1,0 +1,11 @@
+<Project>
+
+  <!-- NuGet package generation -->
+  <PropertyGroup>
+    <Authors>r12f</Authors>
+    <PackageVersion>$(Version4PartVersion)</PackageVersion>
+    <PackageProjectUrl>https://github.com/r12f</PackageProjectUrl>
+    <PackageOutputPath>$(OutputRoot)\Packages</PackageOutputPath>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+<Project>
+  <PropertyGroup>
+    <RepoRoot>$(MSBuildThisFileDirectory)</RepoRoot>
+    <BuildConfigurationRoot>$(RepoRoot)\Build</BuildConfigurationRoot>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
+    <Platform Condition="'$(Platform)'==''">AnyCPU</Platform>
+    <OutputRoot>$(RepoRoot)\Output\$(Configuration)-$(Platform)</OutputRoot>
+    <OutputPath>$(OutputRoot)\$(MSBuildProjectName)\</OutputPath>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>$(OutputPath)\$(MSBuildProjectName).xml</DocumentationFile>
+    <NoWarn>$(NoWarn);SA1611;SA1615;SA1124;SA1623;SA1129;CS1591;</NoWarn>
+  </PropertyGroup>
+
+  <Import Project="$(BuildConfigurationRoot)\Versioning.props" />
+  <Import Project="$(BuildConfigurationRoot)\NuGetPackageGeneration.props" />
+</Project>

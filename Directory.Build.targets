@@ -1,0 +1,16 @@
+<Project>
+  <!-- Ignore log files -->
+  <ItemGroup>
+    <None Remove="*.log" />
+    <None Remove="*.binlog" />
+  </ItemGroup>
+
+  <!-- Stylecop -->
+  <ItemGroup>
+    <None Remove="$(RepoRoot)\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="$(RepoRoot)\stylecop.json" />
+  </ItemGroup>
+</Project>
