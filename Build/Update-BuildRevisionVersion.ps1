@@ -18,8 +18,11 @@ function Update-BuildRevisionVersion()
     [System.IO.File]::WriteAllLines($versionFilePath, $newVersion, $encoding)
 
     cd "$buildConfigFolder\.."
+    & git config user.name "r12f"
+    & git config user.email "r12f.code@gmail.com"
     & git add . 
     & git commit -m "Increase version number to $newVersion."
+    & git push
 }
 
 Update-BuildRevisionVersion

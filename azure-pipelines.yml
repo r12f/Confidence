@@ -40,7 +40,7 @@ steps:
 
 # Updating build version
 - task: PowerShell@2
-  displayName: 'Increase version number.'
+  displayName: 'Increase version number'
   inputs:
     targetType: 'filePath'
     filePath: '$(Build.SourcesDirectory)\Build\Update-BuildRevisionVersion.ps1'
