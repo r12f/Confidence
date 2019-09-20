@@ -4,18 +4,17 @@
 using System;
 using System.Diagnostics;
 using Confidence.Exceptions;
-using Confidence.Validations;
 
 namespace Confidence
 {
     /// <summary>
     /// Assert assertion.
-    /// If this assertion failed, it means something within the current class or module is wrong, and this failure should be handled by the owner of this class or module.
+    /// Invariant checks. It describes the expected state in the middle of the things we are trying to do.
     /// </summary>
     public static class Asserts
     {
-        private static readonly ValidateTargetFactory<AssertionViolationException, AssertionViolationException, AssertionViolationException> VariableValidateTargetFactory =
-            new ValidateTargetFactory<AssertionViolationException, AssertionViolationException, AssertionViolationException>();
+        private static readonly ValidateTargetFactory<InvariantViolationException, InvariantViolationException, InvariantViolationException> VariableValidateTargetFactory =
+            new ValidateTargetFactory<InvariantViolationException, InvariantViolationException, InvariantViolationException>();
 
         /// <summary>
         /// Create validate target for regular variables.
@@ -39,7 +38,21 @@ namespace Confidence
         [DebuggerStepThrough]
         public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
         {
-            CustomAssertionValidation.IsTrue<AssertionViolationException>(assertion, getErrorMessage);
+            CustomAssertionValidation.IsTrue<InvariantViolationException>(assertion, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Validate if a custom assertion returns true.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="assertion">Custom assertion.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void IsTrue<TException>(Func<bool> assertion, Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            CustomAssertionValidation.IsTrue<InvariantViolationException>(assertion, getErrorMessage);
         }
     }
 

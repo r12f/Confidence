@@ -38,7 +38,7 @@ public void DoSomething()
 To make code contracts violation more explict in debugging, we added a few exceptions, which all share CodeContractViolationException as base class.
 - PreconditionViolationException: Thrown by Requires.Variable and Requires.IsTrue.
 - PostconditionViolationException: Thrown by Ensures.Variable and Ensures.IsTrue.
-- AssertionViolationException: Thrown by Asserts.Variable and Asserts.IsTrue.
+- InvariantViolationException: Thrown by Asserts.Variable and Asserts.IsTrue.
 
 Requires.Argument will throw ArgumentException, ArgumentNullException and ArgumentOutOfRangeException instead of PreconditionViolationException, as it is only used for checking arguments.
 
@@ -74,7 +74,7 @@ public static class MyAsserts
     {
         return VariableValidateTargetFactory.Create(targetValue, targetName);
     }
-    [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+
     [DebuggerStepThrough]
     public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
     {

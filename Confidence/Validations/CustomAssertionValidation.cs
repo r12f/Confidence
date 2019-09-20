@@ -4,7 +4,7 @@
 using System;
 using System.Diagnostics;
 
-namespace Confidence.Validations
+namespace Confidence
 {
     /// <summary>
     /// Custom assertion validation.
@@ -27,7 +27,7 @@ namespace Confidence.Validations
                 return;
             }
 
-            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue());
+            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrueOnCustomAssertion());
         }
     }
 }

@@ -4,13 +4,12 @@
 using System;
 using System.Diagnostics;
 using Confidence.Exceptions;
-using Confidence.Validations;
 
 namespace Confidence
 {
     /// <summary>
     /// Ensures assertion.
-    /// If this assertion failed, it means the result of the last operation is not expected.
+    /// Postcondition checks. It describes the expectations when exiting a method or after calling an external API.
     /// </summary>
     public static class Ensures
     {
@@ -38,6 +37,20 @@ namespace Confidence
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
         public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.IsTrue<PostconditionViolationException>(assertion, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Validate if a custom assertion returns true.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="assertion">Custom assertion.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void IsTrue<TException>(Func<bool> assertion, Func<string> getErrorMessage = null)
+            where TException : Exception
         {
             CustomAssertionValidation.IsTrue<PostconditionViolationException>(assertion, getErrorMessage);
         }

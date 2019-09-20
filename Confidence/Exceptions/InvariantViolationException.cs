@@ -4,22 +4,22 @@
 namespace Confidence.Exceptions
 {
     /// <summary>
-    /// Exception for representing an assertion failure.
+    /// Exception for representing an invariant violation failure.
     /// </summary>
-    public class AssertionViolationException : CodeContractViolationException
+    public class InvariantViolationException : CodeContractViolationException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssertionViolationException"/> class.
+        /// Initializes a new instance of the <see cref="InvariantViolationException"/> class.
         /// </summary>
-        public AssertionViolationException()
+        public InvariantViolationException()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssertionViolationException"/> class.
+        /// Initializes a new instance of the <see cref="InvariantViolationException"/> class.
         /// </summary>
         /// <param name="errorMessage">Error message.</param>
-        public AssertionViolationException(string errorMessage)
+        public InvariantViolationException(string errorMessage)
             : base(errorMessage)
         {
         }

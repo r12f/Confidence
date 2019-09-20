@@ -50,9 +50,9 @@ namespace Confidence.UnitTests
             target.Should().NotBeNull();
             target.Name.Should().Be("test");
             target.Value.Should().Be(1);
-            target.Traits.GenericFailureExceptionType.Should().Be(typeof(AssertionViolationException));
-            target.Traits.ObjectNullExceptionType.Should().Be(typeof(AssertionViolationException));
-            target.Traits.OutOfRangeExceptionType.Should().Be(typeof(AssertionViolationException));
+            target.Traits.GenericFailureExceptionType.Should().Be(typeof(InvariantViolationException));
+            target.Traits.ObjectNullExceptionType.Should().Be(typeof(InvariantViolationException));
+            target.Traits.OutOfRangeExceptionType.Should().Be(typeof(InvariantViolationException));
         }
     }
 }

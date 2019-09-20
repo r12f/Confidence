@@ -14,6 +14,26 @@ namespace Confidence
     public static class ObjectValidateTargetExtensions
     {
         /// <summary>
+        /// Validate if a custom assertion returns true.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="assertion">Custom assertion.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> IsTrue<TValue>(this ValidateTarget<TValue> target, Func<bool> assertion, Func<string> getErrorMessage = null)
+        {
+            if (!assertion.Invoke())
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrueOnCustomAssertion(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target equals to another object.
         /// </summary>
         /// <typeparam name="TValue">Target type.</typeparam>

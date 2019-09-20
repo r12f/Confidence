@@ -3,16 +3,13 @@
 
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using Confidence.Exceptions;
-using Confidence.Validations;
 
 namespace Confidence
 {
     /// <summary>
     /// Requires assertion.
-    /// If this assertion failed, it means some prerequisites for running next code are not met.
-    /// It indicates something before this assertion or outside this function is wrong.
+    /// Precondition checks. It describes the requiments that must be met when entering a method.
     /// </summary>
     public static class Requires
     {
@@ -52,46 +49,6 @@ namespace Confidence
         /// Validate if a custom assertion returns true.
         /// </summary>
         /// <param name="assertion">Custom assertion.</param>
-        /// <param name="argumentName">Argument name.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void ArgumentIsTrue(Func<bool> assertion, string argumentName, Func<string> getErrorMessage = null)
-        {
-            Func<string> finalGetErrorMessage = getErrorMessage;
-            if (finalGetErrorMessage == null)
-            {
-                finalGetErrorMessage = () => string.Format(CultureInfo.InvariantCulture, "Custom assersion on argument {0} failed.", argumentName);
-            }
-
-            CustomAssertionValidation.IsTrue<ArgumentException>(assertion, finalGetErrorMessage);
-        }
-
-        /// <summary>
-        /// Validate if a custom assertion returns true.
-        /// </summary>
-    /// <typeparam name="TException">Exception type.</typeparam>
-        /// <param name="assertion">Custom assertion.</param>
-        /// <param name="argumentName">Argument name.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void ArgumentIsTrue<TException>(Func<bool> assertion, string argumentName, Func<string> getErrorMessage = null)
-            where TException : Exception
-        {
-            Func<string> finalGetErrorMessage = getErrorMessage;
-            if (finalGetErrorMessage == null)
-            {
-                finalGetErrorMessage = () => string.Format(CultureInfo.InvariantCulture, "Custom assersion on argument {0} failed.", argumentName);
-            }
-
-            CustomAssertionValidation.IsTrue<TException>(assertion, finalGetErrorMessage);
-        }
-
-        /// <summary>
-        /// Validate if a custom assertion returns true.
-        /// </summary>
-        /// <param name="assertion">Custom assertion.</param>
         /// <param name="getErrorMessage">Error message.</param>
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
@@ -103,7 +60,7 @@ namespace Confidence
         /// <summary>
         /// Validate if a custom assertion returns true.
         /// </summary>
-    /// <typeparam name="TException">Exception type.</typeparam>
+        /// <typeparam name="TException">Exception type.</typeparam>
         /// <param name="assertion">Custom assertion.</param>
         /// <param name="getErrorMessage">Error message.</param>
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
@@ -152,25 +109,6 @@ namespace Confidence
         public static ValidateTarget<T> Variable<T>(T targetValue, string targetName)
         {
             return VariableValidateTargetFactory.Create(targetValue, targetName);
-        }
-
-        /// <summary>
-        /// Validate if a custom assertion returns true.
-        /// </summary>
-        /// <param name="assertion">Custom assertion.</param>
-        /// <param name="argumentName">Argument name.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void ArgumentIsTrue(Func<bool> assertion, string argumentName, Func<string> getErrorMessage = null)
-        {
-            Func<string> finalGetErrorMessage = getErrorMessage;
-            if (finalGetErrorMessage == null)
-            {
-                finalGetErrorMessage = () => string.Format(CultureInfo.InvariantCulture, "Custom assersion on argument {0} failed.", argumentName);
-            }
-
-            CustomAssertionValidation.IsTrue<TException>(assertion, finalGetErrorMessage);
         }
 
         /// <summary>

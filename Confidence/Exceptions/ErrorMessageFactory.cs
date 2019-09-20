@@ -30,11 +30,20 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Create error message for "ShouldBeTrue".
+        /// Create error message for "ShouldBeTrueOnCustomAssertion".
         /// </summary>
-        public static string ShouldBeTrue()
+        public static string ShouldBeTrueOnCustomAssertion()
         {
             return "Custom assertion failed.";
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldBeTrueOnCustomAssertion".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeTrueOnCustomAssertion<T>(ValidateTarget<T> target)
+        {
+            return CreateErrorMessage(target, "Custom assertion on {0} failed.");
         }
 
         /// <summary>
