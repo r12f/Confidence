@@ -1,18 +1,14 @@
 # Azure pipeline for building Confidence.
 
+# Triggers
+trigger:
+- master
+- releases/*
+
 pr:
 - master
 
-schedules:
-- cron: "0 3 * * *"
-  displayName: Daily midnight build
-  branches:
-    include:
-    - master
-
-pool:
-  vmImage: "vs2017-win2016"
-
+# Variables
 variables:
   solution: '**/*.sln'
   buildConfiguration: 'Release'
@@ -21,7 +17,11 @@ variables:
   buildVersionMinor: 0
   buildVersionRevision: $[counter(format('{0}.{1}', variables['buildVersionMajor'], variables['buildVersionMinor']), 0)]
 
+# Job
 name: '$(buildVersionMajor).$(buildVersionMinor).$(buildVersionRevision)'
+
+pool:
+  vmImage: "vs2017-win2016"
 
 steps:
 
