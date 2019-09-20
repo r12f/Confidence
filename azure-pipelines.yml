@@ -1,11 +1,14 @@
 # Azure pipeline for building Confidence.
 
-trigger:
-- master
-- releases/*
-
 pr:
 - master
+
+schedules:
+- cron: "0 3 * * *"
+  displayName: Daily midnight build
+  branches:
+    include:
+    - master
 
 pool:
   vmImage: "vs2017-win2016"
@@ -36,8 +39,12 @@ steps:
     versionSpec: 5.2.0
 
 # Updating build version
-steps:
-- powershell: '$(Build.SourcesDirectory)\Build\Update-BuildRevisionVersion.ps1'
+- task: PowerShell@2
+  displayName: 'Increase version number.'
+  inputs:
+    targetType: 'filePath'
+    filePath: '$(Build.SourcesDirectory)\Build\Update-BuildRevisionVersion.ps1'
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
 # Restore
 - task: NuGetCommand@2
