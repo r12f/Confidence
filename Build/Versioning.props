@@ -8,7 +8,7 @@
     <VersionMinor>$(Version4PartVersion.Split('.')[1])</VersionMinor>
     <VersionBuildNumber>$(Version4PartVersion.Split('.')[2])</VersionBuildNumber>
     <VersionBuildRevision>$(Version4PartVersion.Split('.')[3])</VersionBuildRevision>
-    <VersionBuildLabel></VersionBuildLabel>
+    <VersionBuildLabel>-alpha</VersionBuildLabel>
     <InformationalVersion>$(Version4PartVersion)$(VersionBuildLabel)</InformationalVersion>
     <ProjectVersion>$(Version4PartVersion)</ProjectVersion>
     <FileVersion>$(Version4PartVersion)</FileVersion>
