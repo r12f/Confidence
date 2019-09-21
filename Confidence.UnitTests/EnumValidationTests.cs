@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using Xunit;
 
 namespace Confidence.UnitTests
@@ -35,7 +34,7 @@ namespace Confidence.UnitTests
 
             Requires.Argument(testValue, nameof(testValue)).HasFlag(TestEnum.Value1);
             Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).HasFlag(TestEnum.Value1);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).HasFlag(TestEnum.Value2));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).HasFlag(TestEnum.Value2));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).HasFlag(TestEnum.Value2));
         }
 
