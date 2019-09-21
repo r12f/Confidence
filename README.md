@@ -3,6 +3,7 @@ Write code with Confidence!!!
 
 Confidence is a easy to read and debug condition checker in C# with code contracts syntax supported.
 
+[![NuGet](https://img.shields.io/nuget/v/Confidence.svg?style=flat&color=blue)](https://github.com/r12f/Confidence)
 [![Build Status](https://r12f.visualstudio.com/Confidence/_apis/build/status/r12f.Confidence?branchName=master)](https://r12f.visualstudio.com/Confidence/_build/latest?definitionId=1&branchName=master)
 
 .NET versions supported: netstandard >=1.0, .net framework >= 3.5.
