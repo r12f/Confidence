@@ -207,6 +207,26 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldHaveFlag".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveFlag<T>(ValidateTarget<T> target, T valueToCompare)
+            where T : struct, Enum
+        {
+            return CreateErrorMessage(target, valueToCompare, "{0} doesn't has flag {1} set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotHaveFlag".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotHaveFlag<T>(ValidateTarget<T> target, T valueToCompare)
+            where T : struct, Enum
+        {
+            return CreateErrorMessage(target, valueToCompare, "{0} should not have flag {1} set.");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldBeEmpty".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>

@@ -44,6 +44,11 @@ namespace Confidence
         public const string Double = nameof(Double);
 
         /// <summary>
+        /// Enum.
+        /// </summary>
+        public const string Enum = nameof(Enum);
+
+        /// <summary>
         /// String.
         /// </summary>
         public const string String = nameof(String);
