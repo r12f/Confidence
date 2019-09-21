@@ -102,7 +102,7 @@ namespace Confidence
         /// Create error message for "ShouldBeLessThan".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
-        public static string ShouldBeLessThan<T>(ValidateTarget<T> target, T valueToCompare)
+        public static string ShouldBeLessThan<T>(ValidateTarget<T> target, object valueToCompare)
         {
             return CreateErrorMessage(target, valueToCompare, "{0} is greater or equal than {1}.");
         }
@@ -111,7 +111,7 @@ namespace Confidence
         /// Create error message for "ShouldBeLessOrEqualThan".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
-        public static string ShouldBeLessOrEqualThan<T>(ValidateTarget<T> target, T valueToCompare)
+        public static string ShouldBeLessOrEqualThan<T>(ValidateTarget<T> target, object valueToCompare)
         {
             return CreateErrorMessage(target, valueToCompare, "{0} is greater than {1}.");
         }
@@ -120,7 +120,7 @@ namespace Confidence
         /// Create error message for "ShouldBeGreaterThan".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
-        public static string ShouldBeGreaterThan<T>(ValidateTarget<T> target, T valueToCompare)
+        public static string ShouldBeGreaterThan<T>(ValidateTarget<T> target, object valueToCompare)
         {
             return CreateErrorMessage(target, valueToCompare, "{0} is less or equal than {1}.");
         }
@@ -129,7 +129,7 @@ namespace Confidence
         /// Create error message for "ShouldBeGreaterThan".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
-        public static string ShouldBeGreaterOrEqualThan<T>(ValidateTarget<T> target, T valueToCompare)
+        public static string ShouldBeGreaterOrEqualThan<T>(ValidateTarget<T> target, object valueToCompare)
         {
             return CreateErrorMessage(target, valueToCompare, "{0} is less than {1}.");
         }
