@@ -91,7 +91,7 @@ Here are the design principles of Confidence, and some decisions we make.
 ### Be compatiable as much as possible
 A library working like a if-then-throw check should not limit the platform it runs too much. If something really cannot be supported before certain .NET version, we could use #if to wrap it. And we always has .IsTrue validation as the backup plan.
 
-One hard decision for us to make is validations on enum. Enum as generic is only supported after C# 7.3, which is set to default after Visual Studio 2019. It means most people have to add the LangVersion property into their .csproj file to make it work. But since enum is such a important type and so frequently used, eventually we still decide to add it.
+One hard decision for us to make is validations on enum. Enum as generic is only supported after C# 7.3, which is used by default after Visual Studio 2019. It means most people have to add the LangVersion property into their .csproj file to make it work. But since enum is such a important type and so frequently used, using IsTrue with Func validation seems to be even more painful than adding that property. So evetually we still decide to make people upgrade to C# 7.3.
 
 ### Readability and debugability comes first
 #### Assert one thing at a time
