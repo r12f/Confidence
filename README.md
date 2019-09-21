@@ -85,6 +85,8 @@ public static class MyAsserts
 }
 ```
 
+The full code can be found [here](https://github.com/r12f/Confidence/blob/master/Confidence.Samples/Program.cs).
+
 ## Design principles
 Here are the design principles of Confidence, and some decisions we make.
 
