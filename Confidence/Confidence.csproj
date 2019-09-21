@@ -6,7 +6,7 @@
     <PackageId>Confidence</PackageId>
     <PackageTags>CodeContract;ArgumentChecker;Requires;Ensures;Asserts</PackageTags>
     <Description>Confidence is a easy to read and debug condition checker in C# with code contracts syntax supported.</Description>
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes>Minor fixes for extensibility and documentations.</PackageReleaseNotes>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
