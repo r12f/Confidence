@@ -147,14 +147,14 @@ Contributions are very welcome. Just like many other projects:
 - Make the pull request and iterate.
 - Merge into master branch!
 
-## Releases workflow
+## Release workflow
 We are developing in master branch and release from release branches.
 
 All checkins will go to master branch first. Every checkin will [trigger an CI build and produce an alpha nuget package](https://r12f.visualstudio.com/Confidence/_build?definitionId=1&_a=summary). And the package will be published to the [develop feed](https://r12f.visualstudio.com/Confidence/_packaging?_a=feed&feed=Confidence-Develop) automatically after the build is done.
 
 Once we get certain changes ready, we will manually trigger the pipeline to publish the alpha package to nuget.org.
 
-Once we think the package is a good candidate for release, we will create a release branch based on that build and increase the version in master branch. Then build and release the stable package. The release branch will all look like releases/\<package version\>, e.g. releases\1.0.
+Once we think the package is a good candidate for release, we will create a release branch based on that build and increase the version in master branch. Then build and release the stable package. The release branch will all look like releases/\<package version\>, e.g. releases/1.0.
 
 ## License
 Code licensed under the [MIT License](https://github.com/r12f/Confidence/blob/master/LICENSE).
