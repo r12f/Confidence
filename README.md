@@ -21,8 +21,7 @@ Please pardon my language here, but it really helps people remember when to use 
 public SomeClass(int foo, string bar)
 {
     this.Foo = Requires.Argument(foo, nameof(foo)).NotEqual(0).Value;
-    this.Bar = Requires<CustomizedException>.Argument(bar, nameof(bar))
-        .NotNull().NotEmpty().StartsWith("Hello!").Value;
+    this.Bar = Requires<CustomizedException>.Argument(bar, nameof(bar)).NotNull().NotEmpty().StartsWith("Hello!").Value;
 
     this.DoSomething();
 }
@@ -30,7 +29,7 @@ public SomeClass(int foo, string bar)
 public void DoSomething()
 {
     // Do something part 1.
-    Asserts.Variable(this.Foo, nameof(this.Foo)).NotEqual(0, () => "Foo should never become 0 when we are doing something.");
+    Asserts.Variable(this.Foo, nameof(this.Foo)).NotEqual(0, () => "Foo should never become 0.");
     // Do something part 2.
 
     Ensures.IsTrue(() => this.AreSomeStatesExpected(), () => "Some states are not expected.");

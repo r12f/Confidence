@@ -7,8 +7,9 @@ namespace Confidence.Samples
     {
         static void Main(string[] args)
         {
-            SomeClass someClass = new SomeClass(1, "abc");
+            SomeClass someClass = new SomeClass(1, "Hello! World!");
             MyAsserts.Variable(someClass, nameof(someClass)).NotNull().FooNotZero();
+            Console.WriteLine("Yay!");
         }
     }
 
