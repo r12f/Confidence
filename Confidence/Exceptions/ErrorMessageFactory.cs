@@ -373,6 +373,14 @@ namespace Confidence
             return CreateErrorMessage(target, valueToCompare.FullName, "{0} is not an object of type {1}.");
         }
 
+        /// <summary>
+        /// Create error message for "ShouldBeUnreachable".
+        /// </summary>
+        public static string ShouldBeUnreachable()
+        {
+            return "Unreachable code executed.";
+        }
+
         private static string CreateErrorMessage<T>(ValidateTarget<T> target, string errorMessageFormat)
         {
             return string.Format(CultureInfo.InvariantCulture, errorMessageFormat, target.Name);

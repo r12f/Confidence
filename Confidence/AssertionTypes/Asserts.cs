@@ -54,6 +54,30 @@ namespace Confidence
         {
             CustomAssertionValidation.IsTrue<InvariantViolationException>(assertion, getErrorMessage);
         }
+
+        /// <summary>
+        /// Throw InvalidOperationException, because it should be unreachable.
+        /// </summary>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void UnreachableCode(Func<string> getErrorMessage = null)
+        {
+            ExceptionFactory.ThrowException(typeof(InvalidOperationException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
+        }
+
+        /// <summary>
+        /// Throw specified exception, because it should be unreachable.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void UnreachableCode<TException>(Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
+        }
     }
 
     /// <summary>
@@ -90,6 +114,17 @@ namespace Confidence
         public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
         {
             CustomAssertionValidation.IsTrue<TException>(assertion, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw, because it should be unreachable.
+        /// </summary>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void UnreachableCode(Func<string> getErrorMessage = null)
+        {
+            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
         }
     }
 }

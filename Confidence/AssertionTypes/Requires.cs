@@ -68,7 +68,7 @@ namespace Confidence
         public static void IsTrue<TException>(Func<bool> assertion, Func<string> getErrorMessage = null)
             where TException : Exception
         {
-            CustomAssertionValidation.IsTrue<PreconditionViolationException>(assertion, getErrorMessage);
+            CustomAssertionValidation.IsTrue<TException>(assertion, getErrorMessage);
         }
     }
 
