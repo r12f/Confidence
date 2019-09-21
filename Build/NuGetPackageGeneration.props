@@ -6,9 +6,6 @@
     <PackageVersion>$(InformationalVersion)</PackageVersion>
     <PackageProjectUrl>https://github.com/r12f/Confidence</PackageProjectUrl>
     <PackageOutputPath>$(OutputRoot)\Packages</PackageOutputPath>
-
-    <!-- Pack symbol files into nuget package as well for debugging purpose. -->
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
 </Project>

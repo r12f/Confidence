@@ -3,9 +3,9 @@ Write code with Confidence!!!
 
 Confidence is a easy to read and debug condition checker in C# with code contracts syntax supported.
 
-Most of the .NET versions are supported now: netstandard >=1.0, .net framework >= 3.5.
-
 [![Build Status](https://r12f.visualstudio.com/Confidence/_apis/build/status/r12f.Confidence?branchName=master)](https://r12f.visualstudio.com/Confidence/_build/latest?definitionId=1&branchName=master)
+
+.NET versions supported: netstandard >=1.0, .net framework >= 3.5.
 
 ## Code contracts
 Code contracts are better assertions. It is a widely used technique and usually provides 3 variations of assertions to help identifying who is responsible for the failure besides showing what is failing.
@@ -127,6 +127,9 @@ Asserts<CustomizedException>.IsTrue(() => IsSomethingExpected(), () => "Somethin
 The same as above, just another nice thing to have, although most of time we don't need it.
 
 ### Be performant if possible
+#### Cautious about dependencies
+It is doable to add more validations in Confidence.dll for many other types, like IPAddress, but it will pull in more depencies when loading Confidence.dll, but not everyone needs it, like System.Net. So instead of putting all validations in this module, we prefer to providing other extension modules for the types which is not loaded by default.
+
 #### Prefer extensions over virtual functions
 Using object extensions makes the function call to be determined in compile time (static binding), which will be faster then virtual functions (dynamic binding).
 
@@ -134,11 +137,20 @@ Using object extensions makes the function call to be determined in compile time
 The error message is only needed when things go wrong. It means most of the time, we don't need it, so it is better to only generate it when we actually need it.
 
 ## Contribute
-Contributions are very welcome. Just like many other project:
-- Create the issue and discuss.
+Contributions are very welcome. Just like many other projects:
+- Create an issue and discuss.
 - Fork the project and change the code.
 - Make the pull request and iterate.
-- Merge!
+- Merge into master branch!
+
+## Releases workflow
+We are developing in master branch and release from release branches.
+
+All checkins will go to master branch first. Every checkin will trigger an CI build and produce an alpha nuget package. The package will be published to the [develop feed](https://r12f.visualstudio.com/Confidence/_packaging?_a=feed&feed=Confidence-Develop) automatically after the build is done.
+
+Once we get certain changes ready, we will manually trigger the pipeline to publish the alpha package to nuget.org.
+
+Once we think the package is a good candidate for release, we will create a release branch based on that build and increase the version in master branch. Then build and release the stable package. The release branch will all look like releases/\<package version\>, e.g. releases\1.0.
 
 ## License
-Code licensed under the [MIT License](https://github.com/r12f/Confidence/blob/master/LICENSE.txt).
+Code licensed under the [MIT License](https://github.com/r12f/Confidence/blob/master/LICENSE).
