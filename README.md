@@ -150,7 +150,7 @@ Contributions are very welcome. Just like many other projects:
 ## Releases workflow
 We are developing in master branch and release from release branches.
 
-All checkins will go to master branch first. Every checkin will trigger an CI build and produce an alpha nuget package. The package will be published to the [develop feed](https://r12f.visualstudio.com/Confidence/_packaging?_a=feed&feed=Confidence-Develop) automatically after the build is done.
+All checkins will go to master branch first. Every checkin will [trigger an CI build and produce an alpha nuget package](https://r12f.visualstudio.com/Confidence/_build?definitionId=1&_a=summary). And the package will be published to the [develop feed](https://r12f.visualstudio.com/Confidence/_packaging?_a=feed&feed=Confidence-Develop) automatically after the build is done.
 
 Once we get certain changes ready, we will manually trigger the pipeline to publish the alpha package to nuget.org.
 
