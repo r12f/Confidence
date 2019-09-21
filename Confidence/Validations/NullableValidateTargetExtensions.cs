@@ -10,7 +10,6 @@ namespace Confidence
     /// <summary>
     /// Validate target extensions used for validating nullable objects.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:Elements should be ordered by access", Justification = "Prefer better grouping than ordering.")]
     public static class NullableValidateTargetExtensions
     {
         /// <summary>

@@ -7,9 +7,8 @@ using System.Diagnostics;
 namespace Confidence
 {
     /// <summary>
-    /// Validate target extensions used for validating boolean.
+    /// Validate target extensions used for validating enum.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1202:Elements should be ordered by access", Justification = "Prefer better grouping than ordering.")]
     public static class EnumValidateTargetExtensions
     {
 #if !NET35
