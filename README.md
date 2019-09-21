@@ -12,10 +12,10 @@ Confidence is a easy to read and debug condition checker in C# with code contrac
 ## Code contracts
 Code contracts are better assertions. It is a widely used technique and usually provides 3 variations of assertions to help identifying who is responsible for the failure besides showing what is failing.
 - **Requires:** Precondition checks. It describes the requiments that must be met when entering a method. A.k.a., is the caller f**ked up? For example: argument is not null.
-- **Ensures:** Postcondition checks. It describes the expectations when exiting a method or after calling an external API. A.k.a. Is the thing we just did f**ked up?
-- **Asserts:** Invariant checks. It describes the expected state in the middle of the things we are trying to do. A.k.a. Are we f**ked up?
+- **Ensures:** Postcondition checks. It describes the expectations when exiting a method or after calling an external API. A.k.a. is the thing we just did f**ked up?
+- **Asserts:** Invariant checks. It describes the expected state in the middle of the things we are trying to do. A.k.a. are we f**ked up?
 
-Here is a quick example to show how to use code contracts ([full code here](https://github.com/r12f/Confidence/blob/master/Confidence.Samples/Program.cs)):
+Please pardon my language here, but it really helps people remember when to use which validations. And here is a quick example to show how to use code contracts ([full code here](https://github.com/r12f/Confidence/blob/master/Confidence.Samples/Program.cs)):
 ```
 public SomeClass(int foo, string bar)
 {
