@@ -15,7 +15,7 @@ Code contracts are better assertions. It is a widely used technique and usually 
 - **Ensures:** Postcondition checks. It describes the expectations when exiting a method or after calling an external API. A.k.a. Is the thing we just did f**ked up?
 - **Asserts:** Invariant checks. It describes the expected state in the middle of the things we are trying to do. A.k.a. Are we f**ked up?
 
-Here is a quick example to show how to use code contracts:
+Here is a quick example to show how to use code contracts ([full code here](https://github.com/r12f/Confidence/blob/master/Confidence.Samples/Program.cs)):
 ```
 public SomeClass(int foo, string bar)
 {
@@ -32,7 +32,7 @@ public void DoSomething()
     Asserts.Variable(this.Foo, nameof(this.Foo)).NotEqual(0, () => "Foo becomes 0 when we are doing something.");
     // Do something part 2.
 
-    Ensures.IsTrue(() => this.SomeStatesShouldBeExpected(), () => "Some states are not expected.");
+    Ensures.IsTrue(() => this.AreSomeStatesExpected(), () => "Some states are not expected.");
 }
 ```
 

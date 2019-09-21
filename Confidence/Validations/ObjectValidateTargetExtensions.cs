@@ -38,12 +38,12 @@ namespace Confidence
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
-        /// <param name="customComparer">Custom comparer.</param>
         /// <param name="getErrorMessage">Custom error message.</param>
+        /// <param name="customComparer">Custom comparer.</param>
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> Equal<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, IEqualityComparer<TValue> customComparer = null, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> Equal<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
         {
             IEqualityComparer<TValue> comparer = customComparer ?? (IEqualityComparer<TValue>)EqualityComparer<TValue>.Default;
             if (!comparer.Equals(target.Value, valueToCompare))
@@ -60,12 +60,12 @@ namespace Confidence
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
-        /// <param name="customComparer">Custom comparer.</param>
         /// <param name="getErrorMessage">Custom error message.</param>
+        /// <param name="customComparer">Custom comparer.</param>
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> NotEqual<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, IEqualityComparer<TValue> customComparer = null, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> NotEqual<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
         {
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (comparer.Equals(target.Value, valueToCompare))
