@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Confidence.Samples
 {
@@ -7,11 +8,11 @@ namespace Confidence.Samples
         static void Main(string[] args)
         {
             SomeClass someClass = new SomeClass(1, "abc");
-            Console.WriteLine("Hello World!");
+            MyAsserts.Variable(someClass, nameof(someClass)).NotNull().FooNotZero();
         }
     }
 
-    internal class SomeClass
+    public class SomeClass
     {
         public SomeClass(int foo, string bar)
         {
@@ -41,7 +42,47 @@ namespace Confidence.Samples
         }
     }
 
+    public static class MyAsserts
+    {
+        private static readonly ValidateTargetFactory<CustomizedException, CustomizedNullException, CustomizedOutOfRangeException> VariableValidateTargetFactory =
+            new ValidateTargetFactory<CustomizedException, CustomizedNullException, CustomizedOutOfRangeException>();
+
+        [DebuggerStepThrough]
+        public static ValidateTarget<T> Variable<T>(T targetValue, string targetName)
+        {
+            return VariableValidateTargetFactory.Create(targetValue, targetName);
+        }
+
+        [DebuggerStepThrough]
+        public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.IsTrue<CustomizedException>(assertion, getErrorMessage);
+        }
+    }
+
+    public static class SomeClassValidateTargetExtensions
+    {
+        [DebuggerStepThrough]
+        public static ValidateTarget<SomeClass> FooNotZero(this ValidateTarget<SomeClass> target, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.Foo == 0)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : "Foo cannot be zero.");
+            }
+
+            return target;
+        }
+    }
+
     internal class CustomizedException : Exception
+    {
+    }
+
+    internal class CustomizedNullException : Exception
+    {
+    }
+
+    internal class CustomizedOutOfRangeException : Exception
     {
     }
 }

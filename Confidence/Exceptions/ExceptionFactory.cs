@@ -9,7 +9,7 @@ namespace Confidence
     /// <summary>
     /// Assertion tester.
     /// </summary>
-    internal static class ExceptionFactory
+    public static class ExceptionFactory
     {
         /// <summary>
         /// Throw exception with specified exception type and error message.
