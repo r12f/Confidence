@@ -49,17 +49,37 @@ namespace Confidence
         /// <summary>
         /// Create error message for "ShouldBeTrue".
         /// </summary>
-        public static string ShouldBeTrue(ValidateTarget<bool> target)
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeTrue<T>(ValidateTarget<T> target)
         {
             return CreateErrorMessage(target, "{0} is not true.");
         }
 
         /// <summary>
+        /// Create error message for "ShouldBeTrue".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotBeTrue<T>(ValidateTarget<T> target)
+        {
+            return CreateErrorMessage(target, "{0} should not be true.");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldBeFalse".
         /// </summary>
-        public static string ShouldBeFalse(ValidateTarget<bool> target)
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeFalse<T>(ValidateTarget<T> target)
         {
             return CreateErrorMessage(target, "{0} is not false.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotBeFalse".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotBeFalse<T>(ValidateTarget<T> target)
+        {
+            return CreateErrorMessage(target, "{0} should not be false.");
         }
 
         /// <summary>

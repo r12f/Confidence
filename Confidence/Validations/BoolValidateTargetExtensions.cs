@@ -30,6 +30,42 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target is true.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<bool?> IsTrue(this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        {
+            if (!target.Value.HasValue || !target.Value.Value)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not true (null or false).
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<bool?> NotTrue(this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue && target.Value.Value)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target is false.
         /// </summary>
         /// <param name="target">Validate target.</param>
@@ -42,6 +78,42 @@ namespace Confidence
             if (target.Value)
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeFalse(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is false.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<bool?> IsFalse(this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        {
+            if (!target.Value.HasValue || target.Value.Value)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeFalse(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not false (null or true).
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<bool?> NotFalse(this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue && !target.Value.Value)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeFalse(target));
             }
 
             return target;
