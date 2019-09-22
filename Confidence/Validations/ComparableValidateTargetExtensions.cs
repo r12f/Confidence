@@ -371,5 +371,193 @@ namespace Confidence
 
             return target;
         }
+
+        /// <summary>
+        /// Validate if target is within a range (larger or equal than min and less or equal than max).
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> InRange<TValue>(this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null)
+            where TValue : IComparable
+        {
+            if (target.Value.CompareTo(minValue) < 0 || target.Value.CompareTo(maxValue) > 0)
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is within a range (larger or equal than min and less or equal than max). If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> InRange<TValue>(this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null)
+            where TValue : struct, IComparable
+        {
+            if (target.Value.HasValue)
+            {
+                if (target.Value.Value.CompareTo(minValue) < 0 || target.Value.Value.CompareTo(maxValue) > 0)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is within a range (larger or equal than min and less or equal than max).
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> InRange<TValue>(this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null)
+            where TValue : IComparable<TValue>
+        {
+            if (Comparer<TValue>.Default.Compare(target.Value, minValue) < 0 || Comparer<TValue>.Default.Compare(target.Value, maxValue) > 0)
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is within a range (larger or equal than min and less or equal than max). If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> InRange<TValue>(this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null)
+            where TValue : struct, IComparable<TValue>
+        {
+            if (target.Value.HasValue)
+            {
+                if (Comparer<TValue>.Default.Compare(target.Value.Value, minValue) < 0 || Comparer<TValue>.Default.Compare(target.Value.Value, maxValue) > 0)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not within a range (less than min and larger than max).
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> NotInRange<TValue>(this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null)
+            where TValue : IComparable
+        {
+            if (target.Value.CompareTo(minValue) >= 0 && target.Value.CompareTo(maxValue) <= 0)
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not within a range (less than min and larger than max). If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> NotInRange<TValue>(this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null)
+            where TValue : struct, IComparable
+        {
+            if (target.Value.HasValue)
+            {
+                if (target.Value.Value.CompareTo(minValue) >= 0 && target.Value.Value.CompareTo(maxValue) <= 0)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not within a range (less than min and larger than max).
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> NotInRange<TValue>(this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null)
+            where TValue : IComparable<TValue>
+        {
+            if (Comparer<TValue>.Default.Compare(target.Value, minValue) >= 0 && Comparer<TValue>.Default.Compare(target.Value, maxValue) <= 0)
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not within a range (less than min and larger than max). If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> NotInRange<TValue>(this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null)
+            where TValue : struct, IComparable<TValue>
+        {
+            if (target.Value.HasValue)
+            {
+                if (Comparer<TValue>.Default.Compare(target.Value.Value, minValue) >= 0 && Comparer<TValue>.Default.Compare(target.Value.Value, maxValue) <= 0)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+                }
+            }
+
+            return target;
+        }
     }
 }

@@ -155,6 +155,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldBeInRange".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeInRange<T>(ValidateTarget<T> target, object minValue, object maxValue)
+        {
+            return CreateErrorMessage(target, minValue, maxValue, "{0} is not in the range of {1} to {2}.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotBeInRange".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotBeInRange<T>(ValidateTarget<T> target, object minValue, object maxValue)
+        {
+            return CreateErrorMessage(target, minValue, maxValue, "{0} should not be in the range of {1} to {2}.");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldBeNaN".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
@@ -409,6 +427,11 @@ namespace Confidence
         private static string CreateErrorMessage<TValue, TValueToCompare>(ValidateTarget<TValue> target, TValueToCompare expectedValue, string errorMessageFormat)
         {
             return string.Format(CultureInfo.InvariantCulture, errorMessageFormat, target.Name, expectedValue);
+        }
+
+        private static string CreateErrorMessage<TValue, TValueToCompare1, TValueToCompare2>(ValidateTarget<TValue> target, TValueToCompare1 expectedValue1, TValueToCompare2 expectedValue2, string errorMessageFormat)
+        {
+            return string.Format(CultureInfo.InvariantCulture, errorMessageFormat, target.Name, expectedValue1, expectedValue2);
         }
     }
 }

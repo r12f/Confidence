@@ -138,6 +138,104 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target is within a range (larger or equal than min and less or equal than max).
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<float> InRange(this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        {
+            var diffFromMin = Math.Abs(target.Value - minValue);
+            var diffFromMax = Math.Abs(target.Value - maxValue);
+            if ((diffFromMin > allowedError && target.Value < minValue) || (diffFromMax > allowedError && target.Value > maxValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is within a range (larger or equal than min and less or equal than max). If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<float?> InRange(this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue)
+            {
+                var diffFromMin = Math.Abs(target.Value.Value - minValue);
+                var diffFromMax = Math.Abs(target.Value.Value - maxValue);
+                if ((diffFromMin > allowedError && target.Value.Value < minValue) || (diffFromMax > allowedError && target.Value.Value > maxValue))
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not within a range (less than min and larger than max).
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<float> NotInRange(this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        {
+            var diffFromMin = Math.Abs(target.Value - minValue);
+            var diffFromMax = Math.Abs(target.Value - maxValue);
+            if ((diffFromMin < allowedError || target.Value >= minValue) && (diffFromMax < allowedError || target.Value <= maxValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not within a range (less than min and larger than max). If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="minValue">Min.</param>
+        /// <param name="maxValue">Max.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<float?> NotInRange(this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue)
+            {
+                var diffFromMin = Math.Abs(target.Value.Value - minValue);
+                var diffFromMax = Math.Abs(target.Value.Value - maxValue);
+                if ((diffFromMin < allowedError || target.Value.Value >= minValue) && (diffFromMax < allowedError || target.Value.Value <= maxValue))
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target is NaN.
         /// </summary>
         /// <param name="target">Validate target.</param>

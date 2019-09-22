@@ -102,16 +102,19 @@ namespace Confidence.UnitTests
             float badAllowedError = 0.1f;
             string objectName = "test";
 
-            Requires.Argument(objectToTest, objectName).NotEqual(objectSmaller, goodAllowedError);
-            Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotEqual(objectLarger, goodAllowedError);
+            // Equal
+            Requires.Argument(objectToTest, objectName).Equal(objectSmaller, badAllowedError);
+            Requires<InvalidOperationException>.Argument(objectToTest, objectName).Equal(objectLarger, badAllowedError);
             Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).Equal(objectSmaller, goodAllowedError));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).Equal(objectLarger, goodAllowedError));
 
-            Requires.Argument(objectToTest, objectName).Equal(objectSmaller, badAllowedError);
-            Requires<InvalidOperationException>.Argument(objectToTest, objectName).Equal(objectLarger, badAllowedError);
+            // NotEqual
+            Requires.Argument(objectToTest, objectName).NotEqual(objectSmaller, goodAllowedError);
+            Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotEqual(objectLarger, goodAllowedError);
             Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).NotEqual(objectSmaller, badAllowedError));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotEqual(objectLarger, badAllowedError));
 
+            // IsLessThan
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessThan(objectSmaller, goodAllowedError));
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessThan(objectSmaller, badAllowedError));
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessThan(objectToTest, goodAllowedError));
@@ -122,6 +125,7 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessThan(objectLarger, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessThan(objectLarger, badAllowedError));
 
+            // IsLessOrEqualThan
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessOrEqualThan(objectSmaller, goodAllowedError));
             Requires.Argument(objectToTest, objectName).IsLessOrEqualThan(objectSmaller, badAllowedError);
             Requires.Argument(objectToTest, objectName).IsLessOrEqualThan(objectToTest, goodAllowedError);
@@ -132,6 +136,7 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessOrEqualThan(objectLarger, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessOrEqualThan(objectSmaller, goodAllowedError));
 
+            // IsGreaterThan
             Requires.Argument(objectToTest, objectName).IsGreaterThan(objectSmaller, goodAllowedError);
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsGreaterThan(objectSmaller, badAllowedError));
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsGreaterThan(objectToTest, goodAllowedError));
@@ -142,6 +147,7 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterThan(objectSmaller, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterThan(objectLarger, goodAllowedError));
 
+            // IsGreaterOrEqualThan
             Requires.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectSmaller, goodAllowedError);
             Requires.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectSmaller, badAllowedError);
             Requires.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectToTest, goodAllowedError);
@@ -151,6 +157,13 @@ namespace Confidence.UnitTests
 
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectSmaller, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectLarger, goodAllowedError));
+
+            // InRange
+            Requires.Argument(objectToTest, objectName).InRange(objectToTest, objectToTest, goodAllowedError);
+            Requires.Argument(objectToTest, objectName).InRange(objectSmaller, objectLarger, goodAllowedError);
+            Requires.Argument(objectToTest, objectName).InRange(objectSmaller, objectLarger, badAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, goodAllowedError));
+            Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, badAllowedError);
         }
 
         [Fact]
@@ -248,16 +261,19 @@ namespace Confidence.UnitTests
             double badAllowedError = 0.1;
             string objectName = "test";
 
-            Requires.Argument(objectToTest, objectName).NotEqual(objectSmaller, goodAllowedError);
-            Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotEqual(objectLarger, goodAllowedError);
+            // Equal
+            Requires.Argument(objectToTest, objectName).Equal(objectSmaller, badAllowedError);
+            Requires<InvalidOperationException>.Argument(objectToTest, objectName).Equal(objectLarger, badAllowedError);
             Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).Equal(objectSmaller, goodAllowedError));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).Equal(objectLarger, goodAllowedError));
 
-            Requires.Argument(objectToTest, objectName).Equal(objectSmaller, badAllowedError);
-            Requires<InvalidOperationException>.Argument(objectToTest, objectName).Equal(objectLarger, badAllowedError);
+            // NotEqual
+            Requires.Argument(objectToTest, objectName).NotEqual(objectSmaller, goodAllowedError);
+            Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotEqual(objectLarger, goodAllowedError);
             Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).NotEqual(objectSmaller, badAllowedError));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotEqual(objectLarger, badAllowedError));
 
+            // IsLessThan
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessThan(objectSmaller, goodAllowedError));
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessThan(objectSmaller, badAllowedError));
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessThan(objectToTest, goodAllowedError));
@@ -268,6 +284,7 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessThan(objectLarger, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessThan(objectLarger, badAllowedError));
 
+            // IsLessOrEqualthan
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessOrEqualThan(objectSmaller, goodAllowedError));
             Requires.Argument(objectToTest, objectName).IsLessOrEqualThan(objectSmaller, badAllowedError);
             Requires.Argument(objectToTest, objectName).IsLessOrEqualThan(objectToTest, goodAllowedError);
@@ -278,6 +295,7 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessOrEqualThan(objectLarger, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsLessOrEqualThan(objectSmaller, goodAllowedError));
 
+            // IsGreaterThan
             Requires.Argument(objectToTest, objectName).IsGreaterThan(objectSmaller, goodAllowedError);
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsGreaterThan(objectSmaller, badAllowedError));
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsGreaterThan(objectToTest, goodAllowedError));
@@ -288,6 +306,7 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterThan(objectSmaller, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterThan(objectLarger, goodAllowedError));
 
+            // IsGreaterOrEqualThan
             Requires.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectSmaller, goodAllowedError);
             Requires.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectSmaller, badAllowedError);
             Requires.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectToTest, goodAllowedError);
@@ -297,6 +316,13 @@ namespace Confidence.UnitTests
 
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectSmaller, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsGreaterOrEqualThan(objectLarger, goodAllowedError));
+
+            // InRange
+            Requires.Argument(objectToTest, objectName).InRange(objectToTest, objectToTest, goodAllowedError);
+            Requires.Argument(objectToTest, objectName).InRange(objectSmaller, objectLarger, goodAllowedError);
+            Requires.Argument(objectToTest, objectName).InRange(objectSmaller, objectLarger, badAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, goodAllowedError));
+            Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, badAllowedError);
         }
     }
 }
