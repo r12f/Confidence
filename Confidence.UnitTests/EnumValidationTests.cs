@@ -11,7 +11,7 @@ namespace Confidence.UnitTests
             TestEnum testValue = TestEnum.Value1;
             Requires.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value1);
             Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value1);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value2));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value2));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value2));
         }
 
@@ -20,13 +20,13 @@ namespace Confidence.UnitTests
         {
             TestEnum? testNullValue = null;
             Requires.Argument(testNullValue, nameof(testNullValue)).Equal(null);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testNullValue, nameof(testNullValue)).Equal(TestEnum.Value1));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testNullValue, nameof(testNullValue)).Equal(TestEnum.Value1));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).Equal(TestEnum.Value1));
 
             TestEnum? testValue = TestEnum.Value1;
             Requires.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value1);
             Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value1);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value2));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value2));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).Equal(TestEnum.Value2));
         }
 
@@ -37,7 +37,7 @@ namespace Confidence.UnitTests
 
             Requires.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value2);
             Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value2);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value1));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value1));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value1));
         }
 
@@ -47,13 +47,13 @@ namespace Confidence.UnitTests
             TestEnum? testNullValue = null;
             Requires.Argument(testNullValue, nameof(testNullValue)).NotEqual(TestEnum.Value1);
             Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).NotEqual(TestEnum.Value1);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testNullValue, nameof(testNullValue)).NotEqual(null));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testNullValue, nameof(testNullValue)).NotEqual(null));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).NotEqual(null));
 
             TestEnum? testValue = TestEnum.Value1;
             Requires.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value2);
             Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value2);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value1));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value1));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).NotEqual(TestEnum.Value1));
         }
 

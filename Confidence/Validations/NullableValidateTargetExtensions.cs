@@ -99,7 +99,7 @@ namespace Confidence
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (!target.Value.HasValue || !comparer.Equals(target.Value.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
             }
 
             return target;
@@ -122,7 +122,7 @@ namespace Confidence
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (target.Value.HasValue && comparer.Equals(target.Value.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
             }
 
             return target;

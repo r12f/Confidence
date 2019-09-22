@@ -79,6 +79,12 @@ namespace Confidence.UnitTests
             string objectName = "test";
 
             Requires.Argument(objectToTest, objectName).Equal(objectToTest);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).Equal(objectSmaller));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).Equal(objectSmaller));
+
+            Requires.Argument(objectToTest, objectName).NotEqual(objectSmaller);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).NotEqual(objectToTest));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotEqual(objectToTest));
 
             Requires.Argument(objectToTest, objectName).IsLessThan(objectLarger);
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, objectName).IsLessThan(objectToTest));
@@ -114,7 +120,7 @@ namespace Confidence.UnitTests
         {
             T? objectToTest = null;
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).Equal(objectValue));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).Equal(objectValue));
             Requires.Argument(objectToTest, nameof(objectToTest)).NotEqual(objectValue);
 
             Requires.Argument(objectToTest, nameof(objectToTest)).IsLessThan(objectValue);
@@ -129,7 +135,7 @@ namespace Confidence.UnitTests
             T? objectToTest = objectValue;
 
             Requires.Argument(objectToTest, nameof(objectToTest)).Equal(objectValue);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).NotEqual(objectValue));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).NotEqual(objectValue));
 
             Requires.Argument(objectToTest, nameof(objectToTest)).IsLessThan(objectLarger);
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsLessThan(objectValue));
