@@ -83,7 +83,7 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target equals to another object.
+        /// Validate if target equals to a specified object.
         /// </summary>
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
@@ -96,17 +96,17 @@ namespace Confidence
         public static ValidateTarget<TValue?> Equal<TValue>(this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
             where TValue : struct
         {
-            IEqualityComparer<TValue> comparer = customComparer ?? (IEqualityComparer<TValue>)EqualityComparer<TValue>.Default;
+            IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (!target.Value.HasValue || !comparer.Equals(target.Value.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
             }
 
             return target;
         }
 
         /// <summary>
-        /// Validate if target doesn't equal to another object.
+        /// Validate if target doesn't equal to a specific object.
         /// </summary>
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
@@ -119,10 +119,10 @@ namespace Confidence
         public static ValidateTarget<TValue?> NotEqual<TValue>(this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
             where TValue : struct
         {
-            IEqualityComparer<TValue> comparer = customComparer ?? (IEqualityComparer<TValue>)EqualityComparer<TValue>.Default;
+            IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (target.Value.HasValue && comparer.Equals(target.Value.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
             }
 
             return target;

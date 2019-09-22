@@ -33,7 +33,7 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target equals to another object.
+        /// Validate if target equals to a specified object.
         /// </summary>
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
@@ -55,7 +55,7 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target doesn't equal to another object.
+        /// Validate if target doesn't equal to a specific object.
         /// </summary>
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
