@@ -69,6 +69,7 @@ namespace Confidence.UnitTests
             where T : struct, IComparable<T>
         {
             this.RunNumericValueValidationTests(objectToTest, objectSmaller, objectLarger);
+            this.RunNumericDefaultValueValidationTests(objectToTest);
             this.RunNullableNumericValidationTestsAgainstNull(objectToTest);
             this.RunNullableNumericValidationTestsAgainstValue(objectToTest, objectSmaller, objectLarger);
         }
@@ -125,6 +126,20 @@ namespace Confidence.UnitTests
 
             Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).InRange(objectToTest, objectToTest);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectSmaller, nameof(objectSmaller)).InRange(objectToTest, objectLarger));
+        }
+
+        private void RunNumericDefaultValueValidationTests<T>(T objectToTest)
+            where T : struct, IComparable<T>
+        {
+            T defaultValue = default(T);
+
+            // IsDefault
+            Requires.Argument(defaultValue, nameof(defaultValue)).IsDefault();
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsDefault());
+
+            // NotDefault
+            Requires.Argument(objectToTest, nameof(objectToTest)).NotDefault();
+            Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotDefault());
         }
 
         private void RunNullableNumericValidationTestsAgainstNull<T>(T objectValue)

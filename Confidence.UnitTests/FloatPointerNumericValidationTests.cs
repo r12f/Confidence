@@ -100,6 +100,7 @@ namespace Confidence.UnitTests
             float objectLarger = 1.01f;
             float goodAllowedError = 0.001f;
             float badAllowedError = 0.1f;
+            float defaultValue = 0f;
             string objectName = "test";
 
             // Equal
@@ -164,6 +165,19 @@ namespace Confidence.UnitTests
             Requires.Argument(objectToTest, objectName).InRange(objectSmaller, objectLarger, badAllowedError);
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, goodAllowedError));
             Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, badAllowedError);
+
+            // NotInRange
+            Requires.Argument(objectToTest, objectName).NotInRange(objectLarger, objectLarger, goodAllowedError);
+            Requires.Argument(objectToTest, objectName).NotInRange(objectSmaller, objectSmaller, goodAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, objectName).NotInRange(objectToTest, objectLarger, badAllowedError));
+
+            // IsDefault
+            Requires.Argument(defaultValue, nameof(defaultValue)).IsDefault(goodAllowedError);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsDefault(goodAllowedError));
+
+            // NotDefault
+            Requires.Argument(objectToTest, nameof(objectToTest)).NotDefault(goodAllowedError);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotDefault(goodAllowedError));
         }
 
         [Fact]
@@ -259,6 +273,7 @@ namespace Confidence.UnitTests
             double objectLarger = 1.01;
             double goodAllowedError = 0.001;
             double badAllowedError = 0.1;
+            double defaultValue = 0f;
             string objectName = "test";
 
             // Equal
@@ -323,6 +338,19 @@ namespace Confidence.UnitTests
             Requires.Argument(objectToTest, objectName).InRange(objectSmaller, objectLarger, badAllowedError);
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, goodAllowedError));
             Requires.Argument(objectSmaller, objectName).InRange(objectToTest, objectLarger, badAllowedError);
+
+            // NotInRange
+            Requires.Argument(objectToTest, objectName).NotInRange(objectLarger, objectLarger, goodAllowedError);
+            Requires.Argument(objectToTest, objectName).NotInRange(objectSmaller, objectSmaller, goodAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, objectName).NotInRange(objectToTest, objectLarger, badAllowedError));
+
+            // IsDefault
+            Requires.Argument(defaultValue, nameof(defaultValue)).IsDefault();
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsDefault());
+
+            // NotDefault
+            Requires.Argument(objectToTest, nameof(objectToTest)).NotDefault();
+            Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotDefault());
         }
     }
 }

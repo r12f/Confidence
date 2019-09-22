@@ -45,7 +45,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<TValue> Equal<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
         {
-            IEqualityComparer<TValue> comparer = customComparer ?? (IEqualityComparer<TValue>)EqualityComparer<TValue>.Default;
+            IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (!comparer.Equals(target.Value, valueToCompare))
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
@@ -71,6 +71,50 @@ namespace Confidence
             if (comparer.Equals(target.Value, valueToCompare))
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target equals to the default value of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <param name="customComparer">Custom comparer.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> IsDefault<TValue>(this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+        {
+            TValue defaultValue = default(TValue);
+            IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
+            if (!comparer.Equals(target.Value, defaultValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target not equals to the default value of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <param name="customComparer">Custom comparer.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> NotDefault<TValue>(this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+        {
+            TValue defaultValue = default(TValue);
+            IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
+            if (comparer.Equals(target.Value, defaultValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
             }
 
             return target;

@@ -10,6 +10,7 @@ namespace Confidence.Samples
             SomeClass someClass = new SomeClass(1, "Hello! World!");
             MyAsserts.Variable(someClass, nameof(someClass)).NotNull().FooNotZero();
             Console.WriteLine("Yay!");
+            Console.ReadLine();
         }
     }
 

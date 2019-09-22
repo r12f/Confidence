@@ -236,6 +236,110 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target equals to the default value of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double> IsDefault(this ValidateTarget<double> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            double defaultValue = default(double);
+            var diff = Math.Abs(target.Value - defaultValue);
+            if (diff > allowedError)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target equals to the default value of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsDefault(this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            bool isDefaultValue = false;
+
+            double defaultValue = default(double);
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - defaultValue);
+                if (diff <= allowedError)
+                {
+                    isDefaultValue = true;
+                }
+            }
+
+            if (!isDefaultValue)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target doesn't equal to the default value of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double> NotDefault(this ValidateTarget<double> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            double defaultValue = default(double);
+            var diff = Math.Abs(target.Value - defaultValue);
+            if (diff <= allowedError)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target doesn't equal to the default value of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> NotDefault(this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            bool isDefaultValue = false;
+
+            double defaultValue = default(double);
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - defaultValue);
+                if (diff <= allowedError)
+                {
+                    isDefaultValue = true;
+                }
+            }
+
+            if (!isDefaultValue)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target is NaN.
         /// </summary>
         /// <param name="target">Validate target.</param>
