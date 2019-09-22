@@ -65,20 +65,6 @@ namespace Confidence.UnitTests
             this.RunCollectionAllTest<SortedSet<int>, int>(1, 2);
         }
 
-        [Fact]
-        public void DictionaryContainsKeyCanBeValidated()
-        {
-            this.RunDictionaryContainsKeyTest<Dictionary<int, int>, int, int>(
-                new[] { new KeyValuePair<int, int>(1, 2), new KeyValuePair<int, int>(3, 4) },
-                1,
-                5);
-
-            this.RunDictionaryContainsKeyTest<SortedDictionary<int, int>, int, int>(
-                new[] { new KeyValuePair<int, int>(1, 2), new KeyValuePair<int, int>(3, 4) },
-                1,
-                5);
-        }
-
         private void RunCollectionIsEmptyTest<TCollection, TItem>()
             where TCollection : ICollection<TItem>, IEnumerable, new()
         {
@@ -201,26 +187,6 @@ namespace Confidence.UnitTests
 
             Requires.Argument(testCollection, nameof(testCollection)).UntypedAll((x) => !x.Equals(valueNotInCollection));
             Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).UntypedAll((x) => !x.Equals(valueInCollection)));
-        }
-
-        private void RunDictionaryContainsKeyTest<TDictionary, TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> valuePairs, TKey keyInDictionary, TKey keyNotInDictionary)
-            where TDictionary : IDictionary<TKey, TValue>, new()
-        {
-            TDictionary dictionary = new TDictionary();
-            foreach (var valuePair in valuePairs)
-            {
-                 dictionary.Add(valuePair);
-            }
-
-            Requires.Argument(dictionary, nameof(dictionary)).ContainsKey<TDictionary, TKey, TValue>(keyInDictionary);
-            Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).ContainsKey<TDictionary, TKey, TValue>(keyInDictionary);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(dictionary, nameof(dictionary)).ContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).ContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary));
-
-            Requires.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary);
-            Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyInDictionary));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyInDictionary));
         }
     }
 }

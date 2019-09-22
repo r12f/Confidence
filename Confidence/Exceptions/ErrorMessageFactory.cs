@@ -412,6 +412,96 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldBeProperSubsetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeProperSubsetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} is not a proper subset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotBeProperSubsetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotBeProperSubsetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} should not be a proper subset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldBeSubsetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeSubsetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} is not a subset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotBeSubsetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotBeSubsetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} should not be a subset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldBeProperSupersetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeProperSupersetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} is not a proper superset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotBeProperSupersetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotBeProperSupersetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} should not be a proper superset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldBeSupersetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldBeSupersetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} is not a superset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldBeSupersetOf".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotBeSupersetOf<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} should not be a superset of the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldOverlap".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldOverlap<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} does not overlap with the specified set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotOverlap".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotOverlap<T>(ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, "{0} should not overlap with the specified set.");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldBeUnreachable".
         /// </summary>
         public static string ShouldBeUnreachable()

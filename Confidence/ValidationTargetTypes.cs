@@ -64,6 +64,11 @@ namespace Confidence
         public const string Collection = nameof(Collection);
 
         /// <summary>
+        /// Set.
+        /// </summary>
+        public const string Set = nameof(Set);
+
+        /// <summary>
         /// Dictionary.
         /// </summary>
         public const string Dictionary = nameof(Dictionary);
