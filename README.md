@@ -1,9 +1,9 @@
 # Confidence
 Write code with Confidence!!!
 
-Confidence is a easy to read and debug condition checker in C# with code contracts syntax supported.
+Confidence is an easy to read and debug fluent argument/condition checker in C# with code contracts syntax supported.
 
-[![NuGet](https://img.shields.io/nuget/v/Confidence.svg?style=flat&color=blue)](https://github.com/r12f/Confidence)
+[![NuGet](https://img.shields.io/nuget/v/Confidence.svg?style=flat&color=blue)](https://www.nuget.org/packages/Confidence)
 [![Build Status](https://r12f.visualstudio.com/Confidence/_apis/build/status/r12f.Confidence?branchName=master)](https://r12f.visualstudio.com/Confidence/_build/latest?definitionId=1&branchName=master)
 
 .NET versions supported: netstandard >=1.0, .net framework >= 3.5.
@@ -12,11 +12,11 @@ Confidence is a easy to read and debug condition checker in C# with code contrac
 
 ## Code contracts
 Code contracts are better assertions. It is a widely used technique and usually provides 3 variations of assertions to help identifying who is responsible for the failure besides showing what is failing.
-- **Requires:** Precondition checks. It describes the requiments that must be met when entering a method. A.k.a., is the caller f**ked up? For example: argument is not null.
-- **Ensures:** Postcondition checks. It describes the expectations when exiting a method or after calling an external API. A.k.a. is the thing we just did f**ked up?
-- **Asserts:** Invariant checks. It describes the expected state in the middle of the things we are trying to do. A.k.a. are we f**ked up?
+- **Requires:** Precondition checks. It describes the requiments that must be met when entering a method. For example: argument should not be null.
+- **Ensures:** Postcondition checks. It describes the expectations when exiting a method or after calling an external API.
+- **Asserts:** Invariant checks. It describes the expected state in the middle of the things we are trying to do.
 
-Please pardon my language here, but it really helps people remember when to use which validations. And here is a quick example to show how to use code contracts ([full code here](https://github.com/r12f/Confidence/blob/master/Confidence.Samples/Program.cs)):
+Here is a quick example to show how to use code contracts ([full code here](https://github.com/r12f/Confidence/blob/master/Confidence.Samples/Program.cs)):
 ```
 public SomeClass(int foo, string bar)
 {
