@@ -43,9 +43,16 @@ namespace Confidence.UnitTests
             Requires.Argument(testValue, nameof(testValue)).IsGreaterOrEqualThan(0, allowedError);
 
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).IsNaN());
+            Requires.Argument(testValue, nameof(testValue)).NotNaN();
+
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).IsInfinity());
+            Requires.Argument(testValue, nameof(testValue)).NotInfinity();
+
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).IsPositiveInfinity());
+            Requires.Argument(testValue, nameof(testValue)).NotPositiveInfinity();
+
             Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).IsNegativeInfinity());
+            Requires.Argument(testValue, nameof(testValue)).NotNegativeInfinity();
         }
 
         [Theory]

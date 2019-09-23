@@ -211,6 +211,13 @@ namespace Confidence.UnitTests
 
             Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).InRange(objectValue, objectValue);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectSmaller, nameof(objectSmaller)).InRange(objectValue, objectLarger));
+
+            // NotInRange
+            Requires.Argument(objectToTest, nameof(objectToTest)).NotInRange(objectSmaller, objectSmaller);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).NotInRange(objectSmaller, objectLarger));
+
+            Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).NotInRange(objectLarger, objectLarger);
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).NotInRange(objectSmaller, objectLarger));
         }
     }
 }

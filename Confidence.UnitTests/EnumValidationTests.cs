@@ -201,6 +201,30 @@ namespace Confidence.UnitTests
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).IsGreaterOrEqualThan(TestEnum.Value3));
         }
 
+        [Fact]
+        public void EnumInRangeCanBeValidated()
+        {
+            TestEnum testValue = TestEnum.Value2;
+            Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value1, TestEnum.Value3);
+            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value2, TestEnum.Value2);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
+        }
+
+        [Fact]
+        public void NullableEnumInRangeCanBeValidated()
+        {
+            TestEnum? testNullValue = null;
+            Requires.Argument(testNullValue, nameof(testNullValue)).InRange(TestEnum.Value1, TestEnum.Value3);
+            Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).InRange(TestEnum.Value1, TestEnum.Value3);
+
+            TestEnum? testValue = TestEnum.Value2;
+            Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value1, TestEnum.Value3);
+            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value2, TestEnum.Value2);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
+        }
+
         private enum TestEnum
         {
             Value1 = 1,
