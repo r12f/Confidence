@@ -12,7 +12,7 @@ namespace Confidence
     public static class DoubleValidateTargetExtensions
     {
         /// <summary>
-        /// Throw if double is not equal to the value to compare.
+        /// Validate if target equals to a specific value.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
@@ -33,7 +33,38 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Throw if double is equal to the value to compare.
+        /// Validate if target equals to a specific value.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> Equal(this ValidateTarget<double?> target, double valueToCompare, double allowedError, Func<string> getErrorMessage = null)
+        {
+            bool isValidationFailed = true;
+
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - valueToCompare);
+                if (diff <= allowedError)
+                {
+                    isValidationFailed = false;
+                }
+            }
+
+            if (isValidationFailed)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target doesn't equal to a specific value.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
@@ -54,7 +85,38 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target is less than an specific value.
+        /// Validate if target doesn't equal to a specific value.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> NotEqual(this ValidateTarget<double?> target, double valueToCompare, double allowedError, Func<string> getErrorMessage = null)
+        {
+            bool isValidationFailed = false;
+
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - valueToCompare);
+                if (diff <= allowedError)
+                {
+                    isValidationFailed = true;
+                }
+            }
+
+            if (isValidationFailed)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is less than a specific value.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
@@ -75,7 +137,31 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target is less or equal than an specific value.
+        /// Validate if target is less than a specific value. If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsLessThan(this ValidateTarget<double?> target, double valueToCompare, double allowedError, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - valueToCompare);
+                if (diff <= allowedError || target.Value >= valueToCompare)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(target, valueToCompare));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is less or equal than a specific value.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
@@ -96,7 +182,31 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target is greater than an specific value.
+        /// Validate if target is less or equal than a specific value. If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsLessOrEqualThan(this ValidateTarget<double?> target, double valueToCompare, double allowedError, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - valueToCompare);
+                if (diff > allowedError && target.Value > valueToCompare)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(target, valueToCompare));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is greater than a specific value.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
@@ -117,7 +227,31 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target is less than an specific value.
+        /// Validate if target is greater than a specific value. If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsGreaterThan(this ValidateTarget<double?> target, double valueToCompare, double allowedError, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - valueToCompare);
+                if (diff <= allowedError || target.Value <= valueToCompare)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(target, valueToCompare));
+                }
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is greater or equal a specific value.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
@@ -132,6 +266,30 @@ namespace Confidence
             if (diff > allowedError && target.Value < valueToCompare)
             {
                 ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is greater or equal than a specific value. If null, this check will be a no-op, as they are not comparable.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="allowedError">Allowed float point error.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsGreaterOrEqualThan(this ValidateTarget<double?> target, double valueToCompare, double allowedError, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - valueToCompare);
+                if (diff > allowedError && target.Value < valueToCompare)
+                {
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
+                }
             }
 
             return target;
@@ -267,7 +425,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double?> IsDefault(this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            bool isDefaultValue = false;
+            bool isValidationFailed = true;
 
             double defaultValue = default(double);
             if (target.Value.HasValue)
@@ -275,11 +433,11 @@ namespace Confidence
                 var diff = Math.Abs(target.Value.Value - defaultValue);
                 if (diff <= allowedError)
                 {
-                    isDefaultValue = true;
+                    isValidationFailed = false;
                 }
             }
 
-            if (!isDefaultValue)
+            if (isValidationFailed)
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
             }
@@ -319,7 +477,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double?> NotDefault(this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            bool isDefaultValue = false;
+            bool isValidationFailed = false;
 
             double defaultValue = default(double);
             if (target.Value.HasValue)
@@ -327,11 +485,11 @@ namespace Confidence
                 var diff = Math.Abs(target.Value.Value - defaultValue);
                 if (diff <= allowedError)
                 {
-                    isDefaultValue = true;
+                    isValidationFailed = true;
                 }
             }
 
-            if (!isDefaultValue)
+            if (isValidationFailed)
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, defaultValue));
             }
@@ -358,6 +516,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target is NaN.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsNaN(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (!target.Value.HasValue || !double.IsNaN(target.Value.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNaN(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target is not NaN.
         /// </summary>
         /// <param name="target">Validate target.</param>
@@ -368,6 +544,24 @@ namespace Confidence
         public static ValidateTarget<double> NotNaN(this ValidateTarget<double> target, Func<string> getErrorMessage = null)
         {
             if (double.IsNaN(target.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNaN(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not NaN.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> NotNaN(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue && double.IsNaN(target.Value.Value))
             {
                 ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNaN(target));
             }
@@ -394,6 +588,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target is infinity.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsInfinity(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (!target.Value.HasValue || !double.IsInfinity(target.Value.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInfinity(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target is not infinity.
         /// </summary>
         /// <param name="target">Validate target.</param>
@@ -404,6 +616,24 @@ namespace Confidence
         public static ValidateTarget<double> NotInfinity(this ValidateTarget<double> target, Func<string> getErrorMessage = null)
         {
             if (double.IsInfinity(target.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInfinity(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not infinity.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> NotInfinity(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue && double.IsInfinity(target.Value.Value))
             {
                 ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInfinity(target));
             }
@@ -430,6 +660,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target is positive infinity.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsPositiveInfinity(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (!target.Value.HasValue || !double.IsPositiveInfinity(target.Value.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBePositiveInfinity(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target is not positive infinity.
         /// </summary>
         /// <param name="target">Validate target.</param>
@@ -440,6 +688,24 @@ namespace Confidence
         public static ValidateTarget<double> NotPositiveInfinity(this ValidateTarget<double> target, Func<string> getErrorMessage = null)
         {
             if (double.IsPositiveInfinity(target.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBePositiveInfinity(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not positive infinity.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> NotPositiveInfinity(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue && double.IsPositiveInfinity(target.Value.Value))
             {
                 ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBePositiveInfinity(target));
             }
@@ -466,6 +732,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target is negative infinity.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsNegativeInfinity(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (!target.Value.HasValue || !double.IsNegativeInfinity(target.Value.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNegativeInfinity(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target is not negative infinity.
         /// </summary>
         /// <param name="target">Validate target.</param>
@@ -476,6 +760,24 @@ namespace Confidence
         public static ValidateTarget<double> NotNegativeInfinity(this ValidateTarget<double> target, Func<string> getErrorMessage = null)
         {
             if (double.IsNegativeInfinity(target.Value))
+            {
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNegativeInfinity(target));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target is not negative infinity.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Error message builder.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> NotNegativeInfinity(this ValidateTarget<double?> target, Func<string> getErrorMessage = null)
+        {
+            if (target.Value.HasValue && double.IsNegativeInfinity(target.Value.Value))
             {
                 ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNegativeInfinity(target));
             }
