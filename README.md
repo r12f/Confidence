@@ -5,6 +5,7 @@ Confidence is an easy to read and debug fluent argument/condition checker in C# 
 
 [![NuGet](https://img.shields.io/nuget/v/Confidence.svg?style=flat&color=blue)](https://www.nuget.org/packages/Confidence)
 [![Build Status](https://r12f.visualstudio.com/Confidence/_apis/build/status/r12f.Confidence?branchName=master)](https://r12f.visualstudio.com/Confidence/_build/latest?definitionId=1&branchName=master)
+[![Code coverage](https://img.shields.io/azure-devops/coverage/r12f/Confidence/1.svg)](https://r12f.visualstudio.com/Confidence/_build/latest?definitionId=1&branchName=master)
 
 .NET versions supported: netstandard >=1.0, .net framework >= 3.5.
 
