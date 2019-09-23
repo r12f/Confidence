@@ -33,7 +33,7 @@ public void DoSomething()
     Asserts.Variable(this.Foo, nameof(this.Foo)).NotEqual(0, () => "Foo should never become 0.");
     // Do something part 2.
 
-    Ensures.IsTrue(() => this.AreSomeStatesExpected(), () => "Some states are not expected.");
+    Ensures.IsTrue(this.AreSomeStatesExpected(), () => "Some states are not expected.");
 }
 ```
 
@@ -79,9 +79,9 @@ public static class MyAsserts
     }
 
     [DebuggerStepThrough]
-    public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
+    public static void IsTrue(bool isValid, Func<string> getErrorMessage = null)
     {
-        CustomAssertionValidation.IsTrue<CustomizedException>(assertion, getErrorMessage);
+        CustomAssertionValidation.IsTrue<CustomizedException>(isValid, getErrorMessage);
     }
 }
 ```

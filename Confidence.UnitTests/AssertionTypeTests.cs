@@ -34,13 +34,13 @@ namespace Confidence.UnitTests
         [Fact]
         public void RequiresIsTrueCanValidate()
         {
-            Requires.IsTrue(() => true);
-            Requires.IsTrue<InvalidOperationException>(() => true, () => "Customized error message.");
-            Requires<InvalidOperationException>.IsTrue(() => true, () => "Customized error message.");
+            Requires.IsTrue(true);
+            Requires.IsTrue<InvalidOperationException>(true, () => "Customized error message.");
+            Requires<InvalidOperationException>.IsTrue(true, () => "Customized error message.");
 
-            Assert.Throws<PreconditionViolationException>(() => Requires.IsTrue(() => false));
-            Assert.Throws<InvalidOperationException>(() => Requires.IsTrue<InvalidOperationException>(() => false, () => "Customized error message."));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.IsTrue(() => false, () => "Customized error message."));
+            Assert.Throws<PreconditionViolationException>(() => Requires.IsTrue(false));
+            Assert.Throws<InvalidOperationException>(() => Requires.IsTrue<InvalidOperationException>(false, () => "Customized error message."));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.IsTrue(false, () => "Customized error message."));
         }
 
         [Fact]
@@ -58,13 +58,13 @@ namespace Confidence.UnitTests
         [Fact]
         public void EnsuresIsTrueCanValidate()
         {
-            Ensures.IsTrue(() => true);
-            Ensures.IsTrue<InvalidOperationException>(() => true, () => "Customized error message.");
-            Ensures<InvalidOperationException>.IsTrue(() => true, () => "Customized error message.");
+            Ensures.IsTrue(true);
+            Ensures.IsTrue<InvalidOperationException>(true, () => "Customized error message.");
+            Ensures<InvalidOperationException>.IsTrue(true, () => "Customized error message.");
 
-            Assert.Throws<PostconditionViolationException>(() => Ensures.IsTrue(() => false));
-            Assert.Throws<InvalidOperationException>(() => Ensures.IsTrue<InvalidOperationException>(() => false, () => "Customized error message."));
-            Assert.Throws<InvalidOperationException>(() => Ensures<InvalidOperationException>.IsTrue(() => false, () => "Customized error message."));
+            Assert.Throws<PostconditionViolationException>(() => Ensures.IsTrue(false));
+            Assert.Throws<InvalidOperationException>(() => Ensures.IsTrue<InvalidOperationException>(false, () => "Customized error message."));
+            Assert.Throws<InvalidOperationException>(() => Ensures<InvalidOperationException>.IsTrue(false, () => "Customized error message."));
         }
 
         [Fact]
@@ -85,6 +85,78 @@ namespace Confidence.UnitTests
             Assert.Throws<InvalidOperationException>(() => Asserts.UnreachableCode());
             Assert.Throws<InvariantViolationException>(() => Asserts.UnreachableCode<InvariantViolationException>());
             Assert.Throws<InvariantViolationException>(() => Asserts<InvariantViolationException>.UnreachableCode());
+        }
+
+        [Fact]
+        public void RequiresInvalidOperationCanBeValidated()
+        {
+            Requires.InvalidOperation(true);
+            Requires.InvalidOperation<InvariantViolationException>(true);
+            Requires<InvariantViolationException>.InvalidOperation(true);
+
+            Assert.Throws<InvalidOperationException>(() => Requires.InvalidOperation(false));
+            Assert.Throws<InvariantViolationException>(() => Requires.InvalidOperation<InvariantViolationException>(false));
+            Assert.Throws<InvariantViolationException>(() => Requires<InvariantViolationException>.InvalidOperation(false));
+        }
+
+        [Fact]
+        public void RequiresNotDisposedCanBeValidated()
+        {
+            Requires.NotDisposed(false, "TestObject");
+            Requires.NotDisposed<InvariantViolationException>(false, "TestObject");
+            Requires<InvariantViolationException>.NotDisposed(false, "TestObject");
+
+            Assert.Throws<ObjectDisposedException>(() => Requires.NotDisposed(true, "TestObject"));
+            Assert.Throws<InvariantViolationException>(() => Requires.NotDisposed<InvariantViolationException>(true, "TestObject"));
+            Assert.Throws<InvariantViolationException>(() => Requires<InvariantViolationException>.NotDisposed(true, "TestObject"));
+        }
+
+        [Fact]
+        public void EnsuresInvalidOperationCanBeValidated()
+        {
+            Ensures.InvalidOperation(true);
+            Ensures.InvalidOperation<InvariantViolationException>(true);
+            Ensures<InvariantViolationException>.InvalidOperation(true);
+
+            Assert.Throws<InvalidOperationException>(() => Ensures.InvalidOperation(false));
+            Assert.Throws<InvariantViolationException>(() => Ensures.InvalidOperation<InvariantViolationException>(false));
+            Assert.Throws<InvariantViolationException>(() => Ensures<InvariantViolationException>.InvalidOperation(false));
+        }
+
+        [Fact]
+        public void EnsuresNotDisposedCanBeValidated()
+        {
+            Ensures.NotDisposed(false, "TestObject");
+            Ensures.NotDisposed<InvariantViolationException>(false, "TestObject");
+            Ensures<InvariantViolationException>.NotDisposed(false, "TestObject");
+
+            Assert.Throws<ObjectDisposedException>(() => Ensures.NotDisposed(true, "TestObject"));
+            Assert.Throws<InvariantViolationException>(() => Ensures.NotDisposed<InvariantViolationException>(true, "TestObject"));
+            Assert.Throws<InvariantViolationException>(() => Ensures<InvariantViolationException>.NotDisposed(true, "TestObject"));
+        }
+
+        [Fact]
+        public void AssertsInvalidOperationCanBeValidated()
+        {
+            Asserts.InvalidOperation(true);
+            Asserts.InvalidOperation<InvariantViolationException>(true);
+            Asserts<InvariantViolationException>.InvalidOperation(true);
+
+            Assert.Throws<InvalidOperationException>(() => Asserts.InvalidOperation(false));
+            Assert.Throws<InvariantViolationException>(() => Asserts.InvalidOperation<InvariantViolationException>(false));
+            Assert.Throws<InvariantViolationException>(() => Asserts<InvariantViolationException>.InvalidOperation(false));
+        }
+
+        [Fact]
+        public void AssertsNotDisposedCanBeValidated()
+        {
+            Asserts.NotDisposed(false, "TestObject");
+            Asserts.NotDisposed<InvariantViolationException>(false, "TestObject");
+            Asserts<InvariantViolationException>.NotDisposed(false, "TestObject");
+
+            Assert.Throws<ObjectDisposedException>(() => Asserts.NotDisposed(true, "TestObject"));
+            Assert.Throws<InvariantViolationException>(() => Asserts.NotDisposed<InvariantViolationException>(true, "TestObject"));
+            Assert.Throws<InvariantViolationException>(() => Asserts<InvariantViolationException>.NotDisposed(true, "TestObject"));
         }
     }
 }

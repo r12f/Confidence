@@ -47,6 +47,14 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldNotBeDisposed".
+        /// </summary>
+        public static string ShouldNotBeDisposed(string objectName)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "Object {0} has already been disposed.", objectName);
+        }
+
+        /// <summary>
         /// Create error message for "ShouldBeTrue".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>

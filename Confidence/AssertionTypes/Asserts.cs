@@ -32,27 +32,27 @@ namespace Confidence
         /// <summary>
         /// Validate if a custom assertion returns true.
         /// </summary>
-        /// <param name="assertion">Custom assertion.</param>
+        /// <param name="isValid">Custom assertion.</param>
         /// <param name="getErrorMessage">Error message.</param>
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
-        public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
+        public static void IsTrue(bool isValid, Func<string> getErrorMessage = null)
         {
-            CustomAssertionValidation.IsTrue<InvariantViolationException>(assertion, getErrorMessage);
+            CustomAssertionValidation.IsTrue<InvariantViolationException>(isValid, getErrorMessage);
         }
 
         /// <summary>
         /// Validate if a custom assertion returns true.
         /// </summary>
         /// <typeparam name="TException">Exception type.</typeparam>
-        /// <param name="assertion">Custom assertion.</param>
+        /// <param name="isValid">Custom assertion.</param>
         /// <param name="getErrorMessage">Error message.</param>
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
-        public static void IsTrue<TException>(Func<bool> assertion, Func<string> getErrorMessage = null)
+        public static void IsTrue<TException>(bool isValid, Func<string> getErrorMessage = null)
             where TException : Exception
         {
-            CustomAssertionValidation.IsTrue<InvariantViolationException>(assertion, getErrorMessage);
+            CustomAssertionValidation.IsTrue<InvariantViolationException>(isValid, getErrorMessage);
         }
 
         /// <summary>
@@ -77,6 +77,60 @@ namespace Confidence
             where TException : Exception
         {
             ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
+        }
+
+        /// <summary>
+        /// Throw InvalidOperationException, is the custom assertion fails.
+        /// </summary>
+        /// <param name="isValid">Custom assertion.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void InvalidOperation(bool isValid, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.IsTrue<InvalidOperationException>(isValid, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw InvalidOperationException, is the custom assertion fails.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="isValid">Custom assertion.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void InvalidOperation<TException>(bool isValid, Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw ObjectDisposedException, is the custom assertion fails.
+        /// </summary>
+        /// <param name="isDisposed">Is disposed value.</param>
+        /// <param name="objectName">Object name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotDisposed(bool isDisposed, string objectName, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.NotDisposed<ObjectDisposedException>(isDisposed, objectName, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw ObjectDisposedException, is the custom assertion fails.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="isDisposed">Is disposed value.</param>
+        /// <param name="objectName">Object name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotDisposed<TException>(bool isDisposed, string objectName, Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            CustomAssertionValidation.NotDisposed<TException>(isDisposed, objectName, getErrorMessage);
         }
     }
 
@@ -107,13 +161,13 @@ namespace Confidence
         /// <summary>
         /// Validate if a custom assertion returns true.
         /// </summary>
-        /// <param name="assertion">Custom assertion.</param>
+        /// <param name="isValid">Custom assertion.</param>
         /// <param name="getErrorMessage">Error message.</param>
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
-        public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
+        public static void IsTrue(bool isValid, Func<string> getErrorMessage = null)
         {
-            CustomAssertionValidation.IsTrue<TException>(assertion, getErrorMessage);
+            CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
         }
 
         /// <summary>
@@ -125,6 +179,31 @@ namespace Confidence
         public static void UnreachableCode(Func<string> getErrorMessage = null)
         {
             ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
+        }
+
+        /// <summary>
+        /// Throw InvalidOperationException, is the custom assertion fails.
+        /// </summary>
+        /// <param name="isValid">Custom assertion.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void InvalidOperation(bool isValid, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw ObjectDisposedException, is the custom assertion fails.
+        /// </summary>
+        /// <param name="isDisposed">Is disposed value.</param>
+        /// <param name="objectName">Object name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotDisposed(bool isDisposed, string objectName, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.NotDisposed<TException>(isDisposed, objectName, getErrorMessage);
         }
     }
 }

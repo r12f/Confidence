@@ -15,19 +15,39 @@ namespace Confidence
         /// Validate if a custom assertion returns true.
         /// </summary>
         /// <typeparam name="TException">Exception type.</typeparam>
-        /// <param name="assertion">Custom assertion.</param>
+        /// <param name="isValid">Custom assertion.</param>
         /// <param name="getErrorMessage">Error message.</param>
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
-        public static void IsTrue<TException>(Func<bool> assertion, Func<string> getErrorMessage = null)
+        public static void IsTrue<TException>(bool isValid, Func<string> getErrorMessage = null)
             where TException : Exception
         {
-            if (assertion.Invoke())
+            if (isValid)
             {
                 return;
             }
 
             ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrueOnCustomAssertion());
+        }
+
+        /// <summary>
+        /// Throw if the object is disposed.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="isDisposed">Is disposed value.</param>
+        /// <param name="objectName">Object name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotDisposed<TException>(bool isDisposed, string objectName, Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            if (!isDisposed)
+            {
+                return;
+            }
+
+            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeDisposed(objectName));
         }
     }
 }

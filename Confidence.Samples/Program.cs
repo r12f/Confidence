@@ -34,7 +34,7 @@ namespace Confidence.Samples
             Asserts.Variable(this.Foo, nameof(this.Foo)).NotEqual(0, () => "Foo becomes 0 when we are doing something.");
             // Do something part 2.
 
-            Ensures.IsTrue(() => this.AreSomeStatesExpected(), () => "Some states are not expected.");
+            Ensures.IsTrue(this.AreSomeStatesExpected(), () => "Some states are not expected.");
         }
 
         private bool AreSomeStatesExpected()
@@ -56,9 +56,9 @@ namespace Confidence.Samples
         }
 
         [DebuggerStepThrough]
-        public static void IsTrue(Func<bool> assertion, Func<string> getErrorMessage = null)
+        public static void IsTrue(bool isValid, Func<string> getErrorMessage = null)
         {
-            CustomAssertionValidation.IsTrue<CustomizedException>(assertion, getErrorMessage);
+            CustomAssertionValidation.IsTrue<CustomizedException>(isValid, getErrorMessage);
         }
     }
 
