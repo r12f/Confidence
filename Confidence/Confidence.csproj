@@ -21,6 +21,7 @@
     <Content Include="$(RepoRoot)\README.md" />
     <Content Include="$(RepoRoot)\LICENSE" />
     <None Include="$(RepoRoot)\azure-pipelines.yml" />
+    <None Include="$(RepoRoot)\code-coverage.runsettings" />
   </ItemGroup>
 
   <ItemGroup>

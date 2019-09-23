@@ -72,7 +72,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.UnitTests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --settings:$(Build.SourcesDirectory)\code-coverage.runsettings'
 
 # Publish
 - task: CopyFiles@2
