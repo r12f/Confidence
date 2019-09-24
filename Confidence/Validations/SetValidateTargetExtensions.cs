@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -24,18 +25,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> IsProperSubsetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> IsProperSubsetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (!target.Value.IsProperSubsetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeProperSubsetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeProperSubsetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -49,18 +50,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> NotProperSubsetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> NotProperSubsetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (target.Value.IsProperSubsetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeProperSubsetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeProperSubsetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -74,18 +75,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> IsSubsetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> IsSubsetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (!target.Value.IsSubsetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSubsetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSubsetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -99,18 +100,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> NotSubsetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> NotSubsetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (target.Value.IsSubsetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeSubsetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeSubsetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -124,18 +125,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> IsProperSupersetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> IsProperSupersetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (!target.Value.IsProperSupersetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeProperSupersetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeProperSupersetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -149,18 +150,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> NotProperSupersetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> NotProperSupersetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (target.Value.IsProperSupersetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeProperSupersetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeProperSupersetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -174,18 +175,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> IsSupersetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> IsSupersetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (!target.Value.IsSupersetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSupersetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSupersetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -199,18 +200,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> NotSupersetOf<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> NotSupersetOf<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (target.Value.IsSupersetOf(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeSupersetOf(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeSupersetOf(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -224,18 +225,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> Overlaps<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> Overlaps<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (!target.Value.Overlaps(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldOverlap(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldOverlap(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -249,18 +250,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Set, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TSet> NotOverlaps<TSet, TItem>(in this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TSet> NotOverlaps<TSet, TItem>([ValidatedNotNull] this ValidateTarget<TSet> target, IEnumerable<TItem> valueToCompare, Func<string> getErrorMessage = null)
             where TSet : ISet<TItem>
         {
             if (target.Value != null)
             {
                 if (target.Value.Overlaps(valueToCompare))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotOverlap(in target));
+                    ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotOverlap(target));
                 }
             }
 
-            return ref target;
+            return target;
         }
 #endif
     }

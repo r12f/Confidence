@@ -9,7 +9,7 @@ Confidence is an easy to read and debug fluent argument/condition checker in C# 
 
 .NET versions supported: netstandard >=1.0, .net framework >= 3.5.
 
-**Requirements:** Please [use C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) for supporting Enum validations and in attribute as readonly ref by adding ```<LangVersion>7.3</LangVersion>``` into your .csproj file.
+**Requirements:** If you are planning to use enum validations (i.e. ```HasFlag``` and ```HasNoFlag```), please [use C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) by adding ```<LangVersion>7.3</LangVersion>``` into your .csproj file. Or we could use ```IsTrue``` validation instead for workaround.
 
 ## Code contracts
 Code contracts are better assertions. It is a widely used technique and usually provides 3 variations of assertions to help identifying who is responsible for the failure besides showing what is failing.
@@ -54,14 +54,15 @@ Although many validations are already provided on system types, like object, boo
 public static class SomeClassValidateTargetExtensions
 {
     [DebuggerStepThrough]
-    public static ref readonly ValidateTarget<SomeClass> FooNotZero(in this ValidateTarget<SomeClass> target, Func<string> getErrorMessage = null)
+    public static ValidateTarget<SomeClass> FooNotZero([ValidatedNotNull] this ValidateTarget<SomeClass> target, Func<string> getErrorMessage = null)
     {
-        if (target.Value.Foo == 0)
+        // If SomeClass object is null, Foo is also not zero.
+        if (target.Value != null && target.Value.Foo == 0)
         {
             ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : "Foo cannot be zero.");
         }
 
-        return ref target;
+        return target;
     }
 }
 ```
@@ -86,6 +87,7 @@ public static class MyAsserts
         CustomAssertionValidation.IsTrue<CustomizedException>(isValid, getErrorMessage);
     }
 }
+
 ```
 
 The full code can be found [here](https://github.com/r12f/Confidence/blob/master/Confidence.Samples/Program.cs).
@@ -96,7 +98,7 @@ Here are the design principles of Confidence, and some decisions we make.
 ### Be compatiable as much as possible
 A library working like a if-then-throw check should not limit the platform it runs too much. If something really cannot be supported before certain .NET version, we could use #if to wrap it. And we always has .IsTrue validation as the backup plan.
 
-One hard decision for us to make is validations on enum. Enum as generic is only supported after C# 7.3. It means when this project is created, most people have to add the LangVersion property into their .csproj file to make it work. But since enum is such a important type and so frequently used, using IsTrue with Func validation seems to be even more painful than adding that property. So evetually we still decide to make people upgrade to C# 7.3.
+One hard decision for us to make is validations on enum. Enum as generic is only supported after C# 7.3, which is [used as default after Visual Studio 2019](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version). It means when this project is created, most people have to add the LangVersion property into their .csproj file to make it work. But since enum is such a important type and so frequently used, using IsTrue with Func validation seems to be even more painful than adding that property. So evetually we still decide to make people, who choose to use enum validations, upgrade to C# 7.3.
 
 ### Readability and debugability comes first
 #### Assert one thing at a time

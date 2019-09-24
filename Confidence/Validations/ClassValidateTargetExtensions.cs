@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -20,15 +21,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> IsNull<TValue>(in this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> IsNull<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
             where TValue : class
         {
             if (target.Value != null)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNull(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNull(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -40,15 +41,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> NotNull<TValue>(in this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> NotNull<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
             where TValue : class
         {
             if (target.Value == null)
             {
-                ExceptionFactory.ThrowException(target.Traits.ObjectNullExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNull(in target));
+                ExceptionFactory.ThrowException(target.Traits.ObjectNullExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNull(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -61,15 +62,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> IsSame<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> IsSame<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
             where TValue : class
         {
             if (!object.ReferenceEquals(target.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSame(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSame(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -82,15 +83,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> NotSame<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> NotSame<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
             where TValue : class
         {
             if (object.ReferenceEquals(target.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeSame(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeSame(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
     }
 }

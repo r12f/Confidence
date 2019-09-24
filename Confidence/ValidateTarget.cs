@@ -11,10 +11,10 @@ namespace Confidence
     /// <typeparam name="T">Validate target type.</typeparam>
     [DebuggerDisplay("Name = {Name}, Value = {Value}")]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1815:Override equals and operator equals on value types", Justification = "ValidateTarget won't be used in comparison.")]
-    public readonly struct ValidateTarget<T>
+    public class ValidateTarget<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ValidateTarget{T}"/> struct.
+        /// Initializes a new instance of the <see cref="ValidateTarget{T}"/> class.
         /// </summary>
         /// <param name="targetName">target name.</param>
         /// <param name="targetValue">target value.</param>

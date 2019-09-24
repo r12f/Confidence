@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -21,15 +22,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> Equal(in this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> Equal([ValidatedNotNull] this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             var diff = Math.Abs(target.Value - valueToCompare);
             if (diff > allowedError)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> Equal(in this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> Equal([ValidatedNotNull] this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             bool isValidationFailed = true;
 
@@ -57,10 +58,10 @@ namespace Confidence
 
             if (isValidationFailed)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -73,15 +74,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> NotEqual(in this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> NotEqual([ValidatedNotNull] this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             var diff = Math.Abs(target.Value - valueToCompare);
             if (diff <= allowedError)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> NotEqual(in this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> NotEqual([ValidatedNotNull] this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             bool isValidationFailed = false;
 
@@ -109,10 +110,10 @@ namespace Confidence
 
             if (isValidationFailed)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -125,15 +126,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsLessThan(in this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsLessThan([ValidatedNotNull] this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             var diff = Math.Abs(target.Value - valueToCompare);
             if (diff <= allowedError || target.Value >= valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -146,18 +147,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsLessThan(in this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsLessThan([ValidatedNotNull] this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue)
             {
                 var diff = Math.Abs(target.Value.Value - valueToCompare);
                 if (diff <= allowedError || target.Value >= valueToCompare)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(in target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(target, valueToCompare));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -170,15 +171,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsLessOrEqualThan(in this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsLessOrEqualThan([ValidatedNotNull] this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             var diff = Math.Abs(target.Value - valueToCompare);
             if (diff > allowedError && target.Value > valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -191,18 +192,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsLessOrEqualThan(in this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsLessOrEqualThan([ValidatedNotNull] this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue)
             {
                 var diff = Math.Abs(target.Value.Value - valueToCompare);
                 if (diff > allowedError && target.Value > valueToCompare)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(in target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(target, valueToCompare));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -215,15 +216,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsGreaterThan(in this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsGreaterThan([ValidatedNotNull] this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             var diff = Math.Abs(target.Value - valueToCompare);
             if (diff <= allowedError || target.Value <= valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -236,18 +237,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsGreaterThan(in this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsGreaterThan([ValidatedNotNull] this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue)
             {
                 var diff = Math.Abs(target.Value.Value - valueToCompare);
                 if (diff <= allowedError || target.Value <= valueToCompare)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(in target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(target, valueToCompare));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -260,15 +261,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsGreaterOrEqualThan(in this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsGreaterOrEqualThan([ValidatedNotNull] this ValidateTarget<float> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             var diff = Math.Abs(target.Value - valueToCompare);
             if (diff > allowedError && target.Value < valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -281,18 +282,18 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsGreaterOrEqualThan(in this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsGreaterOrEqualThan([ValidatedNotNull] this ValidateTarget<float?> target, float valueToCompare, float allowedError, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue)
             {
                 var diff = Math.Abs(target.Value.Value - valueToCompare);
                 if (diff > allowedError && target.Value < valueToCompare)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(in target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -306,16 +307,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> InRange(in this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> InRange([ValidatedNotNull] this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
         {
             var diffFromMin = Math.Abs(target.Value - minValue);
             var diffFromMax = Math.Abs(target.Value - maxValue);
             if ((diffFromMin > allowedError && target.Value < minValue) || (diffFromMax > allowedError && target.Value > maxValue))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(in target, minValue, maxValue));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -329,7 +330,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> InRange(in this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> InRange([ValidatedNotNull] this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue)
             {
@@ -337,11 +338,11 @@ namespace Confidence
                 var diffFromMax = Math.Abs(target.Value.Value - maxValue);
                 if ((diffFromMin > allowedError && target.Value.Value < minValue) || (diffFromMax > allowedError && target.Value.Value > maxValue))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(in target, minValue, maxValue));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -355,16 +356,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> NotInRange(in this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> NotInRange([ValidatedNotNull] this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
         {
             var diffFromMin = Math.Abs(target.Value - minValue);
             var diffFromMax = Math.Abs(target.Value - maxValue);
             if ((diffFromMin < allowedError || target.Value >= minValue) && (diffFromMax < allowedError || target.Value <= maxValue))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(in target, minValue, maxValue));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -378,7 +379,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> NotInRange(in this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> NotInRange([ValidatedNotNull] this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue)
             {
@@ -386,11 +387,11 @@ namespace Confidence
                 var diffFromMax = Math.Abs(target.Value.Value - maxValue);
                 if ((diffFromMin < allowedError || target.Value.Value >= minValue) && (diffFromMax < allowedError || target.Value.Value <= maxValue))
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(in target, minValue, maxValue));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
                 }
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -402,16 +403,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsDefault(in this ValidateTarget<float> target, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsDefault([ValidatedNotNull] this ValidateTarget<float> target, float allowedError, Func<string> getErrorMessage = null)
         {
             float defaultValue = default(float);
             var diff = Math.Abs(target.Value - defaultValue);
             if (diff > allowedError)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(in target, defaultValue));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -423,7 +424,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsDefault(in this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsDefault([ValidatedNotNull] this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
         {
             bool isValidationFailed = true;
 
@@ -439,10 +440,10 @@ namespace Confidence
 
             if (isValidationFailed)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(in target, defaultValue));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -454,16 +455,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> NotDefault(in this ValidateTarget<float> target, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> NotDefault([ValidatedNotNull] this ValidateTarget<float> target, float allowedError, Func<string> getErrorMessage = null)
         {
             float defaultValue = default(float);
             var diff = Math.Abs(target.Value - defaultValue);
             if (diff <= allowedError)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(in target, defaultValue));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, defaultValue));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -475,7 +476,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> NotDefault(in this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> NotDefault([ValidatedNotNull] this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
         {
             bool isValidationFailed = false;
 
@@ -491,10 +492,10 @@ namespace Confidence
 
             if (isValidationFailed)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(in target, defaultValue));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, defaultValue));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -505,14 +506,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsNaN(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsNaN([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (!float.IsNaN(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNaN(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNaN(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -523,14 +524,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsNaN(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsNaN([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (!target.Value.HasValue || !float.IsNaN(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNaN(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNaN(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -541,14 +542,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> NotNaN(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> NotNaN([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (float.IsNaN(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNaN(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNaN(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -559,14 +560,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> NotNaN(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> NotNaN([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue && float.IsNaN(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNaN(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNaN(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -577,14 +578,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsInfinity(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsInfinity([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (!float.IsInfinity(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -595,14 +596,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsInfinity(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsInfinity([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (!target.Value.HasValue || !float.IsInfinity(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -613,14 +614,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> NotInfinity(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> NotInfinity([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (float.IsInfinity(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -631,14 +632,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> NotInfinity(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> NotInfinity([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue && float.IsInfinity(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -649,14 +650,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsPositiveInfinity(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsPositiveInfinity([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (!float.IsPositiveInfinity(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBePositiveInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBePositiveInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -667,14 +668,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsPositiveInfinity(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsPositiveInfinity([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (!target.Value.HasValue || !float.IsPositiveInfinity(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBePositiveInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBePositiveInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -685,14 +686,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> NotPositiveInfinity(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> NotPositiveInfinity([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (float.IsPositiveInfinity(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBePositiveInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBePositiveInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -703,14 +704,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> NotPositiveInfinity(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> NotPositiveInfinity([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue && float.IsPositiveInfinity(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBePositiveInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBePositiveInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -721,14 +722,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> IsNegativeInfinity(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsNegativeInfinity([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (!float.IsNegativeInfinity(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNegativeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNegativeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -739,14 +740,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> IsNegativeInfinity(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsNegativeInfinity([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (!target.Value.HasValue || !float.IsNegativeInfinity(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNegativeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNegativeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -757,14 +758,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float> NotNegativeInfinity(in this ValidateTarget<float> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> NotNegativeInfinity([ValidatedNotNull] this ValidateTarget<float> target, Func<string> getErrorMessage = null)
         {
             if (float.IsNegativeInfinity(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNegativeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNegativeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -775,14 +776,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<float?> NotNegativeInfinity(in this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> NotNegativeInfinity([ValidatedNotNull] this ValidateTarget<float?> target, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue && float.IsNegativeInfinity(target.Value.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNegativeInfinity(in target));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNegativeInfinity(target));
             }
 
-            return ref target;
+            return target;
         }
     }
 }

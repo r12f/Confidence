@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -19,14 +20,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> IsEmpty(in this ValidateTarget<string> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<string> IsEmpty([ValidatedNotNull] this ValidateTarget<string> target, Func<string> getErrorMessage = null)
         {
             if (target.Value == null || target.Value.Length != 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEmpty(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEmpty(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -37,14 +38,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> NotEmpty(in this ValidateTarget<string> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<string> NotEmpty([ValidatedNotNull] this ValidateTarget<string> target, Func<string> getErrorMessage = null)
         {
             if (target.Value != null && target.Value.Length == 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEmpty(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEmpty(target));
             }
 
-            return ref target;
+            return target;
         }
 
 #if !NET35
@@ -57,14 +58,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> IsWhiteSpace(in this ValidateTarget<string> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<string> IsWhiteSpace([ValidatedNotNull] this ValidateTarget<string> target, Func<string> getErrorMessage = null)
         {
             if (target.Value == null || !string.IsNullOrWhiteSpace(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeWhiteSpace(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeWhiteSpace(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -75,14 +76,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> NotWhiteSpace(in this ValidateTarget<string> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<string> NotWhiteSpace([ValidatedNotNull] this ValidateTarget<string> target, Func<string> getErrorMessage = null)
         {
             if (target.Value != null && string.IsNullOrWhiteSpace(target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeWhiteSpace(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeWhiteSpace(target));
             }
 
-            return ref target;
+            return target;
         }
 
 #endif
@@ -97,14 +98,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> StartsWith(in this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
+        public static ValidateTarget<string> StartsWith([ValidatedNotNull] this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
         {
             if (target.Value == null || !target.Value.StartsWith(valueToCompare, stringComparison))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldStartWith(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldStartWith(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -117,14 +118,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> NotStartsWith(in this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
+        public static ValidateTarget<string> NotStartsWith([ValidatedNotNull] this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
         {
             if (target.Value != null && target.Value.StartsWith(valueToCompare, stringComparison))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotStartWith(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotStartWith(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -137,14 +138,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> EndsWith(in this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
+        public static ValidateTarget<string> EndsWith([ValidatedNotNull] this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
         {
             if (target.Value == null || !target.Value.EndsWith(valueToCompare, stringComparison))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldEndWith(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldEndWith(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -157,14 +158,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<string> NotEndsWith(in this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
+        public static ValidateTarget<string> NotEndsWith([ValidatedNotNull] this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
         {
             if (target.Value != null && target.Value.EndsWith(valueToCompare, stringComparison))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotEndWith(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotEndWith(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
     }
 }

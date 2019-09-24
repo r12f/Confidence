@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -19,14 +20,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<bool> IsTrue(in this ValidateTarget<bool> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<bool> IsTrue([ValidatedNotNull] this ValidateTarget<bool> target, Func<string> getErrorMessage = null)
         {
             if (!target.Value)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -37,14 +38,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<bool?> IsTrue(in this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<bool?> IsTrue([ValidatedNotNull] this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
         {
             if (!target.Value.HasValue || !target.Value.Value)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -55,14 +56,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<bool?> NotTrue(in this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<bool?> NotTrue([ValidatedNotNull] this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue && target.Value.Value)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrue(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -73,14 +74,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<bool> IsFalse(in this ValidateTarget<bool> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<bool> IsFalse([ValidatedNotNull] this ValidateTarget<bool> target, Func<string> getErrorMessage = null)
         {
             if (target.Value)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeFalse(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeFalse(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -91,14 +92,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<bool?> IsFalse(in this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<bool?> IsFalse([ValidatedNotNull] this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
         {
             if (!target.Value.HasValue || target.Value.Value)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeFalse(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeFalse(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -109,14 +110,14 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Boolean, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<bool?> NotFalse(in this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<bool?> NotFalse([ValidatedNotNull] this ValidateTarget<bool?> target, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue && !target.Value.Value)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeFalse(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeFalse(target));
             }
 
-            return ref target;
+            return target;
         }
     }
 }

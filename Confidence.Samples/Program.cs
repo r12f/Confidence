@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 #pragma warning disable SA1204 // Static elements should appear before instance elements
 #pragma warning disable SA1600 // Elements should be documented
@@ -77,14 +78,15 @@ namespace Confidence.Samples
     public static class SomeClassValidateTargetExtensions
     {
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<SomeClass> FooNotZero(in this ValidateTarget<SomeClass> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<SomeClass> FooNotZero([ValidatedNotNull] this ValidateTarget<SomeClass> target, Func<string> getErrorMessage = null)
         {
-            if (target.Value.Foo == 0)
+            // If SomeClass object is null, Foo is also not zero.
+            if (target.Value != null && target.Value.Foo == 0)
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : "Foo cannot be zero.");
             }
 
-            return ref target;
+            return target;
         }
     }
 

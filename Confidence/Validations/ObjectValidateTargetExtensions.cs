@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -22,7 +23,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> IsTrue<TValue>(in this ValidateTarget<TValue> target, Func<bool> assertion, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> IsTrue<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<bool> assertion, Func<string> getErrorMessage = null)
         {
             if (assertion == null)
             {
@@ -31,10 +32,10 @@ namespace Confidence
 
             if (!assertion.Invoke())
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrueOnCustomAssertion(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeTrueOnCustomAssertion(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -48,15 +49,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> Equal<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+        public static ValidateTarget<TValue> Equal<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
         {
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (!comparer.Equals(target.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -70,15 +71,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> NotEqual<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+        public static ValidateTarget<TValue> NotEqual<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
         {
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (comparer.Equals(target.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -91,16 +92,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> IsDefault<TValue>(in this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+        public static ValidateTarget<TValue> IsDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
         {
             TValue defaultValue = default(TValue);
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (!comparer.Equals(target.Value, defaultValue))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(in target, defaultValue));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -113,16 +114,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> NotDefault<TValue>(in this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+        public static ValidateTarget<TValue> NotDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
         {
             TValue defaultValue = default(TValue);
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (comparer.Equals(target.Value, defaultValue))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(in target, defaultValue));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
             }
 
-            return ref target;
+            return target;
         }
 
 #if !NETSTANDARD1_0 && !NETSTANDARD1_1
@@ -137,7 +138,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Type)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> IsType<TValue>(in this ValidateTarget<TValue> target, Type valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> IsType<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Type valueToCompare, Func<string> getErrorMessage = null)
         {
             if (valueToCompare == null)
             {
@@ -152,10 +153,10 @@ namespace Confidence
 
             if (!valueToCompare.IsAssignableFrom(targetType))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeType(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeType(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
 #endif

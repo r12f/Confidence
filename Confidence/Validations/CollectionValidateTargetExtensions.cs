@@ -24,15 +24,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> IsEmpty<TCollection>(in this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> IsEmpty<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
-            if (target.Value == null || CollectionProxy<TCollection>.InvokeGetCount(target.Value) != 0)
+            if (target.Value == null || CollectionProxy<TCollection>.GetCount(target.Value) != 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEmpty(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEmpty(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -44,15 +44,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> IsEmptyByEnumeration<TCollection>(in this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> IsEmptyByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value == null || CollectionProxy<TCollection>.GetCountByEnumeration(target.Value, 1) != 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEmpty(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEmpty(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -64,15 +64,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> NotEmpty<TCollection>(in this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> NotEmpty<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
-            if (target.Value != null && CollectionProxy<TCollection>.InvokeGetCount(target.Value) == 0)
+            if (target.Value != null && CollectionProxy<TCollection>.GetCount(target.Value) == 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEmpty(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEmpty(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -84,15 +84,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> NotEmptyByEnumeration<TCollection>(in this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> NotEmptyByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value != null && CollectionProxy<TCollection>.GetCountByEnumeration(target.Value, 1) == 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEmpty(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEmpty(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -105,15 +105,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> Count<TCollection>(in this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> Count<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
-            if (target.Value == null || CollectionProxy<TCollection>.InvokeGetCount(target.Value) != valueToCompare)
+            if (target.Value == null || CollectionProxy<TCollection>.GetCount(target.Value) != valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveCount(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveCount(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -126,15 +126,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> CountByEnumeration<TCollection>(in this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> CountByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value == null || CollectionProxy<TCollection>.GetCountByEnumeration(target.Value, valueToCompare + 1) != valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveCount(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveCount(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -147,15 +147,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> NotCount<TCollection>(in this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> NotCount<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
-            if (target.Value != null && CollectionProxy<TCollection>.InvokeGetCount(target.Value) == valueToCompare)
+            if (target.Value != null && CollectionProxy<TCollection>.GetCount(target.Value) == valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveCount(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveCount(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -168,15 +168,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> NotCountByEnumeration<TCollection>(in this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> NotCountByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value != null && CollectionProxy<TCollection>.GetCountByEnumeration(target.Value, valueToCompare + 1) == valueToCompare)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveCount(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveCount(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -190,15 +190,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> Contains<TCollection, TItem>(in this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> Contains<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable<TItem>
         {
             if (target.Value == null || !TypedCollectionProxy<TCollection, TItem>.Contains(target.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldContain(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldContain(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -212,15 +212,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> NotContains<TCollection, TItem>(in this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> NotContains<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable<TItem>
         {
             if (target.Value != null && TypedCollectionProxy<TCollection, TItem>.Contains(target.Value, valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotContain(in target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotContain(target, valueToCompare));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -234,15 +234,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TItem> In<TItem, TCollection>(in this ValidateTarget<TItem> target, TCollection valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TItem> In<TItem, TCollection>([ValidatedNotNull] this ValidateTarget<TItem> target, TCollection valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable<TItem>
         {
             if (valueToCompare == null || !TypedCollectionProxy<TCollection, TItem>.Contains(valueToCompare, target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeIn(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeIn(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -256,15 +256,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TItem> NotIn<TItem, TCollection>(in this ValidateTarget<TItem> target, TCollection valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TItem> NotIn<TItem, TCollection>([ValidatedNotNull] this ValidateTarget<TItem> target, TCollection valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable<TItem>
         {
             if (valueToCompare != null && TypedCollectionProxy<TCollection, TItem>.Contains(valueToCompare, target.Value))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeIn(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeIn(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -278,7 +278,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> Any<TCollection, TItem>(in this ValidateTarget<TCollection> target, Func<TItem, bool> predicate, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> Any<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<TItem, bool> predicate, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable<TItem>
         {
             bool passedPredicate = false;
@@ -296,10 +296,10 @@ namespace Confidence
 
             if (!passedPredicate)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveAny(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveAny(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> UntypedAny<TCollection>(in this ValidateTarget<TCollection> target, Func<object, bool> predicate, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> UntypedAny<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<object, bool> predicate, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             bool passedPredicate = false;
@@ -330,10 +330,10 @@ namespace Confidence
 
             if (!passedPredicate)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveAny(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveAny(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> All<TCollection, TItem>(in this ValidateTarget<TCollection> target, Func<TItem, bool> predicate, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> All<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<TItem, bool> predicate, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable<TItem>
         {
             bool passedPredicate = true;
@@ -365,10 +365,10 @@ namespace Confidence
 
             if (!passedPredicate)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldAllBe(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldAllBe(target));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -381,7 +381,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TCollection> UntypedAll<TCollection>(in this ValidateTarget<TCollection> target, Func<object, bool> predicate, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> UntypedAll<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, Func<object, bool> predicate, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             bool passedPredicate = true;
@@ -399,15 +399,16 @@ namespace Confidence
 
             if (!passedPredicate)
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldAllBe(in target));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldAllBe(target));
             }
 
-            return ref target;
+            return target;
         }
 
         private static class CollectionProxy<T>
             where T : IEnumerable
         {
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1065:Do not raise exceptions in unexpected locations", Justification = "If GetCount cannot be created, this type cannot be used.")]
             static CollectionProxy()
             {
                 GetCount = ExpressionBuilder.CreatePropertyGetter<T, int>("Count");
@@ -416,20 +417,15 @@ namespace Confidence
                 {
                     GetCount = ExpressionBuilder.CreatePropertyGetter<T, int>("Length");
                 }
-            }
 
-            private static Func<T, int> GetCount { get; }
-
-            public static int InvokeGetCount(T collection)
-            {
                 if (GetCount == null)
                 {
                     string errorMessage = string.Format(CultureInfo.InvariantCulture, "{0} doesn't have Count or Length property. Please implement either one of them to use this validation.", typeof(T).FullName);
                     throw new InvalidOperationException(errorMessage);
                 }
-
-                return GetCount.Invoke(collection);
             }
+
+            public static Func<T, int> GetCount { get; }
 
             public static int GetCountByEnumeration(T collection, int maxEnumerationSteps)
             {

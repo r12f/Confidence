@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -22,15 +23,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Enum, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> HasFlag<TValue>(in this ValidateTarget<TValue> target, TValue valueToComapre, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> HasFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToComapre, Func<string> getErrorMessage = null)
             where TValue : struct, Enum
         {
             if (!target.Value.HasFlag(valueToComapre))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveFlag(in target, valueToComapre));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveFlag(target, valueToComapre));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -43,15 +44,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Enum, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue?> HasFlag<TValue>(in this ValidateTarget<TValue?> target, TValue valueToComapre, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue?> HasFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, TValue valueToComapre, Func<string> getErrorMessage = null)
             where TValue : struct, Enum
         {
             if (!target.Value.HasValue || !target.Value.Value.HasFlag(valueToComapre))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveFlag(in target, valueToComapre));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveFlag(target, valueToComapre));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -64,15 +65,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Enum, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue> HasNoFlag<TValue>(in this ValidateTarget<TValue> target, TValue valueToComapre, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> HasNoFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToComapre, Func<string> getErrorMessage = null)
             where TValue : struct, Enum
         {
             if (target.Value.HasFlag(valueToComapre))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveFlag(in target, valueToComapre));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveFlag(target, valueToComapre));
             }
 
-            return ref target;
+            return target;
         }
 
         /// <summary>
@@ -85,15 +86,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Enum, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ref readonly ValidateTarget<TValue?> HasNoFlag<TValue>(in this ValidateTarget<TValue?> target, TValue valueToComapre, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue?> HasNoFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, TValue valueToComapre, Func<string> getErrorMessage = null)
             where TValue : struct, Enum
         {
             if (target.Value.HasValue && target.Value.Value.HasFlag(valueToComapre))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveFlag(in target, valueToComapre));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotHaveFlag(target, valueToComapre));
             }
 
-            return ref target;
+            return target;
         }
 #endif
     }
