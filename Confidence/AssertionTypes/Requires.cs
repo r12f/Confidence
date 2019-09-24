@@ -47,7 +47,27 @@ namespace Confidence
         {
             if (targetValue == null)
             {
-                throw new ArgumentNullException(targetName);
+                ExceptionFactory.ThrowException(typeof(ArgumentNullException), ErrorMessageFactory.ShouldNotBeNull(targetName));
+            }
+
+            return ArgumentValidateTargetFactory.Create(targetValue, targetName);
+        }
+
+        /// <summary>
+        /// Create validate target for not null argument. If the argument is null, we will throw ArgumentNullException.
+        /// This helps in fixing CA1602:ValidateArgumentsOfPublicMethods, as NotNull check against target cannot be recognized by code analysis.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <param name="targetValue">Target value.</param>
+        /// <param name="targetName">Target name.</param>
+        /// <returns>Validate target.</returns>
+        [DebuggerStepThrough]
+        public static ValidateTarget<T?> NotNullArgument<T>([ValidatedNotNull] T? targetValue, string targetName)
+            where T : struct
+        {
+            if (!targetValue.HasValue)
+            {
+                ExceptionFactory.ThrowException(typeof(ArgumentNullException), ErrorMessageFactory.ShouldNotBeNull(targetName));
             }
 
             return ArgumentValidateTargetFactory.Create(targetValue, targetName);

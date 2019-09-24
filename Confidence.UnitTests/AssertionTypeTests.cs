@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Confidence.Exceptions;
 using Xunit;
+using System.Collections.Generic;
 
 namespace Confidence.UnitTests
 {
@@ -13,6 +14,38 @@ namespace Confidence.UnitTests
             var target = Requires.Argument(1, "test");
             target.Should().NotBeNull();
             target.Name.Should().Be("test");
+            target.Value.Should().Be(1);
+            target.Traits.GenericFailureExceptionType.Should().Be(typeof(ArgumentException));
+            target.Traits.ObjectNullExceptionType.Should().Be(typeof(ArgumentNullException));
+            target.Traits.OutOfRangeExceptionType.Should().Be(typeof(ArgumentOutOfRangeException));
+        }
+
+        [Fact]
+        public void RequiresNotNullArgumentCanCreateValidateTargets()
+        {
+            List<int> testValue = null;
+            Assert.Throws<ArgumentNullException>(() => Requires.NotNullArgument(testValue, nameof(testValue)));
+
+            testValue = new List<int>();
+            var target = Requires.NotNullArgument(testValue, nameof(testValue));
+            target.Should().NotBeNull();
+            target.Name.Should().Be("testValue");
+            target.Value.Should().BeSameAs(testValue);
+            target.Traits.GenericFailureExceptionType.Should().Be(typeof(ArgumentException));
+            target.Traits.ObjectNullExceptionType.Should().Be(typeof(ArgumentNullException));
+            target.Traits.OutOfRangeExceptionType.Should().Be(typeof(ArgumentOutOfRangeException));
+        }
+
+        [Fact]
+        public void RequiresNotNullArgumentWithNullableCanCreateValidateTargets()
+        {
+            int? testValue = null;
+            Assert.Throws<ArgumentNullException>(() => Requires.NotNullArgument(testValue, nameof(testValue)));
+
+            testValue = 1;
+            var target = Requires.NotNullArgument(testValue, nameof(testValue));
+            target.Should().NotBeNull();
+            target.Name.Should().Be("testValue");
             target.Value.Should().Be(1);
             target.Traits.GenericFailureExceptionType.Should().Be(typeof(ArgumentException));
             target.Traits.ObjectNullExceptionType.Should().Be(typeof(ArgumentNullException));
