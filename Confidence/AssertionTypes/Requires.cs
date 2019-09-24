@@ -35,7 +35,7 @@ namespace Confidence
 
         /// <summary>
         /// Create validate target for not null argument. If the argument is null, we will throw ArgumentNullException.
-        /// This helps in fixing CA1602:ValidateArgumentsOfPublicMethods, as NotNull check against target cannot be recognized by code analysis.
+        /// This helps in fixing CA1062:ValidateArgumentsOfPublicMethods, as NotNull check against target cannot be recognized by code analysis.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="targetValue">Target value.</param>
@@ -55,7 +55,7 @@ namespace Confidence
 
         /// <summary>
         /// Create validate target for not null argument. If the argument is null, we will throw ArgumentNullException.
-        /// This helps in fixing CA1602:ValidateArgumentsOfPublicMethods, as NotNull check against target cannot be recognized by code analysis.
+        /// This helps in fixing CA1062:ValidateArgumentsOfPublicMethods, as NotNull check against target cannot be recognized by code analysis.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
         /// <param name="targetValue">Target value.</param>
