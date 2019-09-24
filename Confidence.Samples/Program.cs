@@ -19,7 +19,7 @@ namespace Confidence.Samples
     {
         static void Main()
         {
-            SomeClass someClass = new SomeClass(1, "Hello! World!");
+            SomeClass someClass = new SomeClass(1, "Hello World!");
             MyAsserts.Variable(someClass, nameof(someClass)).NotNull().FooNotZero();
             Console.WriteLine("Yay!");
             Console.ReadLine();
@@ -31,14 +31,12 @@ namespace Confidence.Samples
         public SomeClass(int foo, string bar)
         {
             this.Foo = Requires.Argument(foo, nameof(foo)).NotEqual(0).Value;
-            this.Bar = Requires.NotNullArgument(bar, nameof(bar)).NotEmpty().StartsWith("Hello!").Value;
 
-            this.DoSomething(this.Bar.Length);
+            Requires.NotNullArgument(bar, nameof(bar)).NotEmpty().StartsWith("Hello");
+            this.DoSomething(bar.Length);
         }
 
         public int Foo { get; set; }
-
-        public string Bar { get; set; }
 
         public void DoSomething(int barLength)
         {

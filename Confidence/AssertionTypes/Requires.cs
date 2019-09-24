@@ -4,6 +4,7 @@
 using System;
 using System.Diagnostics;
 using Confidence.Exceptions;
+using Confidence.Utilities;
 
 namespace Confidence
 {
@@ -41,7 +42,7 @@ namespace Confidence
         /// <param name="targetName">Target name.</param>
         /// <returns>Validate target.</returns>
         [DebuggerStepThrough]
-        public static ValidateTarget<T> NotNullArgument<T>(T targetValue, string targetName)
+        public static ValidateTarget<T> NotNullArgument<T>([ValidatedNotNull] T targetValue, string targetName)
             where T : class
         {
             if (targetValue == null)

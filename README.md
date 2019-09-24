@@ -22,9 +22,9 @@ Here is a quick example to show how to use code contracts ([full code here](http
 public SomeClass(int foo, string bar)
 {
     this.Foo = Requires.Argument(foo, nameof(foo)).NotEqual(0).Value;
-    this.Bar = Requires.NotNullArgument(bar, nameof(bar)).NotEmpty().StartsWith("Hello!").Value;
 
-    this.DoSomething(this.Bar.Length);
+    Requires.NotNullArgument(bar, nameof(bar)).NotEmpty().StartsWith("Hello");
+    this.DoSomething(bar.Length);
 }
 
 public void DoSomething(int barLength)
