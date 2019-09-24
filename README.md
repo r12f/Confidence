@@ -22,15 +22,17 @@ Here is a quick example to show how to use code contracts ([full code here](http
 public SomeClass(int foo, string bar)
 {
     this.Foo = Requires.Argument(foo, nameof(foo)).NotEqual(0).Value;
-    this.Bar = Requires<CustomizedException>.Argument(bar, nameof(bar)).NotNull().NotEmpty().StartsWith("Hello!").Value;
+    this.Bar = Requires.NotNullArgument(bar, nameof(bar)).NotEmpty().StartsWith("Hello!").Value;
 
-    this.DoSomething();
+    this.DoSomething(this.Bar.Length);
 }
 
-public void DoSomething()
+public void DoSomething(int barLength)
 {
+    Console.WriteLine(barLength);
+
     // Do something part 1.
-    Asserts.Variable(this.Foo, nameof(this.Foo)).NotEqual(0, () => "Foo should never become 0.");
+    Asserts.Variable(this.Foo, nameof(this.Foo)).NotEqual(0, () => "Foo becomes 0 when we are doing something.");
     // Do something part 2.
 
     Ensures.IsTrue(this.AreSomeStatesExpected(), () => "Some states are not expected.");
@@ -52,14 +54,14 @@ Although many validations are already provided on system types, like object, boo
 public static class SomeClassValidateTargetExtensions
 {
     [DebuggerStepThrough]
-    public static ValidateTarget<SomeClass> FooNotZero(this ValidateTarget<SomeClass> target, Func<string> getErrorMessage = null)
+    public static ref readonly ValidateTarget<SomeClass> FooNotZero(in this ValidateTarget<SomeClass> target, Func<string> getErrorMessage = null)
     {
         if (target.Value.Foo == 0)
         {
-            ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : "Foo cannot be zero.");
+            ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : "Foo cannot be zero.");
         }
 
-        return target;
+        return ref target;
     }
 }
 ```

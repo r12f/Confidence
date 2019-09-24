@@ -29,6 +29,16 @@ namespace Confidence
         /// <param name="errorMessage">Error message.</param>
         public static void ThrowException(Type exceptionType, string errorMessage)
         {
+            if (exceptionType == null)
+            {
+                throw new ArgumentNullException(nameof(exceptionType));
+            }
+
+            if (errorMessage == null)
+            {
+                throw new ArgumentNullException(nameof(errorMessage));
+            }
+
             Exception exception = null;
 
             try

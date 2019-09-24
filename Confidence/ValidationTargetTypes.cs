@@ -8,6 +8,8 @@ namespace Confidence
     /// </summary>
     public static class ValidationTargetTypes
     {
+#pragma warning disable CA1720 // Identifier contains type name
+
         /// <summary>
         /// No validation target.
         /// </summary>
@@ -72,5 +74,7 @@ namespace Confidence
         /// Dictionary.
         /// </summary>
         public const string Dictionary = nameof(Dictionary);
+
+#pragma warning restore CA1720 // Identifier contains type name
     }
 }

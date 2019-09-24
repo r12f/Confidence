@@ -23,16 +23,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsLessThan<TValue>(this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsLessThan<TValue>(in this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : IComparable
         {
             System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) >= 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsLessThan<TValue>(this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsLessThan<TValue>(in this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : struct, IComparable
         {
             if (target.Value.HasValue)
@@ -54,11 +54,11 @@ namespace Confidence
                 System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) >= 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -72,16 +72,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsLessThan<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsLessThan<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : IComparable<TValue>
         {
             IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) >= 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsLessThan<TValue>(this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsLessThan<TValue>(in this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : struct, IComparable<TValue>
         {
             if (target.Value.HasValue)
@@ -103,11 +103,11 @@ namespace Confidence
                 IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) >= 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -121,16 +121,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsLessOrEqualThan<TValue>(this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsLessOrEqualThan<TValue>(in this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : IComparable
         {
             System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) > 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsLessOrEqualThan<TValue>(this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsLessOrEqualThan<TValue>(in this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : struct, IComparable
         {
             if (target.Value.HasValue)
@@ -152,11 +152,11 @@ namespace Confidence
                 System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) > 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -170,16 +170,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsLessOrEqualThan<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsLessOrEqualThan<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : IComparable<TValue>
         {
             IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) > 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsLessOrEqualThan<TValue>(this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsLessOrEqualThan<TValue>(in this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : struct, IComparable<TValue>
         {
             if (target.Value.HasValue)
@@ -201,11 +201,11 @@ namespace Confidence
                 IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) > 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeLessOrEqualThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -219,16 +219,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsGreaterThan<TValue>(this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsGreaterThan<TValue>(in this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : IComparable
         {
             System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) <= 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -242,7 +242,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsGreaterThan<TValue>(this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsGreaterThan<TValue>(in this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : struct, IComparable
         {
             if (target.Value.HasValue)
@@ -250,11 +250,11 @@ namespace Confidence
                 System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) <= 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -268,16 +268,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsGreaterThan<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsGreaterThan<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : IComparable<TValue>
         {
             IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) <= 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsGreaterThan<TValue>(this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsGreaterThan<TValue>(in this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : struct, IComparable<TValue>
         {
             if (target.Value.HasValue)
@@ -299,11 +299,11 @@ namespace Confidence
                 IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) <= 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -317,16 +317,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsGreaterOrEqualThan<TValue>(this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsGreaterOrEqualThan<TValue>(in this ValidateTarget<TValue> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : IComparable
         {
             System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) < 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -340,7 +340,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsGreaterOrEqualThan<TValue>(this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsGreaterOrEqualThan<TValue>(in this ValidateTarget<TValue?> target, object valueToCompare, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : struct, IComparable
         {
             if (target.Value.HasValue)
@@ -348,11 +348,11 @@ namespace Confidence
                 System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) < 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -366,16 +366,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsGreaterOrEqualThan<TValue>(this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue> IsGreaterOrEqualThan<TValue>(in this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : IComparable<TValue>
         {
             IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, valueToCompare) < 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -389,7 +389,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> IsGreaterOrEqualThan<TValue>(this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> IsGreaterOrEqualThan<TValue>(in this ValidateTarget<TValue?> target, TValue valueToCompare, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : struct, IComparable<TValue>
         {
             if (target.Value.HasValue)
@@ -397,11 +397,11 @@ namespace Confidence
                 IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, valueToCompare) < 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(target, valueToCompare));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeGreaterOrEqualThan(in target, valueToCompare));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -416,16 +416,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> InRange<TValue>(this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue> InRange<TValue>(in this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : IComparable
         {
             System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, minValue) < 0 || comparer.Compare(target.Value, maxValue) > 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(in target, minValue, maxValue));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -440,7 +440,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> InRange<TValue>(this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> InRange<TValue>(in this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : struct, IComparable
         {
             if (target.Value.HasValue)
@@ -448,11 +448,11 @@ namespace Confidence
                 System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, minValue) < 0 || comparer.Compare(target.Value.Value, maxValue) > 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(in target, minValue, maxValue));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -467,16 +467,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> InRange<TValue>(this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue> InRange<TValue>(in this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : IComparable<TValue>
         {
             IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, minValue) < 0 || comparer.Compare(target.Value, maxValue) > 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(in target, minValue, maxValue));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -491,7 +491,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> InRange<TValue>(this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> InRange<TValue>(in this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : struct, IComparable<TValue>
         {
             if (target.Value.HasValue)
@@ -499,11 +499,11 @@ namespace Confidence
                 IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, minValue) < 0 || comparer.Compare(target.Value.Value, maxValue) > 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(target, minValue, maxValue));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeInRange(in target, minValue, maxValue));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -518,16 +518,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> NotInRange<TValue>(this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue> NotInRange<TValue>(in this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : IComparable
         {
             System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, minValue) >= 0 && comparer.Compare(target.Value, maxValue) <= 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(in target, minValue, maxValue));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -542,7 +542,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> NotInRange<TValue>(this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> NotInRange<TValue>(in this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : struct, IComparable
         {
             if (target.Value.HasValue)
@@ -550,11 +550,11 @@ namespace Confidence
                 System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, minValue) >= 0 && comparer.Compare(target.Value.Value, maxValue) <= 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(in target, minValue, maxValue));
                 }
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -569,16 +569,16 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> NotInRange<TValue>(this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue> NotInRange<TValue>(in this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : IComparable<TValue>
         {
             IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
             if (comparer.Compare(target.Value, minValue) >= 0 && comparer.Compare(target.Value, maxValue) <= 0)
             {
-                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+                ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(in target, minValue, maxValue));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -593,7 +593,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> NotInRange<TValue>(this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ref readonly ValidateTarget<TValue?> NotInRange<TValue>(in this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : struct, IComparable<TValue>
         {
             if (target.Value.HasValue)
@@ -601,11 +601,11 @@ namespace Confidence
                 IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
                 if (comparer.Compare(target.Value.Value, minValue) >= 0 && comparer.Compare(target.Value.Value, maxValue) <= 0)
                 {
-                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(target, minValue, maxValue));
+                    ExceptionFactory.ThrowException(target.Traits.OutOfRangeExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeInRange(in target, minValue, maxValue));
                 }
             }
 
-            return target;
+            return ref target;
         }
     }
 }

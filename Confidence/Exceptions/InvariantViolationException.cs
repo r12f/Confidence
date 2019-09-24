@@ -23,5 +23,15 @@ namespace Confidence.Exceptions
             : base(errorMessage)
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InvariantViolationException"/> class.
+        /// </summary>
+        /// <param name="message">Error message.</param>
+        /// <param name="innerException">Inner exception.</param>
+        public InvariantViolationException(string message, System.Exception innerException)
+            : base(message, innerException)
+        {
+        }
     }
 }

@@ -56,32 +56,6 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Throw InvalidOperationException, is the custom assertion fails.
-        /// </summary>
-        /// <param name="isValid">Custom assertion.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void InvalidOperation(bool isValid, Func<string> getErrorMessage = null)
-        {
-            CustomAssertionValidation.IsTrue<InvalidOperationException>(isValid, getErrorMessage);
-        }
-
-        /// <summary>
-        /// Throw InvalidOperationException, is the custom assertion fails.
-        /// </summary>
-        /// <typeparam name="TException">Exception type.</typeparam>
-        /// <param name="isValid">Custom assertion.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void InvalidOperation<TException>(bool isValid, Func<string> getErrorMessage = null)
-            where TException : Exception
-        {
-            CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
-        }
-
-        /// <summary>
         /// Throw ObjectDisposedException, is the custom assertion fails.
         /// </summary>
         /// <param name="isDisposed">Is disposed value.</param>
@@ -121,6 +95,7 @@ namespace Confidence
     {
         private static readonly ValidateTargetFactory<TException, TException, TException> VariableValidateTargetFactory = new ValidateTargetFactory<TException, TException, TException>();
 
+#pragma warning disable CA1000 // Do not declare static members on generic types
         /// <summary>
         /// Create validate target for regular variables.
         /// </summary>
@@ -147,18 +122,6 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Throw InvalidOperationException, is the custom assertion fails.
-        /// </summary>
-        /// <param name="isValid">Custom assertion.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void InvalidOperation(bool isValid, Func<string> getErrorMessage = null)
-        {
-            CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
-        }
-
-        /// <summary>
         /// Throw ObjectDisposedException, is the custom assertion fails.
         /// </summary>
         /// <param name="isDisposed">Is disposed value.</param>
@@ -170,5 +133,7 @@ namespace Confidence
         {
             CustomAssertionValidation.NotDisposed<TException>(isDisposed, objectName, getErrorMessage);
         }
+
+#pragma warning restore CA1000 // Do not declare static members on generic types
     }
 }

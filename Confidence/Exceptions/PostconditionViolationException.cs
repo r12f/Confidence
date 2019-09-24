@@ -1,6 +1,8 @@
 ﻿// Copyright (c) r12f. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+
 namespace Confidence.Exceptions
 {
     /// <summary>
@@ -21,6 +23,16 @@ namespace Confidence.Exceptions
         /// <param name="errorMessage">Error message.</param>
         public PostconditionViolationException(string errorMessage)
             : base(errorMessage)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostconditionViolationException"/> class.
+        /// </summary>
+        /// <param name="message">Error message.</param>
+        /// <param name="innerException">Inner exception.</param>
+        public PostconditionViolationException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
     }

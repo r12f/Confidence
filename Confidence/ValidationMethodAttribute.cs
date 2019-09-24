@@ -8,6 +8,7 @@ namespace Confidence
     /// <summary>
     /// Validation method attributes.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ValidationMethodAttribute : Attribute
     {
         /// <summary>

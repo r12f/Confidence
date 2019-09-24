@@ -33,6 +33,26 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create validate target for not null argument. If the argument is null, we will throw ArgumentNullException.
+        /// This helps in fixing CA1602:ValidateArgumentsOfPublicMethods, as NotNull check against target cannot be recognized by code analysis.
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        /// <param name="targetValue">Target value.</param>
+        /// <param name="targetName">Target name.</param>
+        /// <returns>Validate target.</returns>
+        [DebuggerStepThrough]
+        public static ValidateTarget<T> NotNullArgument<T>(T targetValue, string targetName)
+            where T : class
+        {
+            if (targetValue == null)
+            {
+                throw new ArgumentNullException(targetName);
+            }
+
+            return ArgumentValidateTargetFactory.Create(targetValue, targetName);
+        }
+
+        /// <summary>
         /// Create validate target for regular variables.
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
@@ -66,32 +86,6 @@ namespace Confidence
         [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
         [DebuggerStepThrough]
         public static void IsTrue<TException>(bool isValid, Func<string> getErrorMessage = null)
-            where TException : Exception
-        {
-            CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
-        }
-
-        /// <summary>
-        /// Throw InvalidOperationException, is the custom assertion fails.
-        /// </summary>
-        /// <param name="isValid">Custom assertion.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void InvalidOperation(bool isValid, Func<string> getErrorMessage = null)
-        {
-            CustomAssertionValidation.IsTrue<InvalidOperationException>(isValid, getErrorMessage);
-        }
-
-        /// <summary>
-        /// Throw InvalidOperationException, is the custom assertion fails.
-        /// </summary>
-        /// <typeparam name="TException">Exception type.</typeparam>
-        /// <param name="isValid">Custom assertion.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void InvalidOperation<TException>(bool isValid, Func<string> getErrorMessage = null)
             where TException : Exception
         {
             CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
@@ -139,6 +133,8 @@ namespace Confidence
         private static readonly ValidateTargetFactory<TException, TException, TException> ArgumentValidateTargetFactory = new ValidateTargetFactory<TException, TException, TException>();
         private static readonly ValidateTargetFactory<TException, TException, TException> VariableValidateTargetFactory = new ValidateTargetFactory<TException, TException, TException>();
 
+#pragma warning disable CA1000 // Do not declare static members on generic types
+
         /// <summary>
         /// Create validate target for argument.
         /// </summary>
@@ -178,18 +174,6 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Throw InvalidOperationException, is the custom assertion fails.
-        /// </summary>
-        /// <param name="isValid">Custom assertion.</param>
-        /// <param name="getErrorMessage">Error message.</param>
-        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
-        [DebuggerStepThrough]
-        public static void InvalidOperation(bool isValid, Func<string> getErrorMessage = null)
-        {
-            CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
-        }
-
-        /// <summary>
         /// Throw ObjectDisposedException, is the custom assertion fails.
         /// </summary>
         /// <param name="isDisposed">Is disposed value.</param>
@@ -201,5 +185,7 @@ namespace Confidence
         {
             CustomAssertionValidation.NotDisposed<TException>(isDisposed, objectName, getErrorMessage);
         }
+
+#pragma warning restore CA1000 // Do not declare static members on generic types
     }
 }

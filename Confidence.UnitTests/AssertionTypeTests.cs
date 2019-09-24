@@ -88,18 +88,6 @@ namespace Confidence.UnitTests
         }
 
         [Fact]
-        public void RequiresInvalidOperationCanBeValidated()
-        {
-            Requires.InvalidOperation(true);
-            Requires.InvalidOperation<InvariantViolationException>(true);
-            Requires<InvariantViolationException>.InvalidOperation(true);
-
-            Assert.Throws<InvalidOperationException>(() => Requires.InvalidOperation(false));
-            Assert.Throws<InvariantViolationException>(() => Requires.InvalidOperation<InvariantViolationException>(false));
-            Assert.Throws<InvariantViolationException>(() => Requires<InvariantViolationException>.InvalidOperation(false));
-        }
-
-        [Fact]
         public void RequiresNotDisposedCanBeValidated()
         {
             Requires.NotDisposed(false, "TestObject");
@@ -112,18 +100,6 @@ namespace Confidence.UnitTests
         }
 
         [Fact]
-        public void EnsuresInvalidOperationCanBeValidated()
-        {
-            Ensures.InvalidOperation(true);
-            Ensures.InvalidOperation<InvariantViolationException>(true);
-            Ensures<InvariantViolationException>.InvalidOperation(true);
-
-            Assert.Throws<InvalidOperationException>(() => Ensures.InvalidOperation(false));
-            Assert.Throws<InvariantViolationException>(() => Ensures.InvalidOperation<InvariantViolationException>(false));
-            Assert.Throws<InvariantViolationException>(() => Ensures<InvariantViolationException>.InvalidOperation(false));
-        }
-
-        [Fact]
         public void EnsuresNotDisposedCanBeValidated()
         {
             Ensures.NotDisposed(false, "TestObject");
@@ -133,18 +109,6 @@ namespace Confidence.UnitTests
             Assert.Throws<ObjectDisposedException>(() => Ensures.NotDisposed(true, "TestObject"));
             Assert.Throws<InvariantViolationException>(() => Ensures.NotDisposed<InvariantViolationException>(true, "TestObject"));
             Assert.Throws<InvariantViolationException>(() => Ensures<InvariantViolationException>.NotDisposed(true, "TestObject"));
-        }
-
-        [Fact]
-        public void AssertsInvalidOperationCanBeValidated()
-        {
-            Asserts.InvalidOperation(true);
-            Asserts.InvalidOperation<InvariantViolationException>(true);
-            Asserts<InvariantViolationException>.InvalidOperation(true);
-
-            Assert.Throws<InvalidOperationException>(() => Asserts.InvalidOperation(false));
-            Assert.Throws<InvariantViolationException>(() => Asserts.InvalidOperation<InvariantViolationException>(false));
-            Assert.Throws<InvariantViolationException>(() => Asserts<InvariantViolationException>.InvalidOperation(false));
         }
 
         [Fact]

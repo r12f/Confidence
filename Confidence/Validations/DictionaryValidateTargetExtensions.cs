@@ -24,15 +24,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Dictionary, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TDictionary> ContainsKey<TDictionary, TKey, TValue>(this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
+        public static ref readonly ValidateTarget<TDictionary> ContainsKey<TDictionary, TKey, TValue>(in this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
             where TDictionary : IDictionary<TKey, TValue>
         {
             if (target.Value == null || !target.Value.ContainsKey(valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldContain(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldContain(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
 
         /// <summary>
@@ -47,15 +47,15 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Dictionary, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TDictionary> NotContainsKey<TDictionary, TKey, TValue>(this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
+        public static ref readonly ValidateTarget<TDictionary> NotContainsKey<TDictionary, TKey, TValue>(in this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
             where TDictionary : IDictionary<TKey, TValue>
         {
             if (target.Value != null && target.Value.ContainsKey(valueToCompare))
             {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotContain(target, valueToCompare));
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotContain(in target, valueToCompare));
             }
 
-            return target;
+            return ref target;
         }
     }
 }

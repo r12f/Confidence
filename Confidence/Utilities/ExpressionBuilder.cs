@@ -26,7 +26,7 @@ namespace Confidence.Utilities
         {
             var type = typeof(T);
 
-#if NETSTANDARD1_0
+#if NETSTANDARD1_0 || NETSTANDARD1_1
             var propertyGetter = type.GetTypeInfo().GetDeclaredProperty(propertyName)?.GetMethod;
 #else
             var propertyGetter = type.GetProperty(propertyName)?.GetGetMethod();
@@ -60,7 +60,7 @@ namespace Confidence.Utilities
         {
             var type = typeof(T);
 
-#if NETSTANDARD1_0
+#if NETSTANDARD1_0 || NETSTANDARD1_1
             var method = type.GetTypeInfo().GetDeclaredMethod(methodName);
 #else
             var method = type.GetMethod(methodName);
