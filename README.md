@@ -9,7 +9,7 @@ Confidence is an easy to read and debug fluent argument/condition checker in C# 
 
 .NET versions supported: netstandard >=1.0, .net framework >= 3.5.
 
-**Requirements:** If you are not using Visual Studio 2019, please [use C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) for supporting Enum validations by adding ```<LangVersion>7.3</LangVersion>``` into your .csproj file.
+**Requirements:** Please [use C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) for supporting Enum validations and in attribute as readonly ref by adding ```<LangVersion>7.3</LangVersion>``` into your .csproj file.
 
 ## Code contracts
 Code contracts are better assertions. It is a widely used technique and usually provides 3 variations of assertions to help identifying who is responsible for the failure besides showing what is failing.
@@ -96,7 +96,7 @@ Here are the design principles of Confidence, and some decisions we make.
 ### Be compatiable as much as possible
 A library working like a if-then-throw check should not limit the platform it runs too much. If something really cannot be supported before certain .NET version, we could use #if to wrap it. And we always has .IsTrue validation as the backup plan.
 
-One hard decision for us to make is validations on enum. Enum as generic is only supported after C# 7.3, which is used by default after Visual Studio 2019. It means most people have to add the LangVersion property into their .csproj file to make it work. But since enum is such a important type and so frequently used, using IsTrue with Func validation seems to be even more painful than adding that property. So evetually we still decide to make people upgrade to C# 7.3.
+One hard decision for us to make is validations on enum. Enum as generic is only supported after C# 7.3. It means when this project is created, most people have to add the LangVersion property into their .csproj file to make it work. But since enum is such a important type and so frequently used, using IsTrue with Func validation seems to be even more painful than adding that property. So evetually we still decide to make people upgrade to C# 7.3.
 
 ### Readability and debugability comes first
 #### Assert one thing at a time
