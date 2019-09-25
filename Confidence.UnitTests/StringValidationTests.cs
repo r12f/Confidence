@@ -74,8 +74,8 @@ namespace Confidence.UnitTests
         public void StringStartsWithSpecificValueCanBeValidated(string v, string s)
         {
             Requires.Argument(v, nameof(v)).StartsWith(s);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).NotStartsWith(s));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).NotStartsWith(s));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).DoesNotStartWith(s));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).DoesNotStartWith(s));
         }
 
         [Theory]
@@ -87,7 +87,7 @@ namespace Confidence.UnitTests
         [InlineData("abc", "def")]
         public void StringDoesNotStartWithSpecificValueCanBeValidated(string v, string s)
         {
-            Requires.Argument(v, nameof(v)).NotStartsWith(s);
+            Requires.Argument(v, nameof(v)).DoesNotStartWith(s);
             Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).StartsWith(s));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).StartsWith(s));
         }
@@ -101,8 +101,8 @@ namespace Confidence.UnitTests
         public void StringEndsWithSpecificValueCanBeValidated(string v, string s)
         {
             Requires.Argument(v, nameof(v)).EndsWith(s);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).NotEndsWith(s));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).NotEndsWith(s));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).DoesNotEndWith(s));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).DoesNotEndWith(s));
         }
 
         [Theory]
@@ -114,7 +114,7 @@ namespace Confidence.UnitTests
         [InlineData("abc", "def")]
         public void StringDoesNotEndWithSpecificValueCanBeValidated(string v, string s)
         {
-            Requires.Argument(v, nameof(v)).NotEndsWith(s);
+            Requires.Argument(v, nameof(v)).DoesNotEndWith(s);
             Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).EndsWith(s));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).EndsWith(s));
         }

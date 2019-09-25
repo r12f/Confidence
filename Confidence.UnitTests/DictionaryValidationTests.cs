@@ -34,10 +34,10 @@ namespace Confidence.UnitTests
             Assert.Throws<ArgumentException>(() => Requires.Argument(dictionary, nameof(dictionary)).ContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).ContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary));
 
-            Requires.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary);
-            Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyNotInDictionary);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyInDictionary));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).NotContainsKey<TDictionary, TKey, TValue>(keyInDictionary));
+            Requires.Argument(dictionary, nameof(dictionary)).DoesNotContainKey<TDictionary, TKey, TValue>(keyNotInDictionary);
+            Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).DoesNotContainKey<TDictionary, TKey, TValue>(keyNotInDictionary);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(dictionary, nameof(dictionary)).DoesNotContainKey<TDictionary, TKey, TValue>(keyInDictionary));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(dictionary, nameof(dictionary)).DoesNotContainKey<TDictionary, TKey, TValue>(keyInDictionary));
         }
     }
 }

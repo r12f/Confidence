@@ -22,7 +22,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.NullableObject, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> HasNoValue<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue?> DoesNotHaveValue<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, Func<string> getErrorMessage = null)
             where TValue : struct
         {
             return NullableValidateTargetExtensions.IsNull(target, getErrorMessage);

@@ -8,9 +8,9 @@ using Confidence.Utilities;
 namespace Confidence
 {
     /// <summary>
-    /// Validate target extensions used for validating objects.
+    /// Validate target extensions used for validating reference types.
     /// </summary>
-    public static class ClassValidateTargetExtensions
+    public static class ReferenceTypeValidateTargetExtensions
     {
         /// <summary>
         /// Validate if target is null.
@@ -62,7 +62,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsSame<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> IsSameAs<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
             where TValue : class
         {
             if (!object.ReferenceEquals(target.Value, valueToCompare))
@@ -83,7 +83,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> NotSame<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> NotSameAs<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToCompare, Func<string> getErrorMessage = null)
             where TValue : class
         {
             if (object.ReferenceEquals(target.Value, valueToCompare))

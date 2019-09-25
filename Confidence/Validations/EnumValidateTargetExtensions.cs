@@ -65,7 +65,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Enum, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> HasNoFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToComapre, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue> DoesNotHaveFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue valueToComapre, Func<string> getErrorMessage = null)
             where TValue : struct, Enum
         {
             if (target.Value.HasFlag(valueToComapre))
@@ -86,7 +86,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Enum, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> HasNoFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, TValue valueToComapre, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TValue?> DoesNotHaveFlag<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, TValue valueToComapre, Func<string> getErrorMessage = null)
             where TValue : struct, Enum
         {
             if (target.Value.HasValue && target.Value.Value.HasFlag(valueToComapre))

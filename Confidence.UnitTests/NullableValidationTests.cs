@@ -11,8 +11,8 @@ namespace Confidence.UnitTests
             int? objectToTest = 1;
             string objectName = "test";
 
-            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).HasNoValue());
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).HasNoValue());
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).DoesNotHaveValue());
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).DoesNotHaveValue());
             Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, objectName).IsNull());
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsNull());
 
@@ -22,8 +22,8 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).NotNull();
 
             objectToTest = null;
-            Requires.Argument(objectToTest, objectName).HasNoValue();
-            Requires<InvalidOperationException>.Argument(objectToTest, objectName).HasNoValue();
+            Requires.Argument(objectToTest, objectName).DoesNotHaveValue();
+            Requires<InvalidOperationException>.Argument(objectToTest, objectName).DoesNotHaveValue();
             Requires.Argument(objectToTest, objectName).IsNull();
             Requires<InvalidOperationException>.Argument(objectToTest, objectName).IsNull();
             Assert.Throws<ArgumentNullException>(() => Requires.Argument(objectToTest, objectName).NotNull());

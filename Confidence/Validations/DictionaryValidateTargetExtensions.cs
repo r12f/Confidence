@@ -48,7 +48,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Dictionary, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TDictionary> NotContainsKey<TDictionary, TKey, TValue>([ValidatedNotNull] this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TDictionary> DoesNotContainKey<TDictionary, TKey, TValue>([ValidatedNotNull] this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
             where TDictionary : IDictionary<TKey, TValue>
         {
             if (target.Value != null && target.Value.ContainsKey(valueToCompare))

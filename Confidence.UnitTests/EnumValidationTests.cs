@@ -82,27 +82,27 @@ namespace Confidence.UnitTests
         }
 
         [Fact]
-        public void EnumHasNoFlagCanBeValidated()
+        public void EnumDoesNotHaveFlagCanBeValidated()
         {
             TestEnum testValue = TestEnum.Value1;
-            Requires.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value2);
-            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value2);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value1));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value1));
+            Requires.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value2);
+            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value2);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value1));
         }
 
         [Fact]
         public void NullableEnumHasNoFlagCanBeValidated()
         {
             TestEnum? testNullValue = null;
-            Requires.Argument(testNullValue, nameof(testNullValue)).HasNoFlag(TestEnum.Value1);
-            Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).HasNoFlag(TestEnum.Value1);
+            Requires.Argument(testNullValue, nameof(testNullValue)).DoesNotHaveFlag(TestEnum.Value1);
+            Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).DoesNotHaveFlag(TestEnum.Value1);
 
             TestEnum? testValue = TestEnum.Value1;
-            Requires.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value2);
-            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value2);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value1));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).HasNoFlag(TestEnum.Value1));
+            Requires.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value2);
+            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value2);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).DoesNotHaveFlag(TestEnum.Value1));
         }
 
         [Fact]
