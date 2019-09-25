@@ -364,6 +364,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldHaveCountInRange".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveCountInRange<T>([ValidatedNotNull] ValidateTarget<T> target, int min, int max)
+        {
+            return CreateErrorMessage(target, min, max, "The number of items in {0} is not in the range of [{1}, {2}].");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldHaveCountInRange".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotHaveCountInRange<T>([ValidatedNotNull] ValidateTarget<T> target, int min, int max)
+        {
+            return CreateErrorMessage(target, min, max, "The number of items in {0} should not be in the range of [{1}, {2}].");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldContain".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
