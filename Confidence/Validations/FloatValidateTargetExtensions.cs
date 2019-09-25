@@ -307,7 +307,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<float> InRange([ValidatedNotNull] this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float> IsInRange([ValidatedNotNull] this ValidateTarget<float> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
         {
             var diffFromMin = Math.Abs(target.Value - minValue);
             var diffFromMax = Math.Abs(target.Value - maxValue);
@@ -330,7 +330,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Float, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<float?> InRange([ValidatedNotNull] this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
+        public static ValidateTarget<float?> IsInRange([ValidatedNotNull] this ValidateTarget<float?> target, float minValue, float maxValue, float allowedError, Func<string> getErrorMessage = null)
         {
             if (target.Value.HasValue)
             {

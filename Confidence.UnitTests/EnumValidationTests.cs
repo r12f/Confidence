@@ -205,24 +205,24 @@ namespace Confidence.UnitTests
         public void EnumInRangeCanBeValidated()
         {
             TestEnum testValue = TestEnum.Value2;
-            Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value1, TestEnum.Value3);
-            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value2, TestEnum.Value2);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
+            Requires.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value1, TestEnum.Value3);
+            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value2, TestEnum.Value2);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value3, TestEnum.Value3));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value3, TestEnum.Value3));
         }
 
         [Fact]
         public void NullableEnumInRangeCanBeValidated()
         {
             TestEnum? testNullValue = null;
-            Requires.Argument(testNullValue, nameof(testNullValue)).InRange(TestEnum.Value1, TestEnum.Value3);
-            Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).InRange(TestEnum.Value1, TestEnum.Value3);
+            Requires.Argument(testNullValue, nameof(testNullValue)).IsInRange(TestEnum.Value1, TestEnum.Value3);
+            Requires<InvalidOperationException>.Argument(testNullValue, nameof(testNullValue)).IsInRange(TestEnum.Value1, TestEnum.Value3);
 
             TestEnum? testValue = TestEnum.Value2;
-            Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value1, TestEnum.Value3);
-            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value2, TestEnum.Value2);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).InRange(TestEnum.Value3, TestEnum.Value3));
+            Requires.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value1, TestEnum.Value3);
+            Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value2, TestEnum.Value2);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value3, TestEnum.Value3));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testValue, nameof(testValue)).IsInRange(TestEnum.Value3, TestEnum.Value3));
         }
 
         private enum TestEnum

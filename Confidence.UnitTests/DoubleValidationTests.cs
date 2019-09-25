@@ -208,12 +208,12 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).IsGreaterOrEqualThan(objectSmaller, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).IsGreaterOrEqualThan(objectLarger, goodAllowedError));
 
-            // InRange
-            Requires.Argument(objectToTest, nameof(objectToTest)).InRange(objectToTest, objectToTest, goodAllowedError);
-            Requires.Argument(objectToTest, nameof(objectToTest)).InRange(objectSmaller, objectLarger, goodAllowedError);
-            Requires.Argument(objectToTest, nameof(objectToTest)).InRange(objectSmaller, objectLarger, badAllowedError);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, nameof(objectToTest)).InRange(objectToTest, objectLarger, goodAllowedError));
-            Requires.Argument(objectSmaller, nameof(objectToTest)).InRange(objectToTest, objectLarger, badAllowedError);
+            // IsInRange
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsInRange(objectToTest, objectToTest, goodAllowedError);
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsInRange(objectSmaller, objectLarger, goodAllowedError);
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsInRange(objectSmaller, objectLarger, badAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, nameof(objectToTest)).IsInRange(objectToTest, objectLarger, goodAllowedError));
+            Requires.Argument(objectSmaller, nameof(objectToTest)).IsInRange(objectToTest, objectLarger, badAllowedError);
 
             // NotInRange
             Requires.Argument(objectToTest, nameof(objectToTest)).NotInRange(objectLarger, objectLarger, goodAllowedError);
@@ -296,12 +296,12 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsGreaterOrEqualThan(objectSmaller, goodAllowedError);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsGreaterOrEqualThan(objectLarger, goodAllowedError));
 
-            // InRange
-            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).InRange(objectValue, objectValue, goodAllowedError);
-            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).InRange(objectSmaller, objectLarger, goodAllowedError);
-            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).InRange(objectSmaller, objectLarger, badAllowedError);
-            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, nameof(nullableObjectToTest)).InRange(objectValue, objectLarger, goodAllowedError));
-            Requires.Argument(objectSmaller, nameof(nullableObjectToTest)).InRange(objectValue, objectLarger, badAllowedError);
+            // IsInRange
+            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsInRange(objectValue, objectValue, goodAllowedError);
+            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsInRange(objectSmaller, objectLarger, goodAllowedError);
+            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsInRange(objectSmaller, objectLarger, badAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectSmaller, nameof(nullableObjectToTest)).IsInRange(objectValue, objectLarger, goodAllowedError));
+            Requires.Argument(objectSmaller, nameof(nullableObjectToTest)).IsInRange(objectValue, objectLarger, badAllowedError);
 
             // NotInRange
             Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).NotInRange(objectLarger, objectLarger, goodAllowedError);

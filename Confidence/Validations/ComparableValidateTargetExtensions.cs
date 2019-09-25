@@ -417,7 +417,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> InRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ValidateTarget<TValue> IsInRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : IComparable
         {
             System.Collections.IComparer comparer = customComparer ?? Comparer<TValue>.Default;
@@ -441,7 +441,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> InRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
+        public static ValidateTarget<TValue?> IsInRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, object minValue, object maxValue, Func<string> getErrorMessage = null, System.Collections.IComparer customComparer = null)
             where TValue : struct, IComparable
         {
             if (target.Value.HasValue)
@@ -468,7 +468,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue> InRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ValidateTarget<TValue> IsInRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : IComparable<TValue>
         {
             IComparer<TValue> comparer = customComparer ?? Comparer<TValue>.Default;
@@ -492,7 +492,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.IComparable, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TValue?> InRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
+        public static ValidateTarget<TValue?> IsInRange<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, TValue minValue, TValue maxValue, Func<string> getErrorMessage = null, IComparer<TValue> customComparer = null)
             where TValue : struct, IComparable<TValue>
         {
             if (target.Value.HasValue)
