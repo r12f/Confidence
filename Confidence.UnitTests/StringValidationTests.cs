@@ -66,6 +66,51 @@ namespace Confidence.UnitTests
         }
 
         [Theory]
+        [InlineData("", 0)]
+        [InlineData("abc", 3)]
+        public void StringLengthCanBeValidated(string v, int expected)
+        {
+            Requires.Argument(v, nameof(v)).LengthIs(expected);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthNot(expected));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthNot(expected));
+        }
+
+        [Theory]
+        [InlineData(null, 0)]
+        [InlineData("", 1)]
+        [InlineData("abc", 2)]
+        public void StringLengthNotCanBeValidated(string v, int expected)
+        {
+            Requires.Argument(v, nameof(v)).LengthNot(expected);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthIs(expected));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthIs(expected));
+        }
+
+        [Theory]
+        [InlineData("", -1, 2)]
+        [InlineData("", 0, 0)]
+        [InlineData("abc", 2, 4)]
+        [InlineData("abc", 3, 3)]
+        public void StringLengthIsInRangeCanBeValidated(string v, int min, int max)
+        {
+            Requires.Argument(v, nameof(v)).LengthIsInRange(min, max);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthNotInRange(min, max));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthNotInRange(min, max));
+        }
+
+        [Theory]
+        [InlineData("", -1, -2)]
+        [InlineData("", 1, 2)]
+        [InlineData("abc", 1, 2)]
+        [InlineData("abc", 4, 5)]
+        public void StringLengthNotInRangeCanBeValidated(string v, int min, int max)
+        {
+            Requires.Argument(v, nameof(v)).LengthNotInRange(min, max);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthIsInRange(min, max));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthIsInRange(min, max));
+        }
+
+        [Theory]
         [InlineData(null, null)]
         [InlineData("", "")]
         [InlineData(" ", " ")]

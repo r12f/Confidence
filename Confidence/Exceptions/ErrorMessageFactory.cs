@@ -314,6 +314,42 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldHaveLength".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveLength<T>([ValidatedNotNull] ValidateTarget<T> target, int valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "The length of {0} doesn't match {1}.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotHaveLength".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotHaveLength<T>([ValidatedNotNull] ValidateTarget<T> target, int valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "The length of {0} should not be {1}.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldHaveLengthInRange".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveLengthInRange<T>([ValidatedNotNull] ValidateTarget<T> target, int min, int max)
+        {
+            return CreateErrorMessage(target, min, max, "The length of {0} is not in the range of [{1}, {2}].");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldHaveLengthInRange".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotHaveLengthInRange<T>([ValidatedNotNull] ValidateTarget<T> target, int min, int max)
+        {
+            return CreateErrorMessage(target, min, max, "The length of {0} should not be in the range of [{1}, {2}].");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldStartsWith".
         /// </summary>
         public static string ShouldStartWith([ValidatedNotNull] ValidateTarget<string> target, string valueToCompare)
