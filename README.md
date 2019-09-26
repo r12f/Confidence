@@ -142,7 +142,7 @@ The same as above, just another nice thing to have, although most of time we don
 It is doable to add more validations in Confidence.dll for many other types, like IPAddress, but it will pull in more depencies when loading Confidence.dll, but not everyone needs it, like System.Net. So instead of putting all validations in this module, we prefer to providing other extension modules for the types which is not loaded by default.
 
 #### Prefer extensions over virtual functions
-Using object extensions makes the function call to be determined in compile time (static binding), which will be faster then virtual functions (dynamic binding).
+Using object extensions makes the function call to be determined in compile time (static binding), which will be faster than virtual functions (dynamic binding).
 
 #### Delay error message generation
 The error message is only needed when things go wrong. It means most of the time, we don't need it, so it is better to only generate it when we actually need it.

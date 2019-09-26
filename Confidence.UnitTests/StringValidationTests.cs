@@ -71,6 +71,8 @@ namespace Confidence.UnitTests
         public void StringLengthCanBeValidated(string v, int expected)
         {
             Requires.Argument(v, nameof(v)).LengthIs(expected);
+            Requires.Argument(v, nameof(v)).LengthMin(expected);
+            Requires.Argument(v, nameof(v)).LengthMax(expected);
             Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthNot(expected));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthNot(expected));
         }
@@ -84,6 +86,26 @@ namespace Confidence.UnitTests
             Requires.Argument(v, nameof(v)).LengthNot(expected);
             Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthIs(expected));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthIs(expected));
+        }
+
+        [Theory]
+        [InlineData("", -1)]
+        [InlineData("abc", 2)]
+        public void StringLengthMinCanBeValidated(string v, int expected)
+        {
+            Requires.Argument(v, nameof(v)).LengthMin(expected);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthMax(expected));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthMax(expected));
+        }
+
+        [Theory]
+        [InlineData("", 1)]
+        [InlineData("abc", 4)]
+        public void StringLengthMaxCanBeValidated(string v, int expected)
+        {
+            Requires.Argument(v, nameof(v)).LengthMax(expected);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).LengthMin(expected));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).LengthMin(expected));
         }
 
         [Theory]

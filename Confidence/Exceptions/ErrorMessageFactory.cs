@@ -332,6 +332,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldHaveMinLength".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveMinLength<T>([ValidatedNotNull] ValidateTarget<T> target, int valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "The length of {0} is shorter than {1}.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldHaveMaxLength".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveMaxLength<T>([ValidatedNotNull] ValidateTarget<T> target, int valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "The length of {0} is longer than {1}.");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldHaveLengthInRange".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>

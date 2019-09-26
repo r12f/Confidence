@@ -129,7 +129,47 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target length matches a specific value.
+        /// Validate if target length is larger or equal than a specific value.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<string> LengthMin([ValidatedNotNull] this ValidateTarget<string> target, int valueToCompare, Func<string> getErrorMessage = null)
+        {
+            // As other string API does in C#, null is smaller than empty, so the length of null is not 0.
+            if (target.Value == null || target.Value.Length < valueToCompare)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveMinLength(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target length is less or equal than a specific value.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<string> LengthMax([ValidatedNotNull] this ValidateTarget<string> target, int valueToCompare, Func<string> getErrorMessage = null)
+        {
+            // As other string API does in C#, null is smaller than empty, so the length of null is not 0.
+            if (target.Value == null || target.Value.Length > valueToCompare)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldHaveMaxLength(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target length is in a specific range.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="min">Min length. The actual length should be larger or equal than this.</param>
@@ -149,7 +189,7 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target length matches a specific value.
+        /// Validate if target length is not in a specific range.
         /// </summary>
         /// <param name="target">Validate target.</param>
         /// <param name="min">Min length. The actual length should be larger or equal than this.</param>
