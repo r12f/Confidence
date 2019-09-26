@@ -104,48 +104,48 @@ namespace Confidence.UnitTests
             where TCollection : ICollection<TItem>, IEnumerable
         {
             // Count
-            Requires.Argument(emptyCollection, nameof(emptyCollection)).Count(0);
-            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).Count(0);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).Count(1));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).Count(1));
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountIs(0);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountIs(0);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountIs(1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountIs(1));
 
-            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).Count(1);
-            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).Count(1);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).Count(0));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).Count(0));
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIs(1);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIs(1);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIs(0));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIs(0));
 
             // NotCount
-            Requires.Argument(emptyCollection, nameof(emptyCollection)).NotCount(1);
-            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).NotCount(1);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).NotCount(0));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).NotCount(0));
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountNot(1);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountNot(1);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountNot(0));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountNot(0));
 
-            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCount(0);
-            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCount(0);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCount(1));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCount(1));
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNot(0);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNot(0);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNot(1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNot(1));
 
             // CountByEnumeration
-            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountByEnumeration(0);
-            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountByEnumeration(0);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountByEnumeration(1));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountByEnumeration(1));
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountIsByEnumeration(0);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountIsByEnumeration(0);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountIsByEnumeration(1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountIsByEnumeration(1));
 
-            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountByEnumeration(1);
-            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountByEnumeration(1);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountByEnumeration(0));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountByEnumeration(0));
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIsByEnumeration(1);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIsByEnumeration(1);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIsByEnumeration(0));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIsByEnumeration(0));
 
             // NotCountByEnumeration
-            Requires.Argument(emptyCollection, nameof(emptyCollection)).NotCountByEnumeration(1);
-            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).NotCountByEnumeration(1);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).NotCountByEnumeration(0));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).NotCountByEnumeration(0));
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountNotByEnumeration(1);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountNotByEnumeration(1);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountNotByEnumeration(0));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountNotByEnumeration(0));
 
-            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCountByEnumeration(0);
-            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCountByEnumeration(0);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCountByEnumeration(1));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).NotCountByEnumeration(1));
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNotByEnumeration(0);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNotByEnumeration(0);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNotByEnumeration(1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNotByEnumeration(1));
 
             // CountIsInRange
             Requires.Argument(emptyCollection, nameof(emptyCollection)).CountIsInRange(0, 0);
@@ -201,10 +201,10 @@ namespace Confidence.UnitTests
             Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).Contains(valueNotInCollection));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testCollection, nameof(testCollection)).Contains(valueNotInCollection));
 
-            Requires.Argument(testCollection, nameof(testCollection)).NotContains(valueNotInCollection);
-            Requires<InvalidOperationException>.Argument(testCollection, nameof(testCollection)).NotContains(valueNotInCollection);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).NotContains(valueInCollection));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testCollection, nameof(testCollection)).NotContains(valueInCollection));
+            Requires.Argument(testCollection, nameof(testCollection)).DoesNotContain(valueNotInCollection);
+            Requires<InvalidOperationException>.Argument(testCollection, nameof(testCollection)).DoesNotContain(valueNotInCollection);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).DoesNotContain(valueInCollection));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testCollection, nameof(testCollection)).DoesNotContain(valueInCollection));
         }
 
         private void RunSpecificValueInCollectionTest<TCollection, TItem>(TItem valueInCollection, TItem valueNotInCollection)

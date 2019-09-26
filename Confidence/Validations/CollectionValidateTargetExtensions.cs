@@ -105,7 +105,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TCollection> Count<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> CountIs<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value == null || CollectionProxy<TCollection>.GetCount(target.Value) != valueToCompare)
@@ -126,7 +126,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TCollection> CountByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> CountIsByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value == null || CollectionProxy<TCollection>.GetCountByEnumeration(target.Value, valueToCompare + 1) != valueToCompare)
@@ -147,7 +147,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TCollection> NotCount<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> CountNot<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value != null && CollectionProxy<TCollection>.GetCount(target.Value) == valueToCompare)
@@ -168,7 +168,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Size)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TCollection> NotCountByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> CountNotByEnumeration<TCollection>([ValidatedNotNull] this ValidateTarget<TCollection> target, int valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable
         {
             if (target.Value != null && CollectionProxy<TCollection>.GetCountByEnumeration(target.Value, valueToCompare + 1) == valueToCompare)
@@ -364,7 +364,7 @@ namespace Confidence
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TCollection> NotContains<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
+        public static ValidateTarget<TCollection> DoesNotContain<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
             where TCollection : IEnumerable<TItem>
         {
             if (target.Value != null && TypedCollectionProxy<TCollection, TItem>.Contains(target.Value, valueToCompare))

@@ -25,16 +25,16 @@ namespace Confidence.UnitTests
         public void ArrayCountCanBeValidated()
         {
             int[] emptyArray = new int[0];
-            Requires.Argument(emptyArray, nameof(emptyArray)).Count(0);
-            Requires<InvalidOperationException>.Argument(emptyArray, nameof(emptyArray)).Count(0);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyArray, nameof(emptyArray)).Count(1));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyArray, nameof(emptyArray)).Count(1));
+            Requires.Argument(emptyArray, nameof(emptyArray)).CountIs(0);
+            Requires<InvalidOperationException>.Argument(emptyArray, nameof(emptyArray)).CountIs(0);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyArray, nameof(emptyArray)).CountIs(1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyArray, nameof(emptyArray)).CountIs(1));
 
             int[] nonEmptyArray = new int[1];
-            Requires.Argument(nonEmptyArray, nameof(nonEmptyArray)).Count(1);
-            Requires<InvalidOperationException>.Argument(nonEmptyArray, nameof(nonEmptyArray)).Count(1);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyArray, nameof(nonEmptyArray)).Count(0));
-            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyArray, nameof(nonEmptyArray)).Count(0));
+            Requires.Argument(nonEmptyArray, nameof(nonEmptyArray)).CountIs(1);
+            Requires<InvalidOperationException>.Argument(nonEmptyArray, nameof(nonEmptyArray)).CountIs(1);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyArray, nameof(nonEmptyArray)).CountIs(0));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyArray, nameof(nonEmptyArray)).CountIs(0));
         }
 
         [Fact]
