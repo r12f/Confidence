@@ -147,6 +147,50 @@ namespace Confidence.UnitTests
             Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNotByEnumeration(1));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNotByEnumeration(1));
 
+            // CountMin
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMin(0);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMin(0);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMin(1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMin(1));
+
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMin(1);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMin(1);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMin(int.MaxValue));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMin(int.MaxValue));
+
+            // CountMax
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMax(int.MaxValue);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMax(int.MaxValue);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMax(-1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMax(-1));
+
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMax(int.MaxValue);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMax(int.MaxValue);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMax(0));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMax(0));
+
+            // CountMinByEnumeration
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMinByEnumeration(0);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMinByEnumeration(0);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMinByEnumeration(1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMinByEnumeration(1));
+
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMinByEnumeration(1);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMinByEnumeration(1);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMinByEnumeration(int.MaxValue));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMinByEnumeration(int.MaxValue));
+
+            // CountMaxByEnumeration
+            Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMaxByEnumeration(int.MaxValue);
+            Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMaxByEnumeration(int.MaxValue);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(emptyCollection, nameof(emptyCollection)).CountMaxByEnumeration(-1));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountMaxByEnumeration(-1));
+
+            Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMaxByEnumeration(int.MaxValue);
+            Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMaxByEnumeration(int.MaxValue);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMaxByEnumeration(0));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountMaxByEnumeration(0));
+
             // CountIsInRange
             Requires.Argument(emptyCollection, nameof(emptyCollection)).CountIsInRange(0, 0);
             Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountIsInRange(0, 1);

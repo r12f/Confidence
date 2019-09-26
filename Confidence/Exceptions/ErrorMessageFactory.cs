@@ -418,6 +418,24 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldHaveMinCount".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveMinCount<T>([ValidatedNotNull] ValidateTarget<T> target, int valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "The number of items in {0} should be larger or equal than {1}.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldHaveMaxCount".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveMaxCount<T>([ValidatedNotNull] ValidateTarget<T> target, int valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "The number of items in {0} should be smaller or equal than {1}.");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldHaveCountInRange".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>
