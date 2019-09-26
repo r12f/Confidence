@@ -89,6 +89,48 @@ namespace Confidence
 #endif
 
         /// <summary>
+        /// Validate if target equals to a specific value.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <param name="stringComparison">String comparison.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<string> Equal([ValidatedNotNull] this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
+        {
+            // string.Compare can handle null.
+            if (string.Compare(target.Value, valueToCompare, stringComparison) != 0)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target doesn't equal to a specific value.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="valueToCompare">Value to compare.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <param name="stringComparison">String comparison.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.String, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<string> NotEqual([ValidatedNotNull] this ValidateTarget<string> target, string valueToCompare, Func<string> getErrorMessage = null, StringComparison stringComparison = StringComparison.Ordinal)
+        {
+            // string.Compare can handle null.
+            if (string.Compare(target.Value, valueToCompare, stringComparison) == 0)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, valueToCompare));
+            }
+
+            return target;
+        }
+
+        /// <summary>
         /// Validate if target starts with specific value.
         /// </summary>
         /// <param name="target">Validate target.</param>

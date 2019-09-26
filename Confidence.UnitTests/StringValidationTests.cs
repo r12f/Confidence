@@ -66,6 +66,31 @@ namespace Confidence.UnitTests
         }
 
         [Theory]
+        [InlineData(null, null)]
+        [InlineData("", "")]
+        [InlineData(" ", " ")]
+        [InlineData("abc", "abc")]
+        public void StringEqualCanBeValidated(string v, string s)
+        {
+            Requires.Argument(v, nameof(v)).Equal(s);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).NotEqual(s));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).NotEqual(s));
+        }
+
+        [Theory]
+        [InlineData(null, "")]
+        [InlineData("", null)]
+        [InlineData("", " ")]
+        [InlineData(" ", "")]
+        [InlineData("abc", "a")]
+        public void StringNotEqualCanBeValidated(string v, string s)
+        {
+            Requires.Argument(v, nameof(v)).NotEqual(s);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).Equal(s));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).Equal(s));
+        }
+
+        [Theory]
         [InlineData("", "")]
         [InlineData(" ", "")]
         [InlineData(" ", " ")]
