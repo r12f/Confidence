@@ -126,6 +126,90 @@ namespace Confidence
             return target;
         }
 
+        /// <summary>
+        /// Validate if target equals to zero of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> IsZero<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
+            where TValue : struct, IEquatable<TValue>
+        {
+            TValue defaultValue = default(TValue);
+            if (!target.Value.Equals(defaultValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target equals to zero of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> IsZero<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, Func<string> getErrorMessage = null)
+            where TValue : struct, IEquatable<TValue>
+        {
+            TValue defaultValue = default(TValue);
+            if (!target.Value.HasValue || !target.Value.Equals(defaultValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target does not equal to zero of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> NotZero<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
+            where TValue : struct, IEquatable<TValue>
+        {
+            TValue defaultValue = default(TValue);
+            if (target.Value.Equals(defaultValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target does not equal to zero of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> NotZero<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, Func<string> getErrorMessage = null)
+            where TValue : struct, IEquatable<TValue>
+        {
+            TValue defaultValue = default(TValue);
+            if (!target.Value.HasValue && target.Value.Equals(defaultValue))
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
 #if !NETSTANDARD1_0 && !NETSTANDARD1_1
 
         /// <summary>

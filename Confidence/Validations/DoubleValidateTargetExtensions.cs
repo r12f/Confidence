@@ -499,6 +499,62 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Validate if target equals to zero of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double> IsZero([ValidatedNotNull] this ValidateTarget<double> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            return DoubleValidateTargetExtensions.IsDefault(target, allowedError, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Validate if target equals to zero of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> IsZero([ValidatedNotNull] this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            return DoubleValidateTargetExtensions.IsDefault(target, allowedError, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Validate if target does not equal to zero of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double> NotZero([ValidatedNotNull] this ValidateTarget<double> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            return DoubleValidateTargetExtensions.NotDefault(target, allowedError, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Validate if target does not equal to zero of its type.
+        /// </summary>
+        /// <param name="target">Validate target.</param>
+        /// <param name="allowedError">Allowed double point error.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Double, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<double?> NotZero([ValidatedNotNull] this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
+        {
+            return DoubleValidateTargetExtensions.NotDefault(target, allowedError, getErrorMessage);
+        }
+
+        /// <summary>
         /// Validate if target is NaN.
         /// </summary>
         /// <param name="target">Validate target.</param>
