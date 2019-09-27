@@ -9,7 +9,7 @@ Confidence is an easy to read and debug fluent argument/condition checker in C# 
 
 .NET versions supported: netstandard >=1.0, .net framework >= 3.5.
 
-**Requirements:** If you are planning to use enum validations (i.e. ```HasFlag``` and ```HasNoFlag```), please [use C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) by adding ```<LangVersion>7.3</LangVersion>``` into your .csproj file. Or we could use ```IsTrue``` validation instead for workaround.
+**Requirements:** If you are planning to use enum validations (i.e. ```HasFlag``` and ```DoesNotHaveFlag```), please [use C# 7.3](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version) by adding ```<LangVersion>7.3</LangVersion>``` into your .csproj file. Or we could use ```IsTrue``` validation instead for workaround.
 
 ## Code contracts
 Code contracts are better assertions. It is a widely used technique and usually provides 3 variations of assertions to help identifying who is responsible for the failure besides showing what is failing.
