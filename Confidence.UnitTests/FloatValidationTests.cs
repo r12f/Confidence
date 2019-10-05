@@ -227,6 +227,14 @@ namespace Confidence.UnitTests
             // NotDefault
             Requires.Argument(objectToTest, nameof(objectToTest)).NotDefault(goodAllowedError);
             Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotDefault(goodAllowedError));
+
+            // IsZero
+            Requires.Argument(defaultValue, nameof(defaultValue)).IsZero(goodAllowedError);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsZero(goodAllowedError));
+
+            // NotZero
+            Requires.Argument(objectToTest, nameof(objectToTest)).NotZero(goodAllowedError);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotZero(goodAllowedError));
         }
 
         [Fact]
@@ -315,6 +323,14 @@ namespace Confidence.UnitTests
             // NotDefault
             Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).NotDefault(goodAllowedError);
             Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotDefault(goodAllowedError));
+
+            // IsZero
+            Requires.Argument(defaultValue, nameof(defaultValue)).IsZero(goodAllowedError);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsZero(goodAllowedError));
+
+            // NotZero
+            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).NotZero(goodAllowedError);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotZero(goodAllowedError));
         }
     }
 }

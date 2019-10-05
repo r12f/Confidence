@@ -210,5 +210,37 @@ namespace Confidence.UnitTests
             Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).EndsWith(s));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).EndsWith(s));
         }
+
+        [Theory]
+        [InlineData("", "")]
+        [InlineData(" ", "")]
+        [InlineData(" ", " ")]
+        [InlineData("abc", "a")]
+        [InlineData("abc", "b")]
+        [InlineData("abc", "c")]
+        [InlineData("abc", "ab")]
+        [InlineData("abc", "bc")]
+        [InlineData("abc", "abc")]
+        public void StringContainsSpecificValueCanBeValidated(string v, string s)
+        {
+            Requires.Argument(v, nameof(v)).Contains(s);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).DoesNotContain(s));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).DoesNotContain(s));
+        }
+
+        [Theory]
+        [InlineData(null, "")]
+        [InlineData(null, " ")]
+        [InlineData("", " ")]
+        [InlineData(" ", "  ")]
+        [InlineData("abc", "ac")]
+        [InlineData("abc", "d")]
+        [InlineData("abc", "abcd")]
+        public void StringDoesNotContainSpecificValueCanBeValidated(string v, string s)
+        {
+            Requires.Argument(v, nameof(v)).DoesNotContain(s);
+            Assert.Throws<ArgumentException>(() => Requires.Argument(v, nameof(v)).Contains(s));
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(v, nameof(v)).Contains(s));
+        }
     }
 }

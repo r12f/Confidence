@@ -92,7 +92,7 @@ namespace Confidence.UnitTests
         }
 
         [Fact]
-        public void NullableEnumHasNoFlagCanBeValidated()
+        public void NullableEnumDoesNotHaveFlagCanBeValidated()
         {
             TestEnum? testNullValue = null;
             Requires.Argument(testNullValue, nameof(testNullValue)).DoesNotHaveFlag(TestEnum.Value1);
