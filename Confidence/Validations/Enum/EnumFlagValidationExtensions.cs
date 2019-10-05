@@ -8,9 +8,9 @@ using Confidence.Utilities;
 namespace Confidence
 {
     /// <summary>
-    /// Validate target extensions used for validating enum.
+    /// Extensions for validating if an enum has a flag.
     /// </summary>
-    public static class EnumValidateTargetExtensions
+    public static class EnumFlagValidationExtensions
     {
 #if !NET35
         /// <summary>

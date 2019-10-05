@@ -9,26 +9,25 @@ using Confidence.Utilities;
 namespace Confidence
 {
     /// <summary>
-    /// Validate target extensions used for validating IDictionary{T}.
+    /// Extensions for validating is collection contains certain object.
     /// </summary>
-    public static class DictionaryValidateTargetExtensions
+    public static class CollectionContainsValidationExtensions
     {
         /// <summary>
-        /// Validate if target contains specific key.
+        /// Validate if target contains specific item.
         /// </summary>
-        /// <typeparam name="TDictionary">Target type.</typeparam>
-        /// <typeparam name="TKey">Dictionary key type.</typeparam>
-        /// <typeparam name="TValue">Dictionary value type.</typeparam>
+        /// <typeparam name="TCollection">Target type.</typeparam>
+        /// <typeparam name="TItem">Child item type.</typeparam>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
         /// <param name="getErrorMessage">Custom error message.</param>
         /// <returns>The same validate target as passed in.</returns>
-        [ValidationMethod(ValidationTargetTypes.Dictionary, ValidationMethodTypes.Children)]
+        [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TDictionary> ContainsKey<TDictionary, TKey, TValue>([ValidatedNotNull] this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
-            where TDictionary : IDictionary<TKey, TValue>
+        public static ValidateTarget<TCollection> Contains<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
+            where TCollection : IEnumerable<TItem>
         {
-            if (target.Value == null || !target.Value.ContainsKey(valueToCompare))
+            if (target.Value == null || !TypedCollectionProxy<TCollection, TItem>.Contains(target.Value, valueToCompare))
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldContain(target, valueToCompare));
             }
@@ -37,21 +36,20 @@ namespace Confidence
         }
 
         /// <summary>
-        /// Validate if target doesn't contain specific key.
+        /// Validate if target doesn't contain specific item.
         /// </summary>
-        /// <typeparam name="TDictionary">Target type.</typeparam>
-        /// <typeparam name="TKey">Dictionary key type.</typeparam>
-        /// <typeparam name="TValue">Dictionary value type.</typeparam>
+        /// <typeparam name="TCollection">Target type.</typeparam>
+        /// <typeparam name="TItem">Child item type.</typeparam>
         /// <param name="target">Validate target.</param>
         /// <param name="valueToCompare">Value to compare.</param>
         /// <param name="getErrorMessage">Custom error message.</param>
         /// <returns>The same validate target as passed in.</returns>
-        [ValidationMethod(ValidationTargetTypes.Dictionary, ValidationMethodTypes.Children)]
+        [ValidationMethod(ValidationTargetTypes.Collection, ValidationMethodTypes.Children)]
         [DebuggerStepThrough]
-        public static ValidateTarget<TDictionary> DoesNotContainKey<TDictionary, TKey, TValue>([ValidatedNotNull] this ValidateTarget<TDictionary> target, TKey valueToCompare, Func<string> getErrorMessage = null)
-            where TDictionary : IDictionary<TKey, TValue>
+        public static ValidateTarget<TCollection> DoesNotContain<TCollection, TItem>([ValidatedNotNull] this ValidateTarget<TCollection> target, TItem valueToCompare, Func<string> getErrorMessage = null)
+            where TCollection : IEnumerable<TItem>
         {
-            if (target.Value != null && target.Value.ContainsKey(valueToCompare))
+            if (target.Value != null && TypedCollectionProxy<TCollection, TItem>.Contains(target.Value, valueToCompare))
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotContain(target, valueToCompare));
             }

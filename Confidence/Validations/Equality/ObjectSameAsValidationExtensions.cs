@@ -8,50 +8,10 @@ using Confidence.Utilities;
 namespace Confidence
 {
     /// <summary>
-    /// Validate target extensions used for validating reference types.
+    /// Extensions used for validating if the target is the same object as another one.
     /// </summary>
-    public static class ReferenceTypeValidateTargetExtensions
+    public static class ObjectSameAsValidationExtensions
     {
-        /// <summary>
-        /// Validate if target is null.
-        /// </summary>
-        /// <typeparam name="TValue">Target type.</typeparam>
-        /// <param name="target">Validate target.</param>
-        /// <param name="getErrorMessage">Custom error message.</param>
-        /// <returns>The same validate target as passed in.</returns>
-        [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
-        [DebuggerStepThrough]
-        public static ValidateTarget<TValue> IsNull<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
-            where TValue : class
-        {
-            if (target.Value != null)
-            {
-                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeNull(target));
-            }
-
-            return target;
-        }
-
-        /// <summary>
-        /// Validate if target is not null.
-        /// </summary>
-        /// <typeparam name="TValue">Target type.</typeparam>
-        /// <param name="target">Validate target.</param>
-        /// <param name="getErrorMessage">Custom error message.</param>
-        /// <returns>The same validate target as passed in.</returns>
-        [ValidationMethod(ValidationTargetTypes.ClassObject, ValidationMethodTypes.Comparison)]
-        [DebuggerStepThrough]
-        public static ValidateTarget<TValue> NotNull<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
-            where TValue : class
-        {
-            if (target.Value == null)
-            {
-                ExceptionFactory.ThrowException(target.Traits.ObjectNullExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeNull(target));
-            }
-
-            return target;
-        }
-
         /// <summary>
         /// Validate if target is the same reference to another object.
         /// </summary>
