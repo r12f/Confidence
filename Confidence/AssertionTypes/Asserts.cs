@@ -63,7 +63,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static void UnreachableCode(Func<string> getErrorMessage = null)
         {
-            ExceptionFactory.ThrowException(typeof(InvalidOperationException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
+            CustomAssertionValidation.UnreachableCode<InvalidOperationException>(getErrorMessage);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Confidence
         public static void UnreachableCode<TException>(Func<string> getErrorMessage = null)
             where TException : Exception
         {
-            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
+            CustomAssertionValidation.UnreachableCode<TException>(getErrorMessage);
         }
 
         /// <summary>

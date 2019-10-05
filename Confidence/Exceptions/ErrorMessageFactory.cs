@@ -621,6 +621,14 @@ namespace Confidence
             return "Unreachable code executed.";
         }
 
+        /// <summary>
+        /// Create error message for "ShouldBeSupported".
+        /// </summary>
+        public static string ShouldBeSupported(string functionName)
+        {
+            return string.Format(CultureInfo.InvariantCulture, "{0} is not supported yet.", functionName);
+        }
+
         private static string CreateErrorMessage<T>([ValidatedNotNull] ValidateTarget<T> target, string errorMessageFormat)
         {
             return string.Format(CultureInfo.InvariantCulture, errorMessageFormat, target.Name);

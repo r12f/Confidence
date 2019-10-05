@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Confidence.Exceptions;
 using Confidence.Utilities;
 
@@ -139,6 +140,45 @@ namespace Confidence
         {
             CustomAssertionValidation.NotDisposed<TException>(isDisposed, objectName, getErrorMessage);
         }
+
+        /// <summary>
+        /// Throw NotSupportedException, because this function is not supported yet.
+        /// </summary>
+        /// <param name="functionName">Function name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotSupported([CallerMemberName] string functionName = null, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.NotSupported<NotSupportedException>(functionName, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw specific exception, because this function is not supported yet.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="functionName">Function name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotSupported<TException>([CallerMemberName] string functionName = null, Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw specified exception, because it should be unreachable.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void UnreachableCode<TException>(Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            CustomAssertionValidation.UnreachableCode<TException>(getErrorMessage);
+        }
     }
 
     /// <summary>
@@ -192,6 +232,18 @@ namespace Confidence
         public static void IsTrue(bool isValid, Func<string> getErrorMessage = null)
         {
             CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw specific exception, because this function is not supported yet.
+        /// </summary>
+        /// <param name="functionName">Function name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotSupported([CallerMemberName] string functionName = null, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
         }
 
         /// <summary>

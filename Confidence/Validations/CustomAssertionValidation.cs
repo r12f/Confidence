@@ -49,5 +49,37 @@ namespace Confidence
 
             ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeDisposed(objectName));
         }
+
+        /// <summary>
+        /// Throw, because it should be unreachable.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void UnreachableCode<TException>(Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeUnreachable());
+        }
+
+        /// <summary>
+        /// Throw as the function is not supported.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="functionName">Function name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotSupported<TException>(string functionName, Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            if (functionName == null)
+            {
+                throw new ArgumentNullException(nameof(functionName), "Please specific the function name as CallerMemberName is not supported in your .NET framework version.");
+            }
+
+            ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSupported(functionName));
+        }
     }
 }

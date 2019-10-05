@@ -155,5 +155,17 @@ namespace Confidence.UnitTests
             Assert.Throws<InvariantViolationException>(() => Asserts.NotDisposed<InvariantViolationException>(true, "TestObject"));
             Assert.Throws<InvariantViolationException>(() => Asserts<InvariantViolationException>.NotDisposed(true, "TestObject"));
         }
+
+        [Fact]
+        public void RequiresNotSupportedCanBeValidated()
+        {
+            Assert.Throws<NotSupportedException>(() => Requires.NotSupported());
+            Assert.Throws<InvariantViolationException>(() => Requires.NotSupported<InvariantViolationException>());
+            Assert.Throws<InvariantViolationException>(() => Requires<InvariantViolationException>.NotSupported());
+
+            Assert.Throws<NotSupportedException>(() => Requires.NotSupported("TestFunction"));
+            Assert.Throws<InvariantViolationException>(() => Requires.NotSupported<InvariantViolationException>("TestFunction"));
+            Assert.Throws<InvariantViolationException>(() => Requires<InvariantViolationException>.NotSupported("TestFunction"));
+        }
     }
 }
