@@ -39,37 +39,57 @@ namespace Confidence.UnitTests
         [Fact]
         public void CollectionContainsSpecificValueCanBeValidated()
         {
-            this.RunCollectionContainsSpecificValueTest<List<int>, int>(1, 2);
-            this.RunCollectionContainsSpecificValueTest<LinkedList<int>, int>(1, 2);
-            this.RunCollectionContainsSpecificValueTest<HashSet<int>, int>(1, 2);
-            this.RunCollectionContainsSpecificValueTest<SortedSet<int>, int>(1, 2);
+            this.RunCollectionContainsSpecificValueTest(new List<int>() { 1 }, 1, 2);
+            this.RunCollectionContainsSpecificValueTest(new LinkedList<int>(new[] { 1 }), 1, 2);
+            this.RunCollectionContainsSpecificValueTest(new HashSet<int>() { 1 }, 1, 2);
+            this.RunCollectionContainsSpecificValueTest(new SortedSet<int>() { 1 }, 1, 2);
+            this.RunCollectionContainsSpecificValueTest(new Dictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunCollectionContainsSpecificValueTest(new SortedDictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunCollectionContainsSpecificValueTest(ImmutableList.Create<int>(1), 1, 2);
+            this.RunCollectionContainsSpecificValueTest(ImmutableHashSet.Create<int>(1), 1, 2);
+            this.RunCollectionContainsSpecificValueTest(ImmutableSortedSet.Create<int>(1), 1, 2);
         }
 
         [Fact]
         public void SpecificValueInCollectionCanBeValidated()
         {
-            this.RunSpecificValueInCollectionTest<List<int>, int>(1, 2);
-            this.RunSpecificValueInCollectionTest<LinkedList<int>, int>(1, 2);
-            this.RunSpecificValueInCollectionTest<HashSet<int>, int>(1, 2);
-            this.RunSpecificValueInCollectionTest<SortedSet<int>, int>(1, 2);
+            this.RunSpecificValueInCollectionTest(new List<int>() { 1 }, 1, 2);
+            this.RunSpecificValueInCollectionTest(new LinkedList<int>(new[] { 1 }), 1, 2);
+            this.RunSpecificValueInCollectionTest(new HashSet<int>() { 1 }, 1, 2);
+            this.RunSpecificValueInCollectionTest(new SortedSet<int>() { 1 }, 1, 2);
+            this.RunSpecificValueInCollectionTest(new Dictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunSpecificValueInCollectionTest(new SortedDictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunSpecificValueInCollectionTest(ImmutableList.Create<int>(1), 1, 2);
+            this.RunSpecificValueInCollectionTest(ImmutableHashSet.Create<int>(1), 1, 2);
+            this.RunSpecificValueInCollectionTest(ImmutableSortedSet.Create<int>(1), 1, 2);
         }
 
         [Fact]
         public void CollectionHasAnyChildMatchesCanBeValidated()
         {
-            this.RunCollectionAnyTest<List<int>, int>(1, 2);
-            this.RunCollectionAnyTest<LinkedList<int>, int>(1, 2);
-            this.RunCollectionAnyTest<HashSet<int>, int>(1, 2);
-            this.RunCollectionAnyTest<SortedSet<int>, int>(1, 2);
+            this.RunCollectionAnyTest(new List<int>() { 1 }, 1, 2);
+            this.RunCollectionAnyTest(new LinkedList<int>(new[] { 1 }), 1, 2);
+            this.RunCollectionAnyTest(new HashSet<int>() { 1 }, 1, 2);
+            this.RunCollectionAnyTest(new SortedSet<int>() { 1 }, 1, 2);
+            this.RunCollectionAnyTest(new Dictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunCollectionAnyTest(new SortedDictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunCollectionAnyTest(ImmutableList.Create<int>(1), 1, 2);
+            this.RunCollectionAnyTest(ImmutableHashSet.Create<int>(1), 1, 2);
+            this.RunCollectionAnyTest(ImmutableSortedSet.Create<int>(1), 1, 2);
         }
 
         [Fact]
         public void CollectionHasAllChildMatchesCanBeValidated()
         {
-            this.RunCollectionAllTest<List<int>, int>(1, 2);
-            this.RunCollectionAllTest<LinkedList<int>, int>(1, 2);
-            this.RunCollectionAllTest<HashSet<int>, int>(1, 2);
-            this.RunCollectionAllTest<SortedSet<int>, int>(1, 2);
+            this.RunCollectionAllTest(new List<int>() { 1 }, 1, 2);
+            this.RunCollectionAllTest(new LinkedList<int>(new[] { 1 }), 1, 2);
+            this.RunCollectionAllTest(new HashSet<int>() { 1 }, 1, 2);
+            this.RunCollectionAllTest(new SortedSet<int>() { 1 }, 1, 2);
+            this.RunCollectionAllTest(new Dictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunCollectionAllTest(new SortedDictionary<int, int>() { { 0, 0 } }, new KeyValuePair<int, int>(0, 0), new KeyValuePair<int, int>(1, 1));
+            this.RunCollectionAllTest(ImmutableList.Create<int>(1), 1, 2);
+            this.RunCollectionAllTest(ImmutableHashSet.Create<int>(1), 1, 2);
+            this.RunCollectionAllTest(ImmutableSortedSet.Create<int>(1), 1, 2);
         }
 
         private void RunCollectionIsEmptyTest<TCollection, TItem>(TCollection emptyCollection, TCollection nonEmptyCollection)
@@ -236,10 +256,9 @@ namespace Confidence.UnitTests
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountNotInRangeByEnumeration(1, 2));
         }
 
-        private void RunCollectionContainsSpecificValueTest<TCollection, TItem>(TItem valueInCollection, TItem valueNotInCollection)
-            where TCollection : ICollection<TItem>, new()
+        private void RunCollectionContainsSpecificValueTest<TCollection, TItem>(TCollection testCollection, TItem valueInCollection, TItem valueNotInCollection)
+            where TCollection : ICollection<TItem>
         {
-            TCollection testCollection = new TCollection() { valueInCollection };
             Requires.Argument(testCollection, nameof(testCollection)).Contains(valueInCollection);
             Requires<InvalidOperationException>.Argument(testCollection, nameof(testCollection)).Contains(valueInCollection);
             Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).Contains(valueNotInCollection));
@@ -251,10 +270,9 @@ namespace Confidence.UnitTests
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(testCollection, nameof(testCollection)).DoesNotContain(valueInCollection));
         }
 
-        private void RunSpecificValueInCollectionTest<TCollection, TItem>(TItem valueInCollection, TItem valueNotInCollection)
-            where TCollection : ICollection<TItem>, new()
+        private void RunSpecificValueInCollectionTest<TCollection, TItem>(TCollection testCollection, TItem valueInCollection, TItem valueNotInCollection)
+            where TCollection : ICollection<TItem>
         {
-            TCollection testCollection = new TCollection() { valueInCollection };
             Requires.Argument(valueInCollection, nameof(valueInCollection)).In(testCollection);
             Requires<InvalidOperationException>.Argument(valueInCollection, nameof(valueInCollection)).In(testCollection);
             Assert.Throws<ArgumentException>(() => Requires.Argument(valueNotInCollection, nameof(valueNotInCollection)).In(testCollection));
@@ -266,10 +284,9 @@ namespace Confidence.UnitTests
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(valueInCollection, nameof(valueInCollection)).NotIn(testCollection));
         }
 
-        private void RunCollectionAnyTest<TCollection, TItem>(TItem valueInCollection, TItem valueNotInCollection)
-            where TCollection : ICollection<TItem>, new()
+        private void RunCollectionAnyTest<TCollection, TItem>(TCollection testCollection, TItem valueInCollection, TItem valueNotInCollection)
+            where TCollection : ICollection<TItem>
         {
-            TCollection testCollection = new TCollection() { valueInCollection };
             Requires.Argument(testCollection, nameof(testCollection)).Any((TItem x) => x.Equals(valueInCollection));
             Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).Any((TItem x) => x.Equals(valueNotInCollection)));
 
@@ -277,10 +294,9 @@ namespace Confidence.UnitTests
             Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).UntypedAny((x) => x.Equals(valueNotInCollection)));
         }
 
-        private void RunCollectionAllTest<TCollection, TItem>(TItem valueInCollection, TItem valueNotInCollection)
-            where TCollection : ICollection<TItem>, new()
+        private void RunCollectionAllTest<TCollection, TItem>(TCollection testCollection, TItem valueInCollection, TItem valueNotInCollection)
+            where TCollection : ICollection<TItem>
         {
-            TCollection testCollection = new TCollection() { valueInCollection };
             Requires.Argument(testCollection, nameof(testCollection)).All((TItem x) => !x.Equals(valueNotInCollection));
             Assert.Throws<ArgumentException>(() => Requires.Argument(testCollection, nameof(testCollection)).All((TItem x) => !x.Equals(valueInCollection)));
 
