@@ -66,7 +66,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<float> IsZero([ValidatedNotNull] this ValidateTarget<float> target, float allowedError, Func<string> getErrorMessage = null)
         {
-            return FloatValidateTargetExtensions.IsDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.IsDefault(target, allowedError, getErrorMessage);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<float?> IsZero([ValidatedNotNull] this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
         {
-            return FloatValidateTargetExtensions.IsDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.IsDefault(target, allowedError, getErrorMessage);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double> IsZero([ValidatedNotNull] this ValidateTarget<double> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            return DoubleValidateTargetExtensions.IsDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.IsDefault(target, allowedError, getErrorMessage);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double?> IsZero([ValidatedNotNull] this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            return DoubleValidateTargetExtensions.IsDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.IsDefault(target, allowedError, getErrorMessage);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<float> NotZero([ValidatedNotNull] this ValidateTarget<float> target, float allowedError, Func<string> getErrorMessage = null)
         {
-            return FloatValidateTargetExtensions.NotDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.NotDefault(target, allowedError, getErrorMessage);
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<float?> NotZero([ValidatedNotNull] this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
         {
-            return FloatValidateTargetExtensions.NotDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.NotDefault(target, allowedError, getErrorMessage);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double> NotZero([ValidatedNotNull] this ValidateTarget<double> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            return DoubleValidateTargetExtensions.NotDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.NotDefault(target, allowedError, getErrorMessage);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double?> NotZero([ValidatedNotNull] this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            return DoubleValidateTargetExtensions.NotDefault(target, allowedError, getErrorMessage);
+            return ObjectDefaultValidationExtensions.NotDefault(target, allowedError, getErrorMessage);
         }
     }
 }
