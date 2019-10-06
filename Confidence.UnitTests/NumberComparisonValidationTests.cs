@@ -3,7 +3,7 @@ using Xunit;
 
 namespace Confidence.UnitTests
 {
-    public class BasicNumericValidationTests
+    public class NumberComparisonValidationTests
     {
         [Fact]
         public void SByteCanBeValidated()

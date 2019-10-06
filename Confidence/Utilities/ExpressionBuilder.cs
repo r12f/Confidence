@@ -93,5 +93,20 @@ namespace Confidence.Utilities
             var lambda = Expression.Lambda<Func<T, TArg0, TReturn>>(methodCall, new[] { thisPointer, argument0 });
             return lambda.Compile();
         }
+
+        /// <summary>
+        /// Creating function for calling bitwise and operator.
+        /// </summary>
+        /// <typeparam name="T">Object type.</typeparam>
+        /// <returns>Bitwise and result.</returns>
+        public static Func<T, T, T> CreateBitwiseAndOperator<T>()
+            where T : struct, IComparable<T>, IEquatable<T>
+        {
+            var lhs = Expression.Parameter(typeof(T), "lhs");
+            var rhs = Expression.Parameter(typeof(T), "rhs");
+            var bitwiseAnd = Expression.And(lhs, rhs);
+            var lambda = Expression.Lambda<Func<T, T, T>>(bitwiseAnd, new[] { lhs, rhs });
+            return lambda.Compile();
+        }
     }
 }

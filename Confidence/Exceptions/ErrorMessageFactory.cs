@@ -190,6 +190,33 @@ namespace Confidence
         }
 
         /// <summary>
+        /// Create error message for "ShouldHaveBitSet".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveBitsSet<T>([ValidatedNotNull] ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "{0} doesn't has bits {1} set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldNotHaveBitsSet".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldNotHaveBitsSet<T>([ValidatedNotNull] ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "{0} should not have bits {1} set.");
+        }
+
+        /// <summary>
+        /// Create error message for "ShouldHaveAnyBitSet".
+        /// </summary>
+        /// <typeparam name="T">Target type.</typeparam>
+        public static string ShouldHaveAnyBitsSet<T>([ValidatedNotNull] ValidateTarget<T> target, object valueToCompare)
+        {
+            return CreateErrorMessage(target, valueToCompare, "{0} doesn't has any of bits {1} set.");
+        }
+
+        /// <summary>
         /// Create error message for "ShouldBeNaN".
         /// </summary>
         /// <typeparam name="T">Target type.</typeparam>

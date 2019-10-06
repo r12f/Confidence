@@ -36,6 +36,11 @@ namespace Confidence
         public const string Boolean = nameof(Boolean);
 
         /// <summary>
+        /// Integer.
+        /// </summary>
+        public const string Integer = nameof(Integer);
+
+        /// <summary>
         /// Float.
         /// </summary>
         public const string Float = nameof(Float);

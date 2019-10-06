@@ -80,7 +80,24 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<float?> IsZero([ValidatedNotNull] this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
         {
-            return ObjectDefaultValidationExtensions.IsDefault(target, allowedError, getErrorMessage);
+            bool isValidationFailed = true;
+
+            float defaultValue = default(float);
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - defaultValue);
+                if (diff <= allowedError)
+                {
+                    isValidationFailed = false;
+                }
+            }
+
+            if (isValidationFailed)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
         }
 
         /// <summary>
@@ -108,7 +125,24 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double?> IsZero([ValidatedNotNull] this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            return ObjectDefaultValidationExtensions.IsDefault(target, allowedError, getErrorMessage);
+            bool isValidationFailed = true;
+
+            double defaultValue = default(double);
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - defaultValue);
+                if (diff <= allowedError)
+                {
+                    isValidationFailed = false;
+                }
+            }
+
+            if (isValidationFailed)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
         }
 
         /// <summary>
@@ -178,7 +212,24 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<float?> NotZero([ValidatedNotNull] this ValidateTarget<float?> target, float allowedError, Func<string> getErrorMessage = null)
         {
-            return ObjectDefaultValidationExtensions.NotDefault(target, allowedError, getErrorMessage);
+            bool isValidationFailed = false;
+
+            float defaultValue = default(float);
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - defaultValue);
+                if (diff <= allowedError)
+                {
+                    isValidationFailed = true;
+                }
+            }
+
+            if (isValidationFailed)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, defaultValue));
+            }
+
+            return target;
         }
 
         /// <summary>
@@ -206,7 +257,24 @@ namespace Confidence
         [DebuggerStepThrough]
         public static ValidateTarget<double?> NotZero([ValidatedNotNull] this ValidateTarget<double?> target, double allowedError, Func<string> getErrorMessage = null)
         {
-            return ObjectDefaultValidationExtensions.NotDefault(target, allowedError, getErrorMessage);
+            bool isValidationFailed = false;
+
+            double defaultValue = default(double);
+            if (target.Value.HasValue)
+            {
+                var diff = Math.Abs(target.Value.Value - defaultValue);
+                if (diff <= allowedError)
+                {
+                    isValidationFailed = true;
+                }
+            }
+
+            if (isValidationFailed)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldNotBeEqualTo(target, defaultValue));
+            }
+
+            return target;
         }
     }
 }

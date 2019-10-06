@@ -329,10 +329,10 @@ namespace Confidence.UnitTests
 
             // IsDefault
             Requires.Argument(defaultValue, nameof(defaultValue)).IsDefault(goodAllowedError);
-            Assert.Throws<ArgumentException>(() => Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsDefault(goodAllowedError));
+            Assert.Throws<ArgumentException>(() => Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).IsDefault());
 
             // NotDefault
-            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).NotDefault(goodAllowedError);
+            Requires.Argument(nullableObjectToTest, nameof(nullableObjectToTest)).NotDefault();
             Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotDefault(goodAllowedError));
 
             // IsZero
