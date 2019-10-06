@@ -243,7 +243,7 @@ namespace Confidence.UnitTests
             Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIsInRangeByEnumeration(1, 2);
             Assert.Throws<ArgumentException>(() => Requires.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIsInRangeByEnumeration(0, 0));
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(nonEmptyCollection, nameof(nonEmptyCollection)).CountIsInRangeByEnumeration(0, 0));
-            
+
             // CountNotInRangeByEnumeration
             Requires.Argument(emptyCollection, nameof(emptyCollection)).CountNotInRangeByEnumeration(1, 1);
             Requires<InvalidOperationException>.Argument(emptyCollection, nameof(emptyCollection)).CountNotInRangeByEnumeration(1, 2);

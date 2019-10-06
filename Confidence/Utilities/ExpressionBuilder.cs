@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 
 #if NETSTANDARD1_0
 #endif
+
 using System.Reflection;
 
 namespace Confidence.Utilities

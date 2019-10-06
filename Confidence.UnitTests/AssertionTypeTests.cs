@@ -1,8 +1,8 @@
 ﻿using System;
-using FluentAssertions;
-using Confidence.Exceptions;
-using Xunit;
 using System.Collections.Generic;
+using Confidence.Exceptions;
+using FluentAssertions;
+using Xunit;
 
 namespace Confidence.UnitTests
 {

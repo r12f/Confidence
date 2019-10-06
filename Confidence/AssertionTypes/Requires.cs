@@ -142,6 +142,7 @@ namespace Confidence
         }
 
 #if NET35 || NET40
+
         /// <summary>
         /// Throw NotSupportedException, because this function is not supported yet.
         /// </summary>
@@ -167,6 +168,7 @@ namespace Confidence
         {
             CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
         }
+
 #else
         /// <summary>
         /// Throw NotSupportedException, because this function is not supported yet.
@@ -263,6 +265,7 @@ namespace Confidence
         }
 
 #if NET35 || NET40
+
         /// <summary>
         /// Throw specific exception, because this function is not supported yet.
         /// </summary>
@@ -274,6 +277,7 @@ namespace Confidence
         {
             CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
         }
+
 #else
         /// <summary>
         /// Throw specific exception, because this function is not supported yet.

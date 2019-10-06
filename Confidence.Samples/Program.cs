@@ -18,7 +18,7 @@ namespace Confidence.Samples
 {
     public class Program
     {
-        static void Main()
+        private static void Main()
         {
             SomeClass someClass = new SomeClass(1, "Hello World!");
             MyAsserts.Variable(someClass, nameof(someClass)).NotNull().FooNotZero();

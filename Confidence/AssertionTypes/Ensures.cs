@@ -96,6 +96,7 @@ namespace Confidence
         private static readonly ValidateTargetFactory<TException, TException, TException> VariableValidateTargetFactory = new ValidateTargetFactory<TException, TException, TException>();
 
 #pragma warning disable CA1000 // Do not declare static members on generic types
+
         /// <summary>
         /// Create validate target for regular variables.
         /// </summary>
