@@ -141,6 +141,33 @@ namespace Confidence
             CustomAssertionValidation.NotDisposed<TException>(isDisposed, objectName, getErrorMessage);
         }
 
+#if NET35 || NET40
+        /// <summary>
+        /// Throw NotSupportedException, because this function is not supported yet.
+        /// </summary>
+        /// <param name="functionName">Function name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotSupported(string functionName, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.NotSupported<NotSupportedException>(functionName, getErrorMessage);
+        }
+
+        /// <summary>
+        /// Throw specific exception, because this function is not supported yet.
+        /// </summary>
+        /// <typeparam name="TException">Exception type.</typeparam>
+        /// <param name="functionName">Function name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotSupported<TException>(string functionName, Func<string> getErrorMessage = null)
+            where TException : Exception
+        {
+            CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
+        }
+#else
         /// <summary>
         /// Throw NotSupportedException, because this function is not supported yet.
         /// </summary>
@@ -166,6 +193,7 @@ namespace Confidence
         {
             CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
         }
+#endif
 
         /// <summary>
         /// Throw specified exception, because it should be unreachable.
@@ -234,6 +262,19 @@ namespace Confidence
             CustomAssertionValidation.IsTrue<TException>(isValid, getErrorMessage);
         }
 
+#if NET35 || NET40
+        /// <summary>
+        /// Throw specific exception, because this function is not supported yet.
+        /// </summary>
+        /// <param name="functionName">Function name.</param>
+        /// <param name="getErrorMessage">Error message.</param>
+        [ValidationMethod(ValidationTargetTypes.None, ValidationMethodTypes.Custom)]
+        [DebuggerStepThrough]
+        public static void NotSupported(string functionName, Func<string> getErrorMessage = null)
+        {
+            CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
+        }
+#else
         /// <summary>
         /// Throw specific exception, because this function is not supported yet.
         /// </summary>
@@ -245,6 +286,7 @@ namespace Confidence
         {
             CustomAssertionValidation.NotSupported<TException>(functionName, getErrorMessage);
         }
+#endif
 
         /// <summary>
         /// Throw ObjectDisposedException, is the custom assertion fails.

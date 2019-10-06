@@ -74,11 +74,6 @@ namespace Confidence
         public static void NotSupported<TException>(string functionName, Func<string> getErrorMessage = null)
             where TException : Exception
         {
-            if (functionName == null)
-            {
-                throw new ArgumentNullException(nameof(functionName), "Please specific the function name as CallerMemberName is not supported in your .NET framework version.");
-            }
-
             ExceptionFactory.ThrowException(typeof(TException), getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeSupported(functionName));
         }
     }
