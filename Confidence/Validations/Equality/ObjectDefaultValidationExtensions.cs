@@ -19,17 +19,61 @@ namespace Confidence
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
         /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> IsDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
+            where TValue : class
+        {
+            // Default value of all reference types is null.
+            TValue defaultValue = default(TValue);
+            if (target.Value != defaultValue)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target equals to the default value of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
         /// <param name="customComparer">Custom comparer.</param>
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
         public static ValidateTarget<TValue> IsDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+            where TValue : struct
         {
             TValue defaultValue = default(TValue);
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (!comparer.Equals(target.Value, defaultValue))
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target equals to the default value of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> IsDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, Func<string> getErrorMessage = null)
+            where TValue : struct
+        {
+            // For nullable struct, the default value is null.
+            if (target.Value.HasValue)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, null));
             }
 
             return target;
@@ -145,17 +189,61 @@ namespace Confidence
         /// <typeparam name="TValue">Target type.</typeparam>
         /// <param name="target">Validate target.</param>
         /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue> NotDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null)
+            where TValue : class
+        {
+            // Default value of all reference types is null.
+            TValue defaultValue = default(TValue);
+            if (target.Value == defaultValue)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target not equals to the default value of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
         /// <param name="customComparer">Custom comparer.</param>
         /// <returns>The same validate target as passed in.</returns>
         [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
         [DebuggerStepThrough]
         public static ValidateTarget<TValue> NotDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue> target, Func<string> getErrorMessage = null, IEqualityComparer<TValue> customComparer = null)
+            where TValue : struct
         {
             TValue defaultValue = default(TValue);
             IEqualityComparer<TValue> comparer = customComparer ?? EqualityComparer<TValue>.Default;
             if (comparer.Equals(target.Value, defaultValue))
             {
                 ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, defaultValue));
+            }
+
+            return target;
+        }
+
+        /// <summary>
+        /// Validate if target not equals to the default value of its type.
+        /// </summary>
+        /// <typeparam name="TValue">Target type.</typeparam>
+        /// <param name="target">Validate target.</param>
+        /// <param name="getErrorMessage">Custom error message.</param>
+        /// <returns>The same validate target as passed in.</returns>
+        [ValidationMethod(ValidationTargetTypes.Object, ValidationMethodTypes.Comparison)]
+        [DebuggerStepThrough]
+        public static ValidateTarget<TValue?> NotDefault<TValue>([ValidatedNotNull] this ValidateTarget<TValue?> target, Func<string> getErrorMessage = null)
+            where TValue : struct
+        {
+            // Default value of nullable structs is null.
+            if (!target.Value.HasValue)
+            {
+                ExceptionFactory.ThrowException(target.Traits.GenericFailureExceptionType, getErrorMessage != null ? getErrorMessage.Invoke() : ErrorMessageFactory.ShouldBeEqualTo(target, null));
             }
 
             return target;

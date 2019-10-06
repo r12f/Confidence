@@ -8,61 +8,93 @@ namespace Confidence.UnitTests
         [Fact]
         public void SByteCanBeValidated()
         {
-            this.RunNumericValidationTests<sbyte>(1, 0, 2);
+            this.RunSignedNumericValidationTests<sbyte>(1, 0, 2, 1, -1, 0);
         }
 
         [Fact]
         public void ByteCanBeValidated()
         {
-            this.RunNumericValidationTests<byte>(1, 0, 2);
+            this.RunUnsignedNumericValidationTests<byte>(1, 0, 2, 1, 0);
         }
 
         [Fact]
         public void ShortCanBeValidated()
         {
-            this.RunNumericValidationTests<short>(1, 0, 2);
+            this.RunSignedNumericValidationTests<short>(1, 0, 2, 1, -1, 0);
         }
 
         [Fact]
         public void UShortCanBeValidated()
         {
-            this.RunNumericValidationTests<ushort>(1, 0, 2);
+            this.RunUnsignedNumericValidationTests<ushort>(1, 0, 2, 1, 0);
         }
 
         [Fact]
         public void IntCanBeValidated()
         {
-            this.RunNumericValidationTests<int>(1, 0, 2);
+            this.RunSignedNumericValidationTests<int>(1, 0, 2, 1, -1, 0);
         }
 
         [Fact]
         public void UIntCanBeValidated()
         {
-            this.RunNumericValidationTests<uint>(1, 0, 2);
+            this.RunUnsignedNumericValidationTests<uint>(1, 0, 2, 1, 0);
         }
 
         [Fact]
         public void LongCanBeValidated()
         {
-            this.RunNumericValidationTests<long>(1, 0, 2);
+            this.RunSignedNumericValidationTests<long>(1, 0, 2, 1, -1, 0);
         }
 
         [Fact]
         public void ULongCanBeValidated()
         {
-            this.RunNumericValidationTests<ulong>(1, 0, 2);
+            this.RunUnsignedNumericValidationTests<ulong>(1, 0, 2, 1, 0);
         }
 
         [Fact]
         public void FloatCanBeValidated()
         {
-            this.RunNumericValidationTests<float>(1, 0, 2);
+            this.RunSignedNumericValidationTests<float>(1, 0, 2, 1, -1, 0);
         }
 
         [Fact]
         public void DoubleCanBeValidated()
         {
-            this.RunNumericValidationTests<double>(1, 0, 2);
+            this.RunSignedNumericValidationTests<double>(1, 0, 2, 1, -1, 0);
+        }
+
+        [Fact]
+        public void NullableNumericWithNullValueCanBeValidated()
+        {
+            int? objectToTest = null;
+
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).Equal(0));
+            Requires.Argument(objectToTest, nameof(objectToTest)).NotEqual(0);
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsLessThan(0);
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsLessOrEqualThan(0);
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsGreaterThan(0);
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsGreaterOrEqualThan(0);
+            Requires.Argument(objectToTest, nameof(objectToTest)).IsDefault();
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).NotDefault());
+            Assert.Throws<ArgumentException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsZero());
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsPositive());
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(objectToTest, nameof(objectToTest)).IsNegative());
+        }
+
+        private void RunSignedNumericValidationTests<T>(T objectToTest, T objectSmaller, T objectLarger, T positiveObject, T negativeObject, T zeroObject)
+            where T : struct, IComparable<T>
+        {
+            this.RunNumericValidationTests(objectToTest, objectSmaller, objectLarger);
+            this.RunSignedNumericPositiveNegativeTests(positiveObject, negativeObject, zeroObject);
+        }
+
+        private void RunUnsignedNumericValidationTests<T>(T objectToTest, T objectSmaller, T objectLarger, T positiveObject, T zeroObject)
+            where T : struct, IComparable<T>
+        {
+            this.RunNumericValidationTests(objectToTest, objectSmaller, objectLarger);
+            this.RunUnsignedNumericPositiveNegativeTests(positiveObject, zeroObject);
         }
 
         private void RunNumericValidationTests<T>(T objectToTest, T objectSmaller, T objectLarger)
@@ -218,6 +250,42 @@ namespace Confidence.UnitTests
 
             Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).NotInRange(objectLarger, objectLarger);
             Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(objectToTest, nameof(objectToTest)).NotInRange(objectSmaller, objectLarger));
+        }
+
+        private void RunSignedNumericPositiveNegativeTests<T>(T positiveObject, T negativeObject, T zeroObject)
+            where T : struct, IComparable<T>
+        {
+            // IsPositive
+            Requires.Argument(positiveObject, nameof(positiveObject)).IsPositive();
+            Requires<InvalidOperationException>.Argument(positiveObject, nameof(positiveObject)).IsPositive();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(zeroObject, nameof(zeroObject)).IsPositive());
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(negativeObject, nameof(negativeObject)).IsPositive());
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(negativeObject, nameof(negativeObject)).IsPositive());
+
+            // IsNegative
+            Requires.Argument(negativeObject, nameof(negativeObject)).IsNegative();
+            Requires<InvalidOperationException>.Argument(negativeObject, nameof(negativeObject)).IsNegative();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(zeroObject, nameof(zeroObject)).IsNegative());
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(positiveObject, nameof(positiveObject)).IsNegative());
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(positiveObject, nameof(positiveObject)).IsNegative());
+        }
+
+        private void RunUnsignedNumericPositiveNegativeTests<T>(T positiveObject, T zeroObject)
+            where T : struct, IComparable<T>
+        {
+            // IsPositive
+            Requires.Argument(positiveObject, nameof(positiveObject)).IsPositive();
+            Requires<InvalidOperationException>.Argument(positiveObject, nameof(positiveObject)).IsPositive();
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(zeroObject, nameof(zeroObject)).IsPositive());
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(zeroObject, nameof(zeroObject)).IsPositive());
+
+            // IsNegative
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(zeroObject, nameof(zeroObject)).IsNegative());
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(positiveObject, nameof(positiveObject)).IsNegative());
+            Assert.Throws<InvalidOperationException>(() => Requires<InvalidOperationException>.Argument(positiveObject, nameof(positiveObject)).IsNegative());
         }
     }
 }
