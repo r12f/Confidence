@@ -151,6 +151,8 @@ namespace Confidence.UnitTests
             float goodAllowedError = 0.001f;
             float badAllowedError = 0.1f;
             float defaultValue = 0f;
+            float positiveValue = 1.0f;
+            float negativeValue = -1.0f;
 
             // Equal
             Requires.Argument(objectToTest, nameof(objectToTest)).Equal(objectSmaller, badAllowedError);
@@ -235,6 +237,14 @@ namespace Confidence.UnitTests
             // NotZero
             Requires.Argument(objectToTest, nameof(objectToTest)).NotZero(goodAllowedError);
             Assert.Throws<ArgumentException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).NotZero(goodAllowedError));
+
+            // IsPositive
+            Requires.Argument(positiveValue, nameof(positiveValue)).IsPositive(goodAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).IsPositive(goodAllowedError));
+
+            // IsNegative
+            Requires.Argument(negativeValue, nameof(negativeValue)).IsNegative(goodAllowedError);
+            Assert.Throws<ArgumentOutOfRangeException>(() => Requires.Argument(defaultValue, nameof(defaultValue)).IsNegative(goodAllowedError));
         }
 
         [Fact]
